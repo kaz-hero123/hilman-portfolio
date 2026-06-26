@@ -8,16 +8,18 @@
  * - Tidak ada animasi loop kecuali blinking cursor di Hero
  */
 
-export const fadeInUp = {
+import type { Variants } from 'framer-motion';
+
+export const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: 'easeOut' },
+    transition: { duration: 0.4, ease: 'easeOut' as const },
   },
 };
 
-export const staggerContainer = {
+export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -26,10 +28,10 @@ export const staggerContainer = {
   },
 };
 
-export const fadeIn = {
+export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.4, ease: 'easeOut' },
+    transition: { duration: 0.4, ease: 'easeOut' as const },
   },
 };

@@ -31,6 +31,7 @@
     color: #f0ece4;
   }
 
+  /* Scrollbar */
   ::-webkit-scrollbar        { width: 6px; }
   ::-webkit-scrollbar-track  { background: #0f0f0f; }
   ::-webkit-scrollbar-thumb  { background: #2a2a2a; border-radius: 3px; }
@@ -41,5 +42,37 @@
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+@layer utilities {
+  /* Gradient text utility */
+  .text-gradient-coral {
+    background: linear-gradient(135deg, #F2966B 0%, #e07a50 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-lavender {
+    background: linear-gradient(135deg, #B3A0D6 0%, #9a85c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Noise overlay for depth */
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Marquee pause on hover */
+  .marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
   }
 }

@@ -4,13 +4,11 @@
  * Experience — Section
  * Ref: design-system.md §6 (timeline, 2 entries)
  *
- * Gate C rules:
- * ✅ Dibungkus SectionWrapper
- * ✅ Maksimal 3 motion.div
- * ✅ Data dari @/data/experience.ts
- *
- * NOTE: Gate A blocker — experience data masih ada TODO fields.
- * Section tetap dirender, tapi content akan terlihat TODO sampai data diisi.
+ * Visual Upgrade:
+ * - Active (first) dot: filled coral + pulse ring
+ * - Period: rendered as pill badge instead of plain text
+ * - Content row: subtle left-border accent
+ * - Internship type badge pill
  */
 
 import { motion } from 'framer-motion';
@@ -18,6 +16,7 @@ import { SectionWrapper } from '@/components/layout';
 import { SectionLabel, Tag } from '@/components/ui';
 import { fadeInUp, staggerContainer } from '@/lib/motion';
 import { experiences } from '@/data/experience';
+import { cn } from '@/lib/utils';
 
 export function Experience() {
   return (
@@ -40,37 +39,66 @@ export function Experience() {
         {/* motion.div 3 — timeline */}
         <motion.div variants={fadeInUp} className="space-y-0">
           {experiences.map((exp, index) => (
-            <div key={exp.id} className="relative">
-              {/* Timeline line */}
-              {index < experiences.length - 1 && (
-                <div
-                  className="absolute left-[7px] top-10 bottom-0 w-px bg-border"
-                  aria-hidden="true"
-                />
-              )}
+            <div key={exp.id} className="relative flex gap-6">
+              {/* Timeline column */}
+              <div className="flex flex-col items-center shrink-0">
+                {/* Dot */}
+                <div className="relative mt-1.5">
+                  {/* Pulse ring — only on first/active */}
+                  {index === 0 && (
+                    <div
+                      className="absolute inset-0 rounded-full bg-coral/30 animate-ping"
+                      style={{ transform: 'scale(2)' }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <div
+                    className={cn(
+                      'w-3.5 h-3.5 rounded-full border-2 relative z-10',
+                      index === 0
+                        ? 'border-coral bg-coral'
+                        : 'border-muted bg-bg',
+                    )}
+                    aria-hidden="true"
+                  />
+                </div>
+                {/* Vertical line */}
+                {index < experiences.length - 1 && (
+                  <div
+                    className="flex-1 w-px bg-border mt-2 mb-0"
+                    style={{ minHeight: '48px' }}
+                    aria-hidden="true"
+                  />
+                )}
+              </div>
 
-              <div className="flex gap-6">
-                {/* Timeline dot */}
-                <div
-                  className="w-3.5 h-3.5 rounded-full border-2 border-coral bg-bg shrink-0 mt-1.5"
-                  aria-hidden="true"
-                />
-
-                {/* Content */}
-                <div className={index < experiences.length - 1 ? 'pb-10' : ''}>
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
-                    <h3 className="font-display text-lg text-text">{exp.role}</h3>
-                    <span className="font-mono text-xs text-coral">{exp.company}</span>
-                  </div>
-                  <p className="font-mono text-xs text-muted mb-3">{exp.period}</p>
-                  <p className="font-body text-sm text-muted leading-relaxed mb-4">
-                    {exp.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.stack.map((tech) => (
-                      <Tag key={tech} color="default">{tech}</Tag>
-                    ))}
-                  </div>
+              {/* Content */}
+              <div className={cn('flex-1', index < experiences.length - 1 ? 'pb-10' : '')}>
+                {/* Role + Company */}
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                  <h3 className="font-display text-lg text-text">{exp.role}</h3>
+                  <span className="font-mono text-xs text-coral">{exp.company}</span>
+                  {exp.type === 'internship' && (
+                    <span className="font-mono text-[10px] px-2 py-0.5 rounded-full border border-lavender/20 bg-lavender/5 text-lavender">
+                      internship
+                    </span>
+                  )}
+                </div>
+                {/* Period pill */}
+                <div className="mb-3">
+                  <span className="font-mono text-xs px-3 py-1 rounded-full bg-surface2 border border-border text-muted">
+                    {exp.period}
+                  </span>
+                </div>
+                {/* Description */}
+                <p className="font-body text-sm text-muted leading-relaxed mb-4">
+                  {exp.description}
+                </p>
+                {/* Stack tags */}
+                <div className="flex flex-wrap gap-2">
+                  {exp.stack.map((tech) => (
+                    <Tag key={tech} color="default">{tech}</Tag>
+                  ))}
                 </div>
               </div>
             </div>

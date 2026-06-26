@@ -4,12 +4,11 @@
  * Contact — Section
  * Ref: design-system.md §6 (satu headline, 3 link cards: email, LinkedIn, GitHub)
  *
- * Gate C rules:
- * ✅ Dibungkus SectionWrapper
- * ✅ Maksimal 3 motion.div
- * ✅ rel="noopener noreferrer" + aria-label pada semua external links
- * ✅ min-h-[48px] pada semua link cards
- * ✅ focus-visible:ring-2 pada semua interaktif
+ * Visual Upgrade:
+ * - Cards lebih besar dan prominent
+ * - Gradient overlay on hover (coral/5 → coral/15)
+ * - Icon lebih besar dalam circle bg
+ * - Horizontal connector dots antar card (decorative)
  */
 
 import { motion } from 'framer-motion';
@@ -26,24 +25,27 @@ const contactLinks = [
     label: 'Email',
     value: 'hilmannidal@gmail.com',
     href: 'mailto:hilmannidal@gmail.com',
-    icon: <Mail size={20} strokeWidth={1.5} aria-hidden="true" />,
+    icon: <Mail size={22} strokeWidth={1.5} aria-hidden="true" />,
     ariaLabel: 'Send an email to Hilman',
+    desc: 'Best for project inquiries',
   },
   {
     id: 'linkedin',
     label: 'LinkedIn',
     value: 'linkedin.com/in/hilman-nidal',
     href: 'https://linkedin.com/in/hilman-nidal',
-    icon: <LinkedInIcon size={20} />,
+    icon: <LinkedInIcon size={22} />,
     ariaLabel: "View Hilman's LinkedIn profile",
+    desc: 'Professional background',
   },
   {
     id: 'github',
     label: 'GitHub',
     value: 'github.com/kaz-hero123',
     href: 'https://github.com/kaz-hero123',
-    icon: <GitHubIcon size={20} />,
+    icon: <GitHubIcon size={22} />,
     ariaLabel: "View Hilman's GitHub profile",
+    desc: 'Code & repositories',
   },
 ];
 
@@ -58,7 +60,7 @@ export function Contact() {
         viewport={{ once: true, margin: '-80px' }}
       >
         {/* motion.div 2 — heading */}
-        <motion.div variants={fadeInUp} className="mb-12 max-w-2xl">
+        <motion.div variants={fadeInUp} className="mb-16 max-w-2xl">
           <SectionLabel>contact</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl text-text mb-4">
             Let&apos;s work together
@@ -74,7 +76,7 @@ export function Contact() {
           variants={fadeInUp}
           className="grid grid-cols-1 sm:grid-cols-3 gap-4"
         >
-          {contactLinks.map(({ id, label, value, href, icon, ariaLabel }) => (
+          {contactLinks.map(({ id, label, value, href, icon, ariaLabel, desc }) => (
             <a
               key={id}
               href={href}
@@ -82,28 +84,39 @@ export function Contact() {
               rel={id !== 'email' ? 'noopener noreferrer' : undefined}
               aria-label={ariaLabel}
               className={cn(
-                'group p-6 rounded-lg border border-border bg-surface',
-                'flex flex-col gap-3 min-h-[48px]',
-                'transition-all duration-200',
-                'hover:border-coral/50 hover:shadow-glow',
+                'group relative p-6 rounded-xl border border-border bg-surface overflow-hidden',
+                'flex flex-col gap-4 min-h-[140px]',
+                'transition-all duration-300 ease-out',
+                'hover:border-coral/50 hover:-translate-y-1',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral',
                 'focus-visible:ring-offset-2 focus-visible:ring-offset-bg',
               )}
             >
+              {/* Hover gradient overlay */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ background: 'radial-gradient(circle at top left, rgba(242,150,107,0.08) 0%, transparent 70%)' }}
+                aria-hidden="true"
+              />
+
+              {/* Icon + arrow row */}
               <div className="flex items-center justify-between">
-                <span className="text-muted group-hover:text-coral transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-surface2 border border-border flex items-center justify-center text-muted group-hover:text-coral group-hover:border-coral/30 transition-all duration-200">
                   {icon}
-                </span>
+                </div>
                 <ArrowUpRight
                   size={16}
                   strokeWidth={1.5}
-                  className="text-muted group-hover:text-coral transition-colors"
+                  className="text-muted/40 group-hover:text-coral transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
                 />
               </div>
+
+              {/* Label + value + desc */}
               <div>
-                <p className="font-mono text-xs text-muted mb-1">{label}</p>
-                <p className="font-body text-sm text-text">{value}</p>
+                <p className="font-mono text-xs text-muted mb-0.5">{label}</p>
+                <p className="font-body text-sm text-text font-medium mb-1">{value}</p>
+                <p className="font-mono text-xs text-muted/50">{desc}</p>
               </div>
             </a>
           ))}

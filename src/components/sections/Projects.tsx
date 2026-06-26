@@ -37,8 +37,8 @@ export function Projects() {
 
         {/* motion.div 3 — project cards */}
         <motion.div variants={fadeInUp} className="space-y-6">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} {...project} />
+          {projects.map((project, i) => (
+            <ProjectCard key={project.id} {...project} index={i} />
           ))}
         </motion.div>
       </motion.div>

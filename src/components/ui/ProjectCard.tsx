@@ -2,8 +2,10 @@
  * ProjectCard — UI Atom
  * Ref: design-system.md §8.6
  *
- * Elemen terpenting di portfolio — menyampaikan problem statement,
- * bukan hanya nama proyek + tech list.
+ * Visual Upgrade:
+ * - Numbered label (01/02/03) di pojok kanan atas
+ * - Featured card: coral left-border accent (4px)
+ * - Hover: translateY(-4px) + glow stronger
  *
  * Scaffold Checklist §15:
  * ✅ File di folder ui/
@@ -22,7 +24,7 @@ import { ExternalLink, Lock } from 'lucide-react';
 import { GitHubIcon } from './SocialIcons';
 import type { Project } from '@/types';
 
-export type ProjectCardProps = Project;
+export type ProjectCardProps = Project & { index?: number };
 
 export function ProjectCard({
   title,
@@ -34,27 +36,47 @@ export function ProjectCard({
   liveUrl,
   isPrivate,
   featured,
+  index = 0,
 }: ProjectCardProps) {
+  const num = String(index + 1).padStart(2, '0');
+
   return (
     <article
       className={cn(
-        'group p-6 md:p-8 rounded-lg border border-border bg-surface',
-        'transition-all duration-200',
-        'hover:border-coral/50 hover:shadow-glow',
-        featured && 'border-coral/30',
+        'group relative p-6 md:p-8 rounded-lg bg-surface',
+        'transition-all duration-300 ease-out',
+        'hover:-translate-y-1 hover:shadow-glowStrong',
+        featured
+          ? 'border border-coral/30 hover:border-coral/60'
+          : 'border border-border hover:border-coral/40',
       )}
     >
+      {/* Featured: left accent bar */}
+      {featured && (
+        <div
+          className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-coral opacity-70 group-hover:opacity-100 transition-opacity"
+          aria-hidden="true"
+        />
+      )}
+
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-4">
-        <div>
+        <div className="flex-1 min-w-0">
           <h3 className="font-display text-xl text-text mb-1">{title}</h3>
           <p className="font-mono text-xs text-muted">{role}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
+          {/* Number label */}
+          <span
+            className="font-mono text-xs text-muted/40 group-hover:text-coral/40 transition-colors select-none"
+            aria-hidden="true"
+          >
+            {num}
+          </span>
           {isPrivate && (
             <span className="flex items-center gap-1 font-mono text-xs text-muted">
               <Lock size={12} strokeWidth={1.5} aria-hidden="true" />
-              private repo
+              private
             </span>
           )}
           {githubUrl && (
@@ -84,10 +106,10 @@ export function ProjectCard({
 
       {/* Problem + Outcome */}
       <p className="font-body text-sm text-muted mb-1 leading-relaxed">
-        <span className="text-text/80">Problem: </span>{problem}
+        <span className="text-text/80 font-medium">Problem: </span>{problem}
       </p>
       <p className="font-body text-sm text-muted mb-5 leading-relaxed">
-        <span className="text-text/80">Outcome: </span>{outcome}
+        <span className="text-text/80 font-medium">Outcome: </span>{outcome}
       </p>
 
       {/* Stack tags */}

@@ -4,12 +4,10 @@
  * Achievements — Section
  * Ref: design-system.md §6 (3-col compact grid)
  *
- * Gate C rules:
- * ✅ Dibungkus SectionWrapper
- * ✅ Maksimal 3 motion.div
- * ✅ Data dari @/data/achievements.ts
- *
- * NOTE: Gate A blocker — achievements data masih ada TODO fields.
+ * Visual Upgrade:
+ * - 2px top accent bar per category (competition=coral, certification=lavender, recognition=mint, project=muted)
+ * - Icon in circle bg
+ * - Date prominent at top-right
  */
 
 import { motion } from 'framer-motion';
@@ -21,11 +19,34 @@ import { achievements } from '@/data/achievements';
 import { cn } from '@/lib/utils';
 import type { Achievement } from '@/types';
 
-const categoryIcon: Record<Achievement['category'], React.ReactNode> = {
-  competition:   <Trophy size={16} strokeWidth={1.5} aria-hidden="true" />,
-  certification: <Award  size={16} strokeWidth={1.5} aria-hidden="true" />,
-  recognition:   <Star   size={16} strokeWidth={1.5} aria-hidden="true" />,
-  project:       <Folder size={16} strokeWidth={1.5} aria-hidden="true" />,
+const categoryConfig: Record<
+  Achievement['category'],
+  { icon: React.ReactNode; accentClass: string; iconBgClass: string; iconColorClass: string }
+> = {
+  competition: {
+    icon: <Trophy size={16} strokeWidth={1.5} aria-hidden="true" />,
+    accentClass: 'bg-coral',
+    iconBgClass: 'bg-coral/10',
+    iconColorClass: 'text-coral',
+  },
+  certification: {
+    icon: <Award size={16} strokeWidth={1.5} aria-hidden="true" />,
+    accentClass: 'bg-lavender',
+    iconBgClass: 'bg-lavender/10',
+    iconColorClass: 'text-lavender',
+  },
+  recognition: {
+    icon: <Star size={16} strokeWidth={1.5} aria-hidden="true" />,
+    accentClass: 'bg-mint',
+    iconBgClass: 'bg-mint/10',
+    iconColorClass: 'text-mint',
+  },
+  project: {
+    icon: <Folder size={16} strokeWidth={1.5} aria-hidden="true" />,
+    accentClass: 'bg-muted',
+    iconBgClass: 'bg-surface2',
+    iconColorClass: 'text-muted',
+  },
 };
 
 export function Achievements() {
@@ -51,52 +72,65 @@ export function Achievements() {
           variants={fadeInUp}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
         >
-          {achievements.map((item) => (
-            <div
-              key={item.id}
-              className={cn(
-                'p-5 rounded-lg border border-border bg-surface',
-                'transition-all duration-200 hover:border-lavender/40',
-                item.url && 'cursor-pointer',
-              )}
-            >
-              {/* Icon + category */}
-              <div className="flex items-center gap-2 text-lavender mb-3">
-                {categoryIcon[item.category]}
-                <span className="font-mono text-xs text-muted capitalize">{item.category}</span>
+          {achievements.map((item) => {
+            const cfg = categoryConfig[item.category];
+            return (
+              <div
+                key={item.id}
+                className={cn(
+                  'group relative rounded-lg border border-border bg-surface overflow-hidden',
+                  'transition-all duration-200 hover:border-border/80 hover:-translate-y-0.5',
+                )}
+              >
+                {/* Top accent bar */}
+                <div className={cn('h-[2px] w-full', cfg.accentClass)} aria-hidden="true" />
+
+                <div className="p-5">
+                  {/* Icon + date row */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center', cfg.iconBgClass, cfg.iconColorClass)}>
+                      {cfg.icon}
+                    </div>
+                    <span className="font-mono text-xs text-muted">{item.date}</span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-display text-base text-text mb-1 leading-snug">
+                    {item.title}
+                  </h3>
+
+                  {/* Issuer */}
+                  <p className="font-mono text-xs text-muted mb-3">
+                    {item.issuer}
+                  </p>
+
+                  {/* Description (optional) */}
+                  {item.description && (
+                    <p className="font-body text-xs text-muted leading-relaxed mb-3">
+                      {item.description}
+                    </p>
+                  )}
+
+                  {/* Link (optional) */}
+                  {item.url && (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View ${item.title}`}
+                      className={cn(
+                        'inline-flex items-center gap-1 font-mono text-xs transition-colors min-h-[48px]',
+                        cfg.iconColorClass,
+                        'hover:opacity-80',
+                      )}
+                    >
+                      View <ExternalLink size={12} strokeWidth={1.5} aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
               </div>
-
-              {/* Title */}
-              <h3 className="font-display text-base text-text mb-1 leading-snug">
-                {item.title}
-              </h3>
-
-              {/* Issuer + date */}
-              <p className="font-mono text-xs text-muted mb-2">
-                {item.issuer} · {item.date}
-              </p>
-
-              {/* Description (optional) */}
-              {item.description && (
-                <p className="font-body text-xs text-muted leading-relaxed mb-3">
-                  {item.description}
-                </p>
-              )}
-
-              {/* Link (optional) */}
-              {item.url && (
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View ${item.title}`}
-                  className="inline-flex items-center gap-1 font-mono text-xs text-lavender hover:text-text transition-colors min-h-[48px]"
-                >
-                  View <ExternalLink size={12} strokeWidth={1.5} aria-hidden="true" />
-                </a>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </motion.div>
       </motion.div>
     </SectionWrapper>

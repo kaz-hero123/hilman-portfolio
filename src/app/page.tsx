@@ -14,8 +14,6 @@ export default function Home() {
     <>
       <Navbar />
       <main id="main">
-        {/* Order: Hero → About → Stack → Projects → Experience → Achievements → Contact */}
-        {/* Ref: design-system.md §6 */}
         <Hero />
         <About />
         <Stack />

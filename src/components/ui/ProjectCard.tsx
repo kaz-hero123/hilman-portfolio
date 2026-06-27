@@ -1,23 +1,3 @@
-/**
- * ProjectCard — UI Atom
- * Ref: design-system.md §8.6
- *
- * Visual Upgrade:
- * - Numbered label (01/02/03) di pojok kanan atas
- * - Featured card: coral left-border accent (4px)
- * - Hover: translateY(-4px) + glow stronger
- *
- * Scaffold Checklist §15:
- * ✅ File di folder ui/
- * ✅ Props interface (ProjectCardProps)
- * ✅ cn() untuk semua className
- * ✅ font-display, font-body, font-mono class eksplisit
- * ✅ strokeWidth={1.5} pada semua icons
- * ✅ aria-label deskriptif pada external links
- * ✅ rel="noopener noreferrer" pada external links
- * ✅ Exported dari barrel index.ts
- */
-
 import { cn } from '@/lib/utils';
 import { Tag } from './Tag';
 import { ExternalLink, Lock } from 'lucide-react';
@@ -51,7 +31,6 @@ export function ProjectCard({
           : 'border border-border hover:border-coral/40',
       )}
     >
-      {/* Featured: left accent bar */}
       {featured && (
         <div
           className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-coral opacity-70 group-hover:opacity-100 transition-opacity"
@@ -59,14 +38,12 @@ export function ProjectCard({
         />
       )}
 
-      {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="flex-1 min-w-0">
           <h3 className="font-display text-xl text-text mb-1">{title}</h3>
           <p className="font-mono text-xs text-muted">{role}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          {/* Number label */}
           <span
             className="font-mono text-xs text-muted/40 group-hover:text-coral/40 transition-colors select-none"
             aria-hidden="true"
@@ -104,7 +81,6 @@ export function ProjectCard({
         </div>
       </div>
 
-      {/* Problem + Outcome */}
       <p className="font-body text-sm text-muted mb-1 leading-relaxed">
         <span className="text-text/80 font-medium">Problem: </span>{problem}
       </p>
@@ -112,7 +88,6 @@ export function ProjectCard({
         <span className="text-text/80 font-medium">Outcome: </span>{outcome}
       </p>
 
-      {/* Stack tags */}
       <div className="flex flex-wrap gap-2">
         {stack.map((tech) => (
           <Tag key={tech} color="lavender">{tech}</Tag>

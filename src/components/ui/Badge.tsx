@@ -1,16 +1,3 @@
-/**
- * Badge — UI Atom (Status / Availability indicator)
- * Ref: design-system.md §8.7
- *
- * Scaffold Checklist §15:
- * ✅ File di folder ui/
- * ✅ Props interface (BadgeProps)
- * ✅ cn() untuk semua className
- * ✅ font-mono class eksplisit
- * ✅ aria-hidden pada elemen dekoratif (dot)
- * ✅ Exported dari barrel index.ts
- */
-
 import { cn } from '@/lib/utils';
 
 type BadgeVariant = 'available' | 'building' | 'default';

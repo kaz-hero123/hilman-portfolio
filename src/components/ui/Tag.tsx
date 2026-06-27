@@ -1,15 +1,3 @@
-/**
- * Tag — UI Atom (Tech Stack / Skill Labels)
- * Ref: design-system.md §8.5
- *
- * Scaffold Checklist §15:
- * ✅ File di folder ui/
- * ✅ Props interface (TagProps)
- * ✅ cn() untuk semua className
- * ✅ font-mono class eksplisit
- * ✅ Exported dari barrel index.ts
- */
-
 import { cn } from '@/lib/utils';
 
 type TagColor = 'lavender' | 'coral' | 'mint' | 'default';

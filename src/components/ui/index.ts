@@ -1,8 +1,3 @@
-/**
- * Barrel export untuk semua UI atoms.
- * Ref: design-system.md §14 — "Selalu export komponen dari barrel index.ts"
- */
-
 export { Button } from './Button';
 export { Badge } from './Badge';
 export { Tag } from './Tag';

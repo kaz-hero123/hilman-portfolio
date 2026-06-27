@@ -1,19 +1,3 @@
-/**
- * Button — UI Atom
- * Ref: design-system.md §8.4
- *
- * Scaffold Checklist §15:
- * ✅ File di folder ui/
- * ✅ Props interface dengan nama benar (ButtonProps)
- * ✅ cn() untuk semua className
- * ✅ forwardRef digunakan
- * ✅ font-body class eksplisit
- * ✅ min-h-[48px] pada elemen interaktif
- * ✅ focus-visible:ring-2
- * ✅ Mobile-first responsive
- * ✅ Exported dari barrel index.ts
- */
-
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 

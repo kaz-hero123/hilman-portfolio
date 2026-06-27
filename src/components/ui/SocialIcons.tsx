@@ -1,14 +1,3 @@
-/**
- * SocialIcons — Custom SVG icons untuk GitHub & LinkedIn
- * (lucide-react v1.21 tidak menyertakan social media brand icons)
- *
- * Scaffold Checklist §15:
- * ✅ File di folder ui/
- * ✅ aria-hidden pada semua icon (dekoratif)
- * ✅ strokeWidth konsisten via props
- * ✅ Exported dari barrel index.ts
- */
-
 interface IconProps {
   size?: number;
   className?: string;

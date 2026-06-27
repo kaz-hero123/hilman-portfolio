@@ -1,13 +1,3 @@
-/**
- * Data proyek Hilman Nidal Hamzi.
- * Ref: design-system.md §9
- *
- * Rules:
- * - `problem` = satu kalimat, awali dengan konteks masalah bukan solusi
- * - `outcome` = satu kalimat, harus ada impact/hasil konkret
- * - Tidak boleh filler phrase (§11 design-system.md)
- */
-
 import type { Project } from '@/types';
 
 export const projects: Project[] = [

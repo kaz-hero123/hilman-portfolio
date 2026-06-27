@@ -1,11 +1,3 @@
-/**
- * Tech stack data Hilman Nidal Hamzi.
- * Ref: design-system.md §9
- *
- * Dikelompok per layer — bukan icon dump.
- * Urutan: Languages → Frontend → Backend → Databases → Tools & Cloud
- */
-
 import type { StackGroup } from '@/types';
 
 export const stackGroups: StackGroup[] = [

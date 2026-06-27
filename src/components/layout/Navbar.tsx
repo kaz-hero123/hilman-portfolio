@@ -1,13 +1,3 @@
-/**
- * Navbar — Layout Primitive
- * Ref: design-system.md §6 (sticky navbar, name left, nav links right)
- *
- * Visual Upgrade:
- * - Active section tracking via IntersectionObserver
- * - Coral dot below active nav link
- * - Scroll progress bar di top edge
- */
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -68,7 +58,6 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
     >
-      {/* Scroll progress bar */}
       <div
         className="absolute top-0 left-0 h-[2px] bg-coral transition-all duration-150"
         style={{ width: `${scrollProgress}%` }}
@@ -79,7 +68,6 @@ export function Navbar() {
         aria-label="Main navigation"
         className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between"
       >
-        {/* Name — left */}
         <a
           href="#"
           className={cn(
@@ -93,7 +81,6 @@ export function Navbar() {
           hilman.
         </a>
 
-        {/* Nav links — right */}
         <ul className="flex items-center gap-1" role="list">
           {navLinks.map(({ href, label, sectionId }) => {
             const isActive = activeSection === sectionId;
@@ -111,7 +98,6 @@ export function Navbar() {
                 >
                   {label}
                 </a>
-                {/* Active dot */}
                 {isActive && (
                   <motion.div
                     layoutId="nav-active-dot"

@@ -1,17 +1,3 @@
-/**
- * SectionWrapper — Layout Primitive
- * Ref: design-system.md §8.2
- *
- * Semua section WAJIB dibungkus dengan ini untuk spacing yang konsisten.
- *
- * Scaffold Checklist §15:
- * ✅ File di folder layout/
- * ✅ Props interface (SectionWrapperProps)
- * ✅ cn() untuk semua className
- * ✅ Semantic HTML (<section>)
- * ✅ Exported dari barrel index.ts
- */
-
 import { HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 

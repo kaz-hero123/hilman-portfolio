@@ -1,12 +1,3 @@
-/**
- * Footer — Layout Primitive
- * Ref: design-system.md §6 (minimal: name + year)
- *
- * Visual Upgrade:
- * - Social icon links (GitHub, LinkedIn)
- * - "Available for internship" badge
- */
-
 import { cn } from '@/lib/utils';
 import { GitHubIcon, LinkedInIcon } from '@/components/ui/SocialIcons';
 
@@ -16,9 +7,7 @@ export function Footer() {
   return (
     <footer className={cn('border-t border-border', 'py-10 px-6')}>
       <div className="max-w-5xl mx-auto">
-        {/* Top row */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-          {/* Left: name + badge */}
           <div className="flex items-center gap-3 flex-wrap">
             <p className="font-display text-sm font-semibold text-text">
               Hilman Nidal Hamzi
@@ -29,7 +18,6 @@ export function Footer() {
             </span>
           </div>
 
-          {/* Right: social icons */}
           <div className="flex items-center gap-3">
             <a
               href="https://github.com/kaz-hero123"
@@ -60,7 +48,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-border/50 pt-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <p className="font-mono text-xs text-muted">

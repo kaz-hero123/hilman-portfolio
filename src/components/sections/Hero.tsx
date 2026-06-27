@@ -1,15 +1,5 @@
 'use client';
 
-/**
- * Hero — Section
- * Ref: design-system.md §6, §7
- *
- * Visual Upgrade:
- * - Two-column: teks kiri, avatar visual kanan
- * - Scrolling marquee ticker di bawah
- * - Float animation pada avatar frame
- */
-
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/layout';
 import { Badge } from '@/components/ui';
@@ -42,7 +32,6 @@ const marqueeItems = [
 export function Hero() {
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center pt-16 relative overflow-hidden">
-      {/* Background abstract blobs */}
       <div
         className="pointer-events-none absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.04]"
         style={{ background: 'radial-gradient(circle, #F2966B 0%, transparent 70%)' }}
@@ -55,24 +44,19 @@ export function Hero() {
       />
 
       <div className="max-w-5xl mx-auto px-6 w-full">
-        {/* Two-column layout */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-center">
-
-          {/* LEFT — text content */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
             className="max-w-2xl"
           >
-            {/* Badge */}
             <motion.div variants={fadeInUp} className="mb-8">
               <Badge variant="available" dot>
                 available for internship
               </Badge>
             </motion.div>
 
-            {/* Name */}
             <motion.div variants={fadeInUp}>
               <h1 className="font-display font-bold text-text leading-[1.05] mb-4
                               text-5xl md:text-7xl lg:text-8xl">
@@ -80,19 +64,16 @@ export function Hero() {
                 <span className="text-coral">Nidal</span> Hamzi
               </h1>
 
-              {/* Role subtitle */}
               <p className="font-mono text-sm md:text-base text-coral mb-3">
                 Backend Developer · Laravel &amp; Full-Stack
               </p>
 
-              {/* Status indicator — THE signature element (design-system.md §7) */}
               <p className="font-mono text-sm text-mint flex items-center gap-2 mb-10">
                 <span className="text-muted" aria-hidden="true">›</span>
                 available for internship
                 <span className="animate-blink text-mint" aria-hidden="true">■</span>
               </p>
 
-              {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
                 <a
                   href="#projects"
@@ -120,7 +101,6 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — Avatar visual */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
@@ -128,9 +108,7 @@ export function Hero() {
             className="hidden md:flex flex-col items-center gap-4"
             aria-hidden="true"
           >
-            {/* Avatar frame */}
             <div className="relative animate-float">
-              {/* Outer glow ring */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-60"
                 style={{
@@ -139,19 +117,16 @@ export function Hero() {
                   transform: 'scale(1.1)',
                 }}
               />
-              {/* Avatar box */}
               <div
                 className="relative w-56 h-56 lg:w-64 lg:h-64 rounded-2xl border-2 border-coral/30 bg-surface overflow-hidden"
                 style={{ boxShadow: '0 0 0 1px rgba(242,150,107,0.1), 0 20px 60px rgba(0,0,0,0.5)' }}
               >
-                {/* Gradient background */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background: 'linear-gradient(160deg, #1a1a1a 0%, #111111 60%, rgba(242,150,107,0.05) 100%)',
                   }}
                 />
-                {/* Initials */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
                   <span
                     className="font-display text-6xl font-bold"
@@ -166,18 +141,15 @@ export function Hero() {
                   </span>
                   <span className="font-mono text-xs text-muted tracking-widest">kaz-hero123</span>
                 </div>
-                {/* Corner accent */}
                 <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-mint animate-pulse" />
               </div>
 
-              {/* Floating tag — top left */}
               <div
                 className="absolute -top-3 -left-4 px-3 py-1 rounded-full border border-border bg-surface/90 backdrop-blur-sm"
                 style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}
               >
                 <span className="font-mono text-xs text-coral">Laravel</span>
               </div>
-              {/* Floating tag — bottom right */}
               <div
                 className="absolute -bottom-3 -right-4 px-3 py-1 rounded-full border border-border bg-surface/90 backdrop-blur-sm"
                 style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}
@@ -189,7 +161,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Marquee Ticker */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

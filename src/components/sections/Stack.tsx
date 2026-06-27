@@ -1,14 +1,5 @@
 'use client';
 
-/**
- * Stack — Section
- * Ref: design-system.md §6
- *
- * Visual Upgrade:
- * - Each group row gets surface2 bg + left coral pip
- * - Heading shows count of total tools
- */
-
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/layout';
 import { SectionLabel, Tag } from '@/components/ui';
@@ -20,14 +11,12 @@ const totalTools = stackGroups.reduce((acc, g) => acc + g.items.length, 0);
 export function Stack() {
   return (
     <SectionWrapper id="stack">
-      {/* motion.div 1 — stagger wrapper */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
       >
-        {/* motion.div 2 — heading */}
         <motion.div variants={fadeInUp} className="mb-12 flex items-end justify-between gap-4 flex-wrap">
           <div>
             <SectionLabel>stack</SectionLabel>
@@ -40,7 +29,6 @@ export function Stack() {
           </span>
         </motion.div>
 
-        {/* motion.div 3 — stack groups */}
         <motion.div variants={fadeInUp} className="space-y-3">
           {stackGroups.map(({ layer, items }) => (
             <div
@@ -49,12 +37,10 @@ export function Stack() {
                          rounded-lg border border-transparent px-4 py-3
                          hover:border-border hover:bg-surface/60 transition-all duration-200"
             >
-              {/* Left: layer label with coral pip */}
               <div className="flex items-center gap-2">
                 <div className="w-1 h-1 rounded-full bg-coral/40 group-hover:bg-coral transition-colors shrink-0" aria-hidden="true" />
                 <p className="font-mono text-xs text-muted">{layer}</p>
               </div>
-              {/* Right: tags */}
               <div className="flex flex-wrap gap-2">
                 {items.map((tech) => (
                   <Tag key={tech} color="lavender">{tech}</Tag>

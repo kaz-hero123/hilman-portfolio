@@ -1,14 +1,5 @@
 'use client';
 
-/**
- * About — Section
- * Ref: design-system.md §6, §11
- *
- * Visual Upgrade:
- * - Styled editorial photo frame (rotated -3deg, coral border, corner dot)
- * - Stat numbers row di bawah paragraf
- */
-
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/layout';
 import { SectionLabel, Badge } from '@/components/ui';
@@ -23,14 +14,12 @@ const stats = [
 export function About() {
   return (
     <SectionWrapper id="about">
-      {/* motion.div 1 — stagger wrapper */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
       >
-        {/* motion.div 2 — heading */}
         <motion.div variants={fadeInUp} className="mb-12">
           <SectionLabel>about</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl text-text">
@@ -38,12 +27,10 @@ export function About() {
           </h2>
         </motion.div>
 
-        {/* motion.div 3 — two-column content */}
         <motion.div
           variants={fadeInUp}
           className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-12 items-start"
         >
-          {/* Text — left */}
           <div className="space-y-5">
             <p className="font-body text-base md:text-lg text-muted leading-relaxed">
               I&apos;m a backend-focused developer from Indonesia, currently studying at SMK,
@@ -63,14 +50,12 @@ export function About() {
               a vision model with a real problem that needed solving.
             </p>
 
-            {/* Currently building badge */}
             <div className="pt-2">
               <Badge variant="building" dot>
                 currently building: this portfolio
               </Badge>
             </div>
 
-            {/* Stats row */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-border">
               {stats.map(({ value, label }) => (
                 <div key={label} className="space-y-1">
@@ -81,10 +66,8 @@ export function About() {
             </div>
           </div>
 
-          {/* Photo frame — right (editorial styled) */}
           <div className="flex justify-center md:justify-end" aria-hidden="true">
             <div className="relative">
-              {/* Shadow/glow layer */}
               <div
                 className="absolute inset-0 rounded-xl opacity-30"
                 style={{
@@ -93,12 +76,10 @@ export function About() {
                   transform: 'scale(0.9) translateY(12px)',
                 }}
               />
-              {/* Rotated decorative border */}
               <div
                 className="absolute inset-0 rounded-xl border border-lavender/30"
                 style={{ transform: 'rotate(3deg)' }}
               />
-              {/* Main frame */}
               <div
                 className="relative w-52 h-64 md:w-60 md:h-72 rounded-xl border-2 border-coral/40 bg-surface overflow-hidden"
                 style={{
@@ -106,21 +87,18 @@ export function About() {
                   boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
                 }}
               >
-                {/* Background gradient */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background: 'linear-gradient(160deg, #222222 0%, #1a1a1a 50%, rgba(179,160,214,0.05) 100%)',
                   }}
                 />
-                {/* Grid lines — editorial feel */}
                 <div
                   className="absolute inset-0 opacity-[0.04]"
                   style={{
                     backgroundImage: 'repeating-linear-gradient(0deg, #f0ece4 0px, #f0ece4 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, #f0ece4 0px, #f0ece4 1px, transparent 1px, transparent 32px)',
                   }}
                 />
-                {/* Initials centered */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                   <span
                     className="font-display text-7xl font-bold"
@@ -135,7 +113,6 @@ export function About() {
                   </span>
                   <span className="font-mono text-xs text-muted tracking-[0.2em] uppercase">Hilman Nidal</span>
                 </div>
-                {/* Corner dot accent */}
                 <div className="absolute top-4 left-4 w-2 h-2 rounded-full bg-coral opacity-80" />
                 <div className="absolute bottom-4 right-4 w-2 h-2 rounded-full bg-lavender opacity-60" />
               </div>

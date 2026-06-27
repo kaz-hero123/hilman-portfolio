@@ -1,16 +1,5 @@
 'use client';
 
-/**
- * Contact — Section
- * Ref: design-system.md §6 (satu headline, 3 link cards: email, LinkedIn, GitHub)
- *
- * Visual Upgrade:
- * - Cards lebih besar dan prominent
- * - Gradient overlay on hover (coral/5 → coral/15)
- * - Icon lebih besar dalam circle bg
- * - Horizontal connector dots antar card (decorative)
- */
-
 import { motion } from 'framer-motion';
 import { Mail, ArrowUpRight } from 'lucide-react';
 import { GitHubIcon, LinkedInIcon } from '@/components/ui/SocialIcons';
@@ -52,14 +41,12 @@ const contactLinks = [
 export function Contact() {
   return (
     <SectionWrapper id="contact">
-      {/* motion.div 1 — stagger wrapper */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
       >
-        {/* motion.div 2 — heading */}
         <motion.div variants={fadeInUp} className="mb-16 max-w-2xl">
           <SectionLabel>contact</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl text-text mb-4">
@@ -71,7 +58,6 @@ export function Contact() {
           </p>
         </motion.div>
 
-        {/* motion.div 3 — 3 link cards */}
         <motion.div
           variants={fadeInUp}
           className="grid grid-cols-1 sm:grid-cols-3 gap-4"
@@ -92,14 +78,12 @@ export function Contact() {
                 'focus-visible:ring-offset-2 focus-visible:ring-offset-bg',
               )}
             >
-              {/* Hover gradient overlay */}
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{ background: 'radial-gradient(circle at top left, rgba(242,150,107,0.08) 0%, transparent 70%)' }}
                 aria-hidden="true"
               />
 
-              {/* Icon + arrow row */}
               <div className="flex items-center justify-between">
                 <div className="w-10 h-10 rounded-lg bg-surface2 border border-border flex items-center justify-center text-muted group-hover:text-coral group-hover:border-coral/30 transition-all duration-200">
                   {icon}
@@ -112,7 +96,6 @@ export function Contact() {
                 />
               </div>
 
-              {/* Label + value + desc */}
               <div>
                 <p className="font-mono text-xs text-muted mb-0.5">{label}</p>
                 <p className="font-body text-sm text-text font-medium mb-1">{value}</p>

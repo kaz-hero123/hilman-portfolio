@@ -1,16 +1,5 @@
 'use client';
 
-/**
- * Experience — Section
- * Ref: design-system.md §6 (timeline, 2 entries)
- *
- * Visual Upgrade:
- * - Active (first) dot: filled coral + pulse ring
- * - Period: rendered as pill badge instead of plain text
- * - Content row: subtle left-border accent
- * - Internship type badge pill
- */
-
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/layout';
 import { SectionLabel, Tag } from '@/components/ui';
@@ -21,14 +10,12 @@ import { cn } from '@/lib/utils';
 export function Experience() {
   return (
     <SectionWrapper id="experience">
-      {/* motion.div 1 — stagger wrapper */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
       >
-        {/* motion.div 2 — heading */}
         <motion.div variants={fadeInUp} className="mb-12">
           <SectionLabel>experience</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl text-text">
@@ -36,15 +23,11 @@ export function Experience() {
           </h2>
         </motion.div>
 
-        {/* motion.div 3 — timeline */}
         <motion.div variants={fadeInUp} className="space-y-0">
           {experiences.map((exp, index) => (
             <div key={exp.id} className="relative flex gap-6">
-              {/* Timeline column */}
               <div className="flex flex-col items-center shrink-0">
-                {/* Dot */}
                 <div className="relative mt-1.5">
-                  {/* Pulse ring — only on first/active */}
                   {index === 0 && (
                     <div
                       className="absolute inset-0 rounded-full bg-coral/30 animate-ping"
@@ -62,7 +45,6 @@ export function Experience() {
                     aria-hidden="true"
                   />
                 </div>
-                {/* Vertical line */}
                 {index < experiences.length - 1 && (
                   <div
                     className="flex-1 w-px bg-border mt-2 mb-0"
@@ -72,9 +54,7 @@ export function Experience() {
                 )}
               </div>
 
-              {/* Content */}
               <div className={cn('flex-1', index < experiences.length - 1 ? 'pb-10' : '')}>
-                {/* Role + Company */}
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
                   <h3 className="font-display text-lg text-text">{exp.role}</h3>
                   <span className="font-mono text-xs text-coral">{exp.company}</span>
@@ -84,17 +64,14 @@ export function Experience() {
                     </span>
                   )}
                 </div>
-                {/* Period pill */}
                 <div className="mb-3">
                   <span className="font-mono text-xs px-3 py-1 rounded-full bg-surface2 border border-border text-muted">
                     {exp.period}
                   </span>
                 </div>
-                {/* Description */}
                 <p className="font-body text-sm text-muted leading-relaxed mb-4">
                   {exp.description}
                 </p>
-                {/* Stack tags */}
                 <div className="flex flex-wrap gap-2">
                   {exp.stack.map((tech) => (
                     <Tag key={tech} color="default">{tech}</Tag>

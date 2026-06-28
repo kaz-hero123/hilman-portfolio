@@ -2,8 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── PRD §1 CSS Custom Properties ─────────────────────────────────────── */
+:root {
+  --band-dark:          #10231B;
+  --band-light:         #EEF0EA;
+  --text-primary-dark:  #F2EFE6;
+  --text-muted-dark:    #9AA89E;
+  --accent-dark:        #B8862E;
+  --border-dark:        #6B7569;
+  --text-primary-light: #10231B;
+  --text-muted-light:   #5B6258;
+  --accent-light:       #8A5E1C;
+  --border-light:       #727A6A;
+}
+
 @layer base {
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
   }
 
@@ -12,67 +26,65 @@
   }
 
   body {
-    background-color: #0f0f0f;
-    color: #f0ece4;
-    font-family: var(--font-body), sans-serif;
+    background-color: var(--band-dark);
+    color: var(--text-primary-dark);
+    font-family: var(--font-sans), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display), sans-serif;
-    font-weight: 700;
-    color: #f0ece4;
-    line-height: 1.1;
-  }
-
   ::selection {
-    background-color: rgba(242, 150, 107, 0.3);
-    color: #f0ece4;
+    background-color: rgba(184, 134, 46, 0.35);
+    color: var(--text-primary-dark);
   }
 
   /* Scrollbar */
   ::-webkit-scrollbar        { width: 6px; }
-  ::-webkit-scrollbar-track  { background: #0f0f0f; }
-  ::-webkit-scrollbar-thumb  { background: #2a2a2a; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #F2966B; }
+  ::-webkit-scrollbar-track  { background: var(--band-dark); }
+  ::-webkit-scrollbar-thumb  { background: var(--border-dark); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent-dark); }
 
+  /* Reduced motion — disable draw-in and rise; use instant opacity */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
   }
 }
 
 @layer utilities {
-  /* Gradient text utility */
-  .text-gradient-coral {
-    background: linear-gradient(135deg, #F2966B 0%, #e07a50 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* Text link underline — draws left-to-right in accent color on hover */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
   }
-
-  .text-gradient-lavender {
-    background: linear-gradient(135deg, #B3A0D6 0%, #9a85c0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Noise overlay for depth */
-  .noise-overlay::before {
+  .link-underline::after {
     content: '';
     position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    border-radius: inherit;
-    pointer-events: none;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-dark);
+    transition: width 150ms ease;
+  }
+  .link-underline:hover::after {
+    width: 100%;
   }
 
-  /* Marquee pause on hover */
-  .marquee-wrapper:hover .marquee-track {
-    animation-play-state: paused;
+  .link-underline-light::after {
+    background-color: var(--accent-light);
+  }
+
+  /* Focus ring — accessible, consistent */
+  .focus-ring {
+    outline: 2px solid var(--accent-dark);
+    outline-offset: 2px;
+  }
+  .focus-ring-light {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 2px;
   }
 }

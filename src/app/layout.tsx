@@ -1,62 +1,41 @@
-import type { Metadata } from 'next';
-import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
-import './globals.css';
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-display',
-  display: 'swap',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-body',
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-mono',
-  display: 'swap',
-});
+import type { Metadata } from 'next'
+import { plexMono, plexSans, plexSerif } from '@/lib/fonts'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Hilman Nidal Hamzi — Backend Developer',
   description:
-    'Backend Developer specializing in Laravel & Full-Stack engineering. Building reliable systems and clean APIs. Available for internship.',
-  keywords: ['Backend Developer', 'Laravel', 'PHP', 'Full-Stack', 'Hilman Nidal Hamzi'],
+    'Backend engineer. 3 systems in production. Internship-ready for Aug 2026.',
+  keywords: ['Backend Developer', 'Laravel', 'PHP', 'Node.js', 'Hilman Nidal Hamzi'],
   authors: [{ name: 'Hilman Nidal Hamzi' }],
   openGraph: {
     title: 'Hilman Nidal Hamzi — Backend Developer',
     description:
-      'Backend Developer specializing in Laravel & Full-Stack engineering. Building reliable systems and clean APIs.',
+      'Backend engineer. 3 systems in production. Internship-ready for Aug 2026.',
     type: 'website',
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${plexMono.variable} ${plexSans.variable} ${plexSerif.variable}`}
     >
       <body>
-        {/* Skip to main content — accessibility */}
+        {/* Skip to main content — accessibility first DOM element per PRD §10 */}
         <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-coral focus:text-bg focus:font-body focus:text-sm focus:rounded-md focus:outline-none"
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent-dark focus:text-text-primary-dark focus:font-mono focus:text-eyebrow focus:uppercase focus:outline-none"
         >
           Skip to main content
         </a>
         {children}
       </body>
     </html>
-  );
+  )
 }

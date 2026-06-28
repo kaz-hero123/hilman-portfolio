@@ -1,79 +1,78 @@
 'use client'
 
-/**
- * SelectedWork — Section 3 (dark band)
- * PRD §6.3
- *
- * Layout: vertical stack — NOT a card grid
- * Each entry: functionTag → title → status badge → 1-sentence problem → stack (plain) → text link
- * NO numbering, NO in-progress projects
- */
-
 import Link from 'next/link'
 import { projects } from '@/data/projects'
+import { AnimateIn } from '@/components/AnimateIn'
 
-// Status badge label map
+const statusStyle: Record<string, string> = {
+  production: 'text-emerald-400/80 border-emerald-400/20',
+  prototype:  'text-amber-400/80 border-amber-400/20',
+}
+
 const statusLabel: Record<string, string> = {
-  production: 'PRODUCTION',
-  prototype:  'PROTOTYPE',
-  'in-progress': 'IN PROGRESS',
+  production: 'Production',
+  prototype:  'Prototype',
 }
 
 export function SelectedWork() {
-  // Only show shipped projects (not in-progress) per PRD §6.3
   const shippedProjects = projects.filter((p) => p.status !== 'in-progress')
 
   return (
-    <section
-      id="selected-work"
-      className="bg-band-dark"
-    >
-      <div className="max-w-4xl mx-auto px-6 md:px-12 py-24 md:py-32">
+    <section id="work" className="bg-surface-dark border-t border-white/[0.04]">
+      <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
 
-        {/* Section eyebrow */}
-        <p className="font-mono text-eyebrow uppercase text-text-muted-dark tracking-widest mb-16">
-          Selected Work
-        </p>
+        {/* Section header */}
+        <AnimateIn>
+          <div className="mb-14">
+            <p className="font-mono text-eyebrow uppercase text-text-secondary/60 tracking-wider mb-2">
+              Selected work
+            </p>
+            <h2 className="font-sans text-heading text-text-primary">
+              Projects I&apos;ve shipped
+            </h2>
+          </div>
+        </AnimateIn>
 
-        {/* Vertical stack of case study entries */}
-        <div className="space-y-20">
-          {shippedProjects.map((project) => (
-            <article key={project.slug} className="border-t border-border-dark pt-10">
-
-              {/* Function tag */}
-              <p className="font-mono text-eyebrow uppercase text-text-muted-dark tracking-widest mb-3">
-                {project.functionTag}
-              </p>
-
-              {/* Title + status badge */}
-              <div className="flex flex-wrap items-baseline gap-4 mb-4">
-                <h2 className="font-mono font-bold text-text-primary-dark text-[clamp(1.5rem,4vw,2.5rem)] leading-tight">
-                  {project.title}
-                </h2>
-                <span className="font-mono text-eyebrow uppercase text-text-muted-dark tracking-widest">
-                  {statusLabel[project.status]}
-                </span>
-              </div>
-
-              {/* 1-sentence problem */}
-              <p className="font-sans text-body text-text-muted-dark mb-5 max-w-2xl">
-                {project.problem.split('.')[0]}.
-              </p>
-
-              {/* Stack — plain text separated by · NOT pill badges */}
-              <p className="font-mono text-eyebrow text-text-muted-dark mb-6">
-                {project.stack.join(' · ')}
-              </p>
-
-              {/* Case study link */}
+        {/* Project list */}
+        <div className="space-y-4">
+          {shippedProjects.map((project, i) => (
+            <AnimateIn key={project.slug} delay={i * 0.08}>
               <Link
                 href={`/work/${project.slug}`}
-                className="font-mono text-eyebrow uppercase text-accent-dark link-underline min-h-[48px] inline-flex items-center focus-visible:focus-ring"
+                className="group block rounded-lg border border-white/[0.04] hover:border-white/[0.1] bg-surface-elevated/0 hover:bg-surface-elevated/60 transition-all duration-300 focus-ring"
               >
-                Read case study →
-              </Link>
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr_auto] gap-4 md:gap-8 p-5 md:p-7 items-center">
 
-            </article>
+                  {/* Left: title + role */}
+                  <div className="space-y-1.5">
+                    <h3 className="font-sans text-body font-semibold text-text-primary group-hover:text-accent transition-colors duration-200">
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <span className={`font-mono text-[0.6875rem] px-2 py-0.5 border rounded-sm ${statusStyle[project.status]}`}>
+                        {statusLabel[project.status]}
+                      </span>
+                      <span className="font-mono text-[0.6875rem] text-text-secondary/50">
+                        {project.stack.slice(0, 3).join(' · ')}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Middle: problem snippet */}
+                  <p className="font-sans text-caption text-text-secondary leading-relaxed line-clamp-2">
+                    {project.problem.split('.')[0]}.
+                  </p>
+
+                  {/* Right: arrow */}
+                  <div className="hidden md:flex items-center justify-end">
+                    <span className="text-text-secondary/30 group-hover:text-accent group-hover:translate-x-1 transition-all duration-200 text-lg">
+                      &rarr;
+                    </span>
+                  </div>
+
+                </div>
+              </Link>
+            </AnimateIn>
           ))}
         </div>
 

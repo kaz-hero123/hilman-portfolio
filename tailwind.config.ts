@@ -1,4 +1,3 @@
-// tailwind.config.ts
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -6,20 +5,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'band-dark':           '#10231B',
-        'band-light':          '#EEF0EA',
+        'surface-dark':       '#0F1F18',
+        'surface-light':      '#EBF0E6',
+        'surface-elevated':   '#1A2E24',
 
-        // Text on dark band
-        'text-primary-dark':   '#F2EFE6',
-        'text-muted-dark':     '#9AA89E',
-        'accent-dark':         '#B8862E',
-        'border-dark':         '#6B7569',
+        'text-primary':       '#F0EDE4',
+        'text-secondary':     '#97A89C',
+        'text-primary-inv':   '#0F1F18',
+        'text-secondary-inv': '#5B6258',
 
-        // Text on light band
-        'text-primary-light':  '#10231B',
-        'text-muted-light':    '#5B6258',
-        'accent-light':        '#8A5E1C',
-        'border-light':        '#727A6A',
+        'accent':             '#C89434',
+        'accent-hover':       '#D9A642',
       },
       fontFamily: {
         mono:  ['var(--font-mono)',  'monospace'],
@@ -27,19 +23,12 @@ const config: Config = {
         serif: ['var(--font-serif)', 'serif'],
       },
       fontSize: {
-        'display':   ['clamp(2rem, 6vw, 4.5rem)', { lineHeight: '1.05', fontWeight: '700' }],
-        'eyebrow':   ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.06em' }],
-        'body':      ['1.0625rem', { lineHeight: '1.6' }],
-        'editorial': ['1.3125rem', { lineHeight: '1.5' }],
-      },
-      animation: {
-        'fade-rise': 'fadeRise 0.25s ease-out forwards',
-      },
-      keyframes: {
-        fadeRise: {
-          '0%':   { opacity: '0', transform: 'translateY(8px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
+        'display':   ['clamp(2.25rem, 5vw, 3.75rem)', { lineHeight: '1.08', fontWeight: '700' }],
+        'heading':   ['1.75rem', { lineHeight: '1.25', fontWeight: '600' }],
+        'eyebrow':   ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.05em' }],
+        'body':      ['1.0625rem', { lineHeight: '1.65' }],
+        'editorial': ['1.25rem', { lineHeight: '1.55' }],
+        'caption':   ['0.8125rem', { lineHeight: '1.5' }],
       },
     },
   },

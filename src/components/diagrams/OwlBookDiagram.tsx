@@ -1,21 +1,12 @@
 'use client'
 
-/**
- * OwlBookDiagram — Architecture diagram for OwlBook Digital Library
- * PRD §8
- *
- * State machine: horizontal flow with state nodes
- * available → borrowed → [returned on-time] (branch up) / [returned late → fine computed] (branch down)
- * Active path (accent): late return path (most non-trivial case)
- */
-
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const ACCENT = '#B8862E'
-const MUTED  = '#6B7569'
-const TEXT   = '#F2EFE6'
-const BG     = '#10231B'
+const ACCENT = '#C89434'
+const MUTED  = '#97A89C'
+const TEXT   = '#F0EDE4'
+const BG     = '#0F1F18'
 
 export function OwlBookDiagram() {
   const ref = useRef<SVGSVGElement>(null)

@@ -1,25 +1,12 @@
 'use client'
 
-/**
- * RFIDDiagram — Architecture diagram for RFID Attendance System
- * PRD §8
- *
- * Two parallel vertical pipelines side by side.
- * Left: RFID gate scan → attendance_rfids table → (read-only)
- * Right: Teacher records → attendances table → source of truth
- * JOIN arrow connecting right pipeline output to "Final Status" node
- * Active path (accent): cross-check pipeline (right)
- *
- * Stroke draw-in on scroll at 40% viewport (Framer Motion)
- */
-
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const ACCENT = '#B8862E'
-const MUTED  = '#6B7569'
-const TEXT   = '#F2EFE6'
-const BG     = '#10231B'
+const ACCENT = '#C89434'
+const MUTED  = '#97A89C'
+const TEXT   = '#F0EDE4'
+const BG     = '#0F1F18'
 
 interface NodeProps {
   x: number

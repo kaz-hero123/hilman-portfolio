@@ -6,18 +6,16 @@ import { RFIDDiagram } from '@/components/diagrams/RFIDDiagram'
 import { RaporAIDiagram } from '@/components/diagrams/RaporAIDiagram'
 import { OwlBookDiagram } from '@/components/diagrams/OwlBookDiagram'
 
-// Map slugs to diagram components
 const diagrams: Record<string, React.ComponentType> = {
   'rfid-attendance': RFIDDiagram,
   'rapor-ai':        RaporAIDiagram,
   'owlbook':         OwlBookDiagram,
 }
 
-// Status label map
 const statusLabel: Record<string, string> = {
-  production:   'PRODUCTION',
-  prototype:    'PROTOTYPE',
-  'in-progress':'IN PROGRESS',
+  production:   'Production',
+  prototype:    'Prototype',
+  'in-progress':'In Progress',
 }
 
 interface Props {
@@ -40,6 +38,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+function SectionBlock({
+  label,
+  children,
+  dark = false,
+}: {
+  label: string
+  children: React.ReactNode
+  dark?: boolean
+}) {
+  return (
+    <section className={dark ? 'bg-surface-dark' : 'bg-surface-light border-t border-black/[0.04]'}>
+      <div className="max-w-3xl mx-auto px-6 md:px-10 py-12 md:py-16">
+        <p className={`font-mono text-eyebrow uppercase tracking-wider mb-5 ${
+          dark ? 'text-text-secondary/50' : 'text-text-secondary-inv/50'
+        }`}>
+          {label}
+        </p>
+        <div className={`font-sans text-body leading-relaxed max-w-2xl ${
+          dark ? 'text-text-primary' : 'text-text-primary-inv'
+        }`}>
+          {children}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params
   const project = projects.find((p) => p.slug === slug)
@@ -48,44 +73,46 @@ export default async function CaseStudyPage({ params }: Props) {
 
   const Diagram = diagrams[slug]
 
+  // Find next project for navigation
+  const shippedProjects = projects.filter((p) => p.status !== 'in-progress')
+  const currentIndex = shippedProjects.findIndex((p) => p.slug === slug)
+  const nextProject = shippedProjects[(currentIndex + 1) % shippedProjects.length]
+
   return (
     <main id="main-content">
 
       {/* Back navigation */}
-      <div className="bg-band-light border-b border-border-light">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-4">
+      <div className="bg-surface-light border-b border-black/[0.04]">
+        <div className="max-w-3xl mx-auto px-6 md:px-10 py-3">
           <Link
-            href="/#selected-work"
-            className="font-mono text-eyebrow uppercase text-text-muted-light link-underline-light link-underline focus-visible:focus-ring-light inline-flex items-center min-h-[48px]"
+            href="/#work"
+            className="font-sans text-caption text-text-secondary-inv/60 hover:text-text-primary-inv link-draw transition-colors focus-ring inline-flex items-center gap-1.5 min-h-[44px]"
           >
-            ← Back
+            &larr; Back to projects
           </Link>
         </div>
       </div>
 
-      {/* ── Sections 1–3: bg-band-light ── */}
-
-      {/* 1. CONTEXT */}
-      <section className="bg-band-light">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-16 md:py-24">
-
-          <p className="font-mono text-eyebrow uppercase text-text-muted-light tracking-widest mb-4">
+      {/* Hero area */}
+      <section className="bg-surface-light">
+        <div className="max-w-3xl mx-auto px-6 md:px-10 pt-10 pb-14 md:pt-14 md:pb-20">
+          <p className="font-mono text-eyebrow uppercase text-text-secondary-inv/50 tracking-wider mb-3">
             {project.functionTag}
           </p>
 
-          <h1 className="font-mono font-bold text-text-primary-light text-display mb-3">
+          <h1 className="font-sans font-bold text-text-primary-inv text-display mb-4">
             {project.title}
           </h1>
 
-          <p className="font-mono text-eyebrow text-text-muted-light mb-6">
+          <p className="font-sans text-caption text-text-secondary-inv mb-6">
             {project.subtitle}
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 mb-8">
-            <span className="font-mono text-eyebrow uppercase text-text-muted-light tracking-widest">
+          <div className="flex flex-wrap items-center gap-4">
+            <span className="font-mono text-[0.6875rem] uppercase text-text-secondary-inv/50 tracking-wider">
               {statusLabel[project.status]}
             </span>
-            <span className="font-mono text-eyebrow text-text-muted-light">
+            <span className="font-mono text-[0.6875rem] text-text-secondary-inv/40">
               {project.stack.join(' · ')}
             </span>
           </div>
@@ -95,85 +122,74 @@ export default async function CaseStudyPage({ params }: Props) {
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-eyebrow uppercase text-accent-light link-underline link-underline-light inline-flex items-center min-h-[48px] focus-visible:focus-ring-light"
+              className="inline-flex items-center gap-1.5 font-sans text-caption text-accent hover:text-accent-hover link-draw transition-colors focus-ring mt-5 min-h-[44px]"
             >
-              View repository →
+              View repository &nearr;
             </a>
           )}
         </div>
       </section>
 
-      {/* 2. CONSTRAINTS */}
-      <section className="bg-band-light border-t border-border-light">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16">
-          <h2 className="font-mono text-eyebrow uppercase text-text-muted-light tracking-widest mb-6">
-            Constraints
-          </h2>
-          <p className="font-sans text-body text-text-primary-light max-w-2xl">
-            {project.constraints}
-          </p>
-        </div>
-      </section>
+      {/* Architecture diagram — placed early as visual hook */}
+      {Diagram && (
+        <section className="bg-surface-dark">
+          <div className="max-w-3xl mx-auto px-6 md:px-10 py-14 md:py-20">
+            <p className="font-mono text-eyebrow uppercase text-text-secondary/50 tracking-wider mb-8">
+              Architecture
+            </p>
+            <Diagram />
+          </div>
+        </section>
+      )}
 
-      {/* 3. DECISION */}
-      <section className="bg-band-light border-t border-border-light">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16">
-          <h2 className="font-mono text-eyebrow uppercase text-text-muted-light tracking-widest mb-6">
-            Decision
-          </h2>
-          <p className="font-sans text-body text-text-primary-light max-w-2xl">
-            {project.decision}
-          </p>
-        </div>
-      </section>
+      {/* Content sections */}
+      <SectionBlock label="Problem">
+        <p className="font-serif text-editorial">{project.problem}</p>
+      </SectionBlock>
 
-      {/* ── Section 4: DIAGRAM — bg-band-dark visual break ── */}
-      <section className="bg-band-dark">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-16 md:py-24">
-          <p className="font-mono text-eyebrow uppercase text-text-muted-dark tracking-widest mb-10">
-            Architecture
-          </p>
-          {Diagram && <Diagram />}
-        </div>
-      </section>
+      <SectionBlock label="Constraints">
+        <p>{project.constraints}</p>
+      </SectionBlock>
 
-      {/* ── Sections 5–7: bg-band-light ── */}
+      <SectionBlock label="Decision">
+        <p>{project.decision}</p>
+      </SectionBlock>
 
-      {/* 5. REJECTED PATH */}
-      <section className="bg-band-light border-t border-border-light">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16">
-          <h2 className="font-mono text-eyebrow uppercase text-text-muted-light tracking-widest mb-6">
-            What Was Rejected
-          </h2>
-          <p className="font-sans text-body text-text-primary-light max-w-2xl">
-            {project.rejectedPath}
-          </p>
-        </div>
-      </section>
+      <SectionBlock label="What was rejected">
+        <p>{project.rejectedPath}</p>
+      </SectionBlock>
 
-      {/* 6. OUTCOME */}
-      <section className="bg-band-light border-t border-border-light">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16">
-          <h2 className="font-mono text-eyebrow uppercase text-text-muted-light tracking-widest mb-6">
-            Outcome
-          </h2>
-          <p className="font-sans text-body text-text-primary-light max-w-2xl">
-            {project.outcome}
-          </p>
-        </div>
-      </section>
+      <SectionBlock label="Outcome">
+        <p>{project.outcome}</p>
+      </SectionBlock>
 
-      {/* 7. REFLECTION */}
-      <section className="bg-band-light border-t border-border-light">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16 pb-24">
-          <h2 className="font-mono text-eyebrow uppercase text-text-muted-light tracking-widest mb-6">
-            Reflection
-          </h2>
-          <p className="font-sans text-body text-text-primary-light max-w-2xl">
-            {project.reflection}
-          </p>
-        </div>
-      </section>
+      <SectionBlock label="Reflection">
+        <p>{project.reflection}</p>
+      </SectionBlock>
+
+      {/* Next project navigation */}
+      {nextProject && nextProject.slug !== slug && (
+        <section className="bg-surface-dark border-t border-white/[0.04]">
+          <div className="max-w-3xl mx-auto px-6 md:px-10 py-12">
+            <Link
+              href={`/work/${nextProject.slug}`}
+              className="group flex items-center justify-between hover:bg-surface-elevated/40 -mx-4 px-4 py-4 rounded-lg transition-colors"
+            >
+              <div>
+                <p className="font-mono text-[0.6875rem] text-text-secondary/40 uppercase tracking-wider mb-1">
+                  Next project
+                </p>
+                <p className="font-sans text-body font-medium text-text-primary group-hover:text-accent transition-colors">
+                  {nextProject.title}
+                </p>
+              </div>
+              <span className="text-text-secondary/30 group-hover:text-accent group-hover:translate-x-1 transition-all text-lg">
+                &rarr;
+              </span>
+            </Link>
+          </div>
+        </section>
+      )}
 
     </main>
   )

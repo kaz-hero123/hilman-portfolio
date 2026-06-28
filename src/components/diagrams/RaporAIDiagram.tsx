@@ -1,21 +1,12 @@
 'use client'
 
-/**
- * RaporAIDiagram — Architecture diagram for Rapor AI
- * PRD §8
- *
- * Linear left-to-right:
- * Photo input → Gemini Vision API → Single structured prompt → [Student Summary] / [Parent Summary]
- * Active path (accent): single prompt → dual output split
- */
-
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const ACCENT = '#B8862E'
-const MUTED  = '#6B7569'
-const TEXT   = '#F2EFE6'
-const BG     = '#10231B'
+const ACCENT = '#C89434'
+const MUTED  = '#97A89C'
+const TEXT   = '#F0EDE4'
+const BG     = '#0F1F18'
 
 export function RaporAIDiagram() {
   const ref = useRef<SVGSVGElement>(null)

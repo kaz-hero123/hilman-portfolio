@@ -1,5 +1,3 @@
-// src/data/projects.ts
-// PRD §5 — Canonical project content. Use verbatim. Do not rephrase.
 import type { Project } from './types'
 
 export const projects: Project[] = [

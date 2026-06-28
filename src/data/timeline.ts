@@ -1,5 +1,3 @@
-// src/data/timeline.ts
-// PRD §5 — Timeline events in chronological order
 import type { TimelineEvent } from './types'
 
 export const timelineEvents: TimelineEvent[] = [

@@ -1,5 +1,3 @@
-// src/data/capabilities.ts
-// PRD §5 — Three-tier capability map
 import type { CapabilityGroup } from './types'
 
 export const capabilities: CapabilityGroup[] = [

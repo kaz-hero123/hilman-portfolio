@@ -1,5 +1,3 @@
-// src/data/now.ts
-// PRD §5 — Active in-progress work
 import type { NowItem } from './types'
 
 export const nowItems: NowItem[] = [

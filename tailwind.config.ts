@@ -37,9 +37,12 @@ const config: Config = {
         avatar:      '0 0 0 2px #F2966B, 0 0 32px rgba(242, 150, 107, 0.2)',
       },
       animation: {
-        blink:   'blink 1.2s step-end infinite',
-        marquee: 'marquee 28s linear infinite',
-        'float':    'float 6s ease-in-out infinite',
+        blink:        'blink 1.2s step-end infinite',
+        marquee:      'marquee 28s linear infinite',
+        'float':      'float 6s ease-in-out infinite',
+        'slide-down': 'slideDown 0.25s ease-out forwards',
+        'slide-up':   'slideUp 0.2s ease-in forwards',
+        'fade-in':    'fadeIn 0.2s ease-out forwards',
       },
       keyframes: {
         blink: {
@@ -53,6 +56,18 @@ const config: Config = {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%':      { transform: 'translateY(-8px)' },
+        },
+        slideDown: {
+          '0%':   { opacity: '0', transform: 'translateY(-8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideUp: {
+          '0%':   { opacity: '1', transform: 'translateY(0)' },
+          '100%': { opacity: '0', transform: 'translateY(-8px)' },
+        },
+        fadeIn: {
+          '0%':   { opacity: '0' },
+          '100%': { opacity: '1' },
         },
       },
     },

@@ -1,28 +1,37 @@
-import { Navbar, Footer } from '@/components/layout';
+/**
+ * app/page.tsx — Main page
+ * PRD §3 — Single scroll page
+ *
+ * Section order (alternating bands — MANDATORY):
+ * 1. Hero          → bg-band-dark
+ * 2. How I Build   → bg-band-light
+ * 3. Selected Work → bg-band-dark
+ * 4. Capability Map→ bg-band-light
+ * 5. Trajectory    → bg-band-dark
+ * 6. Now           → bg-band-light
+ * 7. Contact       → bg-band-dark
+ */
+
 import {
   Hero,
-  About,
-  Stack,
-  Projects,
-  Experience,
-  Achievements,
+  HowIBuild,
+  SelectedWork,
+  CapabilityMap,
+  Trajectory,
+  Now,
   Contact,
-} from '@/components/sections';
+} from '@/components/sections'
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main id="main">
-        <Hero />
-        <About />
-        <Stack />
-        <Projects />
-        <Experience />
-        <Achievements />
-        <Contact />
-      </main>
-      <Footer />
-    </>
-  );
+    <main id="main-content">
+      <Hero />
+      <HowIBuild />
+      <SelectedWork />
+      <CapabilityMap />
+      <Trajectory />
+      <Now />
+      <Contact />
+    </main>
+  )
 }

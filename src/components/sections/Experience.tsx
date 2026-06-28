@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * Experience — Section
+ * Ref: design-system.md §6
+ *
+ * Changes: surface bg (alternating rhythm), pulse dot on active, period badge
+ */
+
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/layout';
 import { SectionLabel, Tag } from '@/components/ui';
@@ -9,13 +16,15 @@ import { cn } from '@/lib/utils';
 
 export function Experience() {
   return (
-    <SectionWrapper id="experience">
+    <SectionWrapper id="experience" variant="surface">
+      {/* motion.div 1 — stagger wrapper */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
       >
+        {/* motion.div 2 — heading */}
         <motion.div variants={fadeInUp} className="mb-12">
           <SectionLabel>experience</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl text-text">
@@ -23,10 +32,13 @@ export function Experience() {
           </h2>
         </motion.div>
 
+        {/* motion.div 3 — timeline */}
         <motion.div variants={fadeInUp} className="space-y-0">
           {experiences.map((exp, index) => (
             <div key={exp.id} className="relative flex gap-6">
+              {/* Timeline column */}
               <div className="flex flex-col items-center shrink-0">
+                {/* Dot */}
                 <div className="relative mt-1.5">
                   {index === 0 && (
                     <div
@@ -38,22 +50,21 @@ export function Experience() {
                   <div
                     className={cn(
                       'w-3.5 h-3.5 rounded-full border-2 relative z-10',
-                      index === 0
-                        ? 'border-coral bg-coral'
-                        : 'border-muted bg-bg',
+                      index === 0 ? 'border-coral bg-coral' : 'border-muted bg-surface',
                     )}
                     aria-hidden="true"
                   />
                 </div>
                 {index < experiences.length - 1 && (
                   <div
-                    className="flex-1 w-px bg-border mt-2 mb-0"
+                    className="flex-1 w-px bg-border mt-2"
                     style={{ minHeight: '48px' }}
                     aria-hidden="true"
                   />
                 )}
               </div>
 
+              {/* Content */}
               <div className={cn('flex-1', index < experiences.length - 1 ? 'pb-10' : '')}>
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
                   <h3 className="font-display text-lg text-text">{exp.role}</h3>
@@ -65,7 +76,7 @@ export function Experience() {
                   )}
                 </div>
                 <div className="mb-3">
-                  <span className="font-mono text-xs px-3 py-1 rounded-full bg-surface2 border border-border text-muted">
+                  <span className="font-mono text-xs px-3 py-1 rounded-full bg-bg border border-border text-muted">
                     {exp.period}
                   </span>
                 </div>

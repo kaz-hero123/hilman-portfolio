@@ -21,7 +21,6 @@ export function SelectedWork() {
     <section id="work" className="bg-surface-dark border-t border-white/[0.04]">
       <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
 
-        {/* Section header */}
         <AnimateIn>
           <div className="mb-14">
             <p className="font-mono text-eyebrow uppercase text-text-secondary/60 tracking-wider mb-2">
@@ -33,7 +32,6 @@ export function SelectedWork() {
           </div>
         </AnimateIn>
 
-        {/* Project list */}
         <div className="space-y-4">
           {shippedProjects.map((project, i) => (
             <AnimateIn key={project.slug} delay={i * 0.08}>
@@ -43,7 +41,6 @@ export function SelectedWork() {
               >
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr_auto] gap-4 md:gap-8 p-5 md:p-7 items-center">
 
-                  {/* Left: title + role */}
                   <div className="space-y-1.5">
                     <h3 className="font-sans text-body font-semibold text-text-primary group-hover:text-accent transition-colors duration-200">
                       {project.title}
@@ -58,12 +55,9 @@ export function SelectedWork() {
                     </div>
                   </div>
 
-                  {/* Middle: problem snippet */}
                   <p className="font-sans text-caption text-text-secondary leading-relaxed line-clamp-2">
                     {project.problem.split('.')[0]}.
                   </p>
-
-                  {/* Right: arrow */}
                   <div className="hidden md:flex items-center justify-end">
                     <span className="text-text-secondary/30 group-hover:text-accent group-hover:translate-x-1 transition-all duration-200 text-lg">
                       &rarr;

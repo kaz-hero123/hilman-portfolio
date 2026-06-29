@@ -9,7 +9,6 @@ export function Hero() {
       id="hero"
       className="relative bg-surface-dark min-h-[100svh] flex items-center overflow-hidden noise"
     >
-      {/* Subtle radial glow behind content */}
       <div
         className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
@@ -21,9 +20,7 @@ export function Hero() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-10 w-full pt-20 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-end">
 
-          {/* Text content */}
           <div className="space-y-6">
-            {/* Name — prominent */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -33,7 +30,6 @@ export function Hero() {
               Hilman Nidal Hamzi
             </motion.p>
 
-            {/* Thesis headline */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -44,7 +40,6 @@ export function Hero() {
               I build systems that hold when the edge cases hit.
             </motion.h1>
 
-            {/* Proof line */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -56,7 +51,6 @@ export function Hero() {
               <span className="text-accent">Looking for internship opportunities, August 2026.</span>
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -78,7 +72,6 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -93,7 +86,6 @@ export function Hero() {
                 className="object-cover object-top"
                 priority
               />
-              {/* Subtle warm overlay */}
               <div
                 className="absolute inset-0 mix-blend-soft-light opacity-30"
                 style={{ background: 'linear-gradient(135deg, #C89434 0%, transparent 60%)' }}
@@ -104,7 +96,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

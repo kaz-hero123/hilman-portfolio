@@ -8,7 +8,6 @@ export function Contact() {
       <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 md:gap-16 items-end">
 
-          {/* Left — primary */}
           <AnimateIn>
             <div className="space-y-5">
               <p className="font-mono text-eyebrow uppercase text-text-secondary-inv/50 tracking-wider">
@@ -31,7 +30,6 @@ export function Contact() {
             </div>
           </AnimateIn>
 
-          {/* Right — secondary links */}
           <AnimateIn delay={0.1}>
             <div className="flex flex-col gap-3 md:border-l md:border-black/[0.06] md:pl-10 pb-1">
               <p className="font-mono text-[0.6875rem] text-text-secondary-inv/40 uppercase tracking-wider mb-1">

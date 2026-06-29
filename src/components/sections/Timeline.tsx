@@ -42,7 +42,6 @@ export function Timeline() {
     <section id="path" className="bg-surface-dark border-t border-white/[0.04]">
       <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
 
-        {/* Header */}
         <AnimateIn>
           <div className="mb-14">
             <p className="font-mono text-eyebrow uppercase text-text-secondary/60 tracking-wider mb-2">
@@ -54,9 +53,7 @@ export function Timeline() {
           </div>
         </AnimateIn>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
           <div
             className="absolute left-[7px] md:left-[calc(140px+7px)] top-2 bottom-2 w-px bg-white/[0.06]"
             aria-hidden="true"
@@ -67,7 +64,6 @@ export function Timeline() {
               <AnimateIn key={i} delay={i * 0.06}>
                 <div className="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-2 md:gap-8 relative">
 
-                  {/* Date */}
                   <div className="md:text-right">
                     <span className={`font-mono text-eyebrow tracking-wider ${
                       entry.isActive ? 'text-accent' : 'text-text-secondary/60'
@@ -76,9 +72,7 @@ export function Timeline() {
                     </span>
                   </div>
 
-                  {/* Content with dot */}
                   <div className="relative pl-7 md:pl-7 pb-1">
-                    {/* Dot */}
                     <span
                       className={`absolute left-0 top-[7px] w-[15px] h-[15px] rounded-full border-2 border-surface-dark ${
                         typeColors[entry.type] ?? 'bg-text-secondary/30'

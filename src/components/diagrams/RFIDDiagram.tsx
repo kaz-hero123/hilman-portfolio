@@ -76,7 +76,6 @@ export function RFIDDiagram() {
         aria-label="RFID Attendance System: dual-pipeline architecture diagram"
       >
         <defs>
-          {/* Arrowheads */}
           <marker id="arrow-accent" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
             <path d="M0,0 L0,6 L8,3 z" fill={ACCENT} />
           </marker>
@@ -84,7 +83,6 @@ export function RFIDDiagram() {
             <path d="M0,0 L0,6 L8,3 z" fill={MUTED} />
           </marker>
 
-          {/* Clip path for stroke draw-in animation */}
           <clipPath id="rfid-reveal">
             <motion.rect
               x={0} y={0} height={460}
@@ -95,7 +93,6 @@ export function RFIDDiagram() {
           </clipPath>
         </defs>
 
-        {/* Column headers */}
         <text x={130} y={28} textAnchor="middle" fill={MUTED} fontFamily="IBM Plex Mono, monospace" fontSize={10} letterSpacing={1}>
           GATE ENTRY PIPELINE
         </text>
@@ -104,14 +101,12 @@ export function RFIDDiagram() {
         </text>
 
         <g clipPath="url(#rfid-reveal)">
-          {/* === LEFT PIPELINE (inactive — gate entry) === */}
           <DiagramNode x={30}  y={50}  width={200} height={44} label="RFID Gate Scan" />
           <Arrow x1={130} y1={94}  x2={130} y2={128} />
           <DiagramNode x={30}  y={128} width={200} height={44} label="attendance_rfids" />
           <Arrow x1={130} y1={172} x2={130} y2={206} />
           <DiagramNode x={30}  y={206} width={200} height={44} label="Read-only store" />
 
-          {/* === RIGHT PIPELINE (active — cross-check) === */}
           <DiagramNode x={290} y={50}  width={200} height={44} label="Teacher Records" active />
           <Arrow x1={390} y1={94}  x2={390} y2={128} active />
           <DiagramNode x={290} y={128} width={200} height={44} label="attendances table" active />
@@ -119,16 +114,13 @@ export function RFIDDiagram() {
           <DiagramNode x={290} y={206} width={200} height={44} label="Source of truth" active />
           <Arrow x1={390} y1={250} x2={390} y2={284} active />
 
-          {/* JOIN — right pipeline output to Final Status */}
           <DiagramNode x={290} y={284} width={200} height={44} label="JOIN query" active />
           <Arrow x1={390} y1={328} x2={390} y2={362} active />
           <DiagramNode x={190} y={362} width={200} height={44} label="Final Attendance Status" active />
 
-          {/* Cross-reference arrow from LEFT to JOIN */}
           <line x1={130} y1={250} x2={130} y2={390} stroke={MUTED} strokeWidth={1} strokeDasharray="4 3" />
           <line x1={130} y1={390} x2={190} y2={390} stroke={MUTED} strokeWidth={1} markerEnd="url(#arrow-muted)" strokeDasharray="4 3" />
 
-          {/* Labels */}
           <text x={50} y={272} fill={MUTED} fontFamily="IBM Plex Mono, monospace" fontSize={9}>
             reference only
           </text>

@@ -81,7 +81,6 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <main id="main-content">
 
-      {/* Back navigation */}
       <div className="bg-surface-light border-b border-black/[0.04]">
         <div className="max-w-3xl mx-auto px-6 md:px-10 py-3">
           <Link
@@ -93,7 +92,6 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Hero area */}
       <section className="bg-surface-light">
         <div className="max-w-3xl mx-auto px-6 md:px-10 pt-10 pb-14 md:pt-14 md:pb-20">
           <p className="font-mono text-eyebrow uppercase text-text-secondary-inv/50 tracking-wider mb-3">
@@ -130,7 +128,6 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Architecture diagram — placed early as visual hook */}
       {Diagram && (
         <section className="bg-surface-dark">
           <div className="max-w-3xl mx-auto px-6 md:px-10 py-14 md:py-20">
@@ -142,7 +139,6 @@ export default async function CaseStudyPage({ params }: Props) {
         </section>
       )}
 
-      {/* Content sections */}
       <SectionBlock label="Problem">
         <p className="font-serif text-editorial">{project.problem}</p>
       </SectionBlock>
@@ -167,7 +163,6 @@ export default async function CaseStudyPage({ params }: Props) {
         <p>{project.reflection}</p>
       </SectionBlock>
 
-      {/* Next project navigation */}
       {nextProject && nextProject.slug !== slug && (
         <section className="bg-surface-dark border-t border-white/[0.04]">
           <div className="max-w-3xl mx-auto px-6 md:px-10 py-12">

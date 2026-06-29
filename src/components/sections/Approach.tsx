@@ -8,7 +8,6 @@ export function Approach() {
       <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-16">
 
-          {/* Left column */}
           <AnimateIn>
             <div>
               <p className="font-mono text-eyebrow uppercase text-text-secondary-inv/50 tracking-wider mb-2">
@@ -20,10 +19,8 @@ export function Approach() {
             </div>
           </AnimateIn>
 
-          {/* Right column */}
           <AnimateIn delay={0.1}>
             <div className="space-y-6">
-              {/* Serif opening — used once for editorial contrast */}
               <p className="font-serif text-editorial text-text-primary-inv leading-relaxed">
                 Backend engineering, for me, is mostly about what happens after you ship.
               </p>

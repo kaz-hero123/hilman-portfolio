@@ -1,24 +1,25 @@
 // src/lib/fonts.ts
-// PRD §2 — IBM Plex type family, three cuts, loaded via next/font/google
-import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from 'next/font/google'
+// PRD §2.2 — Space Grotesk (display) + Inter (body) + JetBrains Mono (mono)
+// Loaded via next/font/google — no CDN <link> per PRD §1 constraint
+import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 
-export const plexMono = IBM_Plex_Mono({
+export const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-mono',
+  weight: ['500', '600', '700'],
+  variable: '--font-display',
   display: 'swap',
 })
 
-export const plexSans = IBM_Plex_Sans({
+export const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500'],
-  variable: '--font-sans',
+  variable: '--font-body',
   display: 'swap',
 })
 
-export const plexSerif = IBM_Plex_Serif({
+export const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-serif',
+  weight: ['400', '500'],
+  variable: '--font-mono',
   display: 'swap',
 })

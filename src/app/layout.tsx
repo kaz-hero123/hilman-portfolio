@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { plexMono, plexSans, plexSerif } from '@/lib/fonts'
+import { spaceGrotesk, inter, jetbrainsMono } from '@/lib/fonts'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import './globals.css'
@@ -26,12 +26,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexMono.variable} ${plexSans.variable} ${plexSerif.variable}`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-accent focus:text-surface-dark focus:font-mono focus:text-eyebrow focus:uppercase focus:outline-none focus:rounded"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-mono focus:text-xs focus:uppercase focus:outline-none focus:rounded"
         >
           Skip to main content
         </a>

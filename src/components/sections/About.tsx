@@ -9,7 +9,6 @@ export function About() {
       <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-28">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-16 items-start">
 
-          {/* Left — label + heading */}
           <AnimateIn>
             <div className="md:sticky md:top-24">
               <SectionLabel>About</SectionLabel>
@@ -19,7 +18,6 @@ export function About() {
             </div>
           </AnimateIn>
 
-          {/* Right — prose (no photo — PRD §6: no duplicate placeholder) */}
           <AnimateIn delay={0.1}>
             <div className="space-y-5 max-w-lg">
               <p className="font-body text-body text-dust leading-relaxed">
@@ -41,7 +39,6 @@ export function About() {
                 started at HummaTech and never left.
               </p>
 
-              {/* Availability note — subtle */}
               <div className="pt-2 border-t border-line">
                 <p className="font-mono text-xs text-sageDeep">
                   › Looking for backend internship opportunities — Aug 2026 onwards.

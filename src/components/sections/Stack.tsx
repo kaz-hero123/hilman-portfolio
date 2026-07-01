@@ -5,7 +5,6 @@ import { SectionLabel } from '@/components/ui/SectionLabel'
 import { Tag } from '@/components/ui/Tag'
 import { capabilities } from '@/data/capabilities'
 
-// Tier metadata — visual styling per tier
 const tierMeta: Record<string, { tagColor: 'gold' | 'sage' | 'default'; description: string }> = {
   confident: {
     tagColor: 'gold',
@@ -42,14 +41,12 @@ export function Stack() {
               <AnimateIn key={group.tier} delay={i * 0.1}>
                 <div className="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-4 md:gap-8 items-start">
 
-                  {/* Tier label */}
                   <div className="md:pt-0.5">
                     <p className="font-mono text-xs text-dust uppercase tracking-widest">
                       {group.label}
                     </p>
                   </div>
 
-                  {/* Tags + description */}
                   <div className="space-y-3">
                     <div className="flex flex-wrap gap-2">
                       {group.items.map((item) => (

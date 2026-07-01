@@ -1,5 +1,3 @@
-// src/components/ui/SectionLabel.tsx
-// PRD §8.2 — dual-context label above section headings
 import { cn } from '@/lib/utils'
 
 interface SectionLabelProps {

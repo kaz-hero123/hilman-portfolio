@@ -21,14 +21,12 @@ export function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Close menu on resize to desktop
   useEffect(() => {
     const onResize = () => { if (window.innerWidth >= 640) setMenuOpen(false) }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -50,7 +48,6 @@ export function Nav() {
           className="max-w-5xl mx-auto px-6 md:px-10 h-14 flex items-center justify-between"
           aria-label="Main navigation"
         >
-          {/* Logo */}
           <a
             href="#hero"
             className="font-display text-[0.9375rem] font-bold text-ink hover:text-ember transition-colors focus-ring"
@@ -59,7 +56,6 @@ export function Nav() {
             Hilman N. Hamzi
           </a>
 
-          {/* Desktop nav links */}
           <ul className="hidden sm:flex items-center gap-8" role="list">
             {links.map((link) => (
               <li key={link.href}>
@@ -73,7 +69,6 @@ export function Nav() {
             ))}
           </ul>
 
-          {/* Desktop CTA */}
           <a
             href="mailto:hilmannidal@gmail.com"
             className="hidden sm:inline-flex font-body text-caption text-ink border border-line rounded px-3 py-1.5 hover:border-ember/60 transition-colors focus-ring"
@@ -81,7 +76,6 @@ export function Nav() {
             Get in touch
           </a>
 
-          {/* Mobile hamburger — v1 bug fix: was missing entirely */}
           <button
             type="button"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -95,7 +89,6 @@ export function Nav() {
         </nav>
       </header>
 
-      {/* Mobile menu overlay */}
       <div
         id="mobile-menu"
         role="dialog"
@@ -106,14 +99,12 @@ export function Nav() {
           menuOpen ? 'visible opacity-100' : 'invisible opacity-0 pointer-events-none',
         )}
       >
-        {/* Backdrop */}
         <div
           className="absolute inset-0 bg-ink/20 backdrop-blur-sm"
           onClick={handleLinkClick}
           aria-hidden="true"
         />
 
-        {/* Menu panel — slides from top-right */}
         <div
           className={cn(
             'absolute top-14 right-0 left-0 bg-paper border-b border-line shadow-cardLift',

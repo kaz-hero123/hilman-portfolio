@@ -13,8 +13,8 @@
   }
 
   body {
-    background-color: #F7F3EC; /* paper */
-    color: #231F1B;             /* ink */
+    background-color: #F7F3EC;
+    color: #231F1B;
     font-family: var(--font-body), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -23,12 +23,12 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display), sans-serif;
     font-weight: 700;
-    color: #231F1B; /* ink */
+    color: #231F1B;
     line-height: 1.1;
   }
 
   ::selection {
-    background-color: rgba(232, 137, 60, 0.25); /* ember tint */
+    background-color: rgba(232, 137, 60, 0.25);
     color: #231F1B;
   }
 
@@ -67,7 +67,7 @@
     width: 100%;
   }
 
-  /* Focus ring — ring-ink per PRD §13 (ember fails contrast as ring color) */
+  /* Focus ring */
   .focus-ring:focus-visible {
     outline: 2px solid #231F1B;
     outline-offset: 3px;

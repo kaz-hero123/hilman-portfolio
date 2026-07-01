@@ -7,8 +7,6 @@ import { Experience }   from '@/components/sections/Experience'
 import { Achievements } from '@/components/sections/Achievements'
 import { Contact }      from '@/components/sections/Contact'
 
-// Section order per PRD §6 section map:
-// Hero → Stats(forest) → About → Stack → Projects → Experience → Achievements → Contact(forest)
 export default function Home() {
   return (
     <main id="main-content">

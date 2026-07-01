@@ -1,6 +1,3 @@
-// src/lib/fonts.ts
-// PRD §2.2 — Space Grotesk (display) + Inter (body) + JetBrains Mono (mono)
-// Loaded via next/font/google — no CDN <link> per PRD §1 constraint
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 
 export const spaceGrotesk = Space_Grotesk({

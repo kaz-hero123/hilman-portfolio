@@ -1,5 +1,3 @@
-// src/components/ui/Button.tsx
-// PRD §8.3 — primary (ember bg) + ghost variants
 import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -14,10 +12,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<Variant, string> = {
   primary: cn(
-    // PRD §8.3 WCAG note: text-ink (not text-paper) — paper-on-ember only 2.35, fails AA
     'bg-ember text-ink font-body font-medium',
     'hover:bg-ember/90',
-    // ring-ink (not ring-ember) — ember as ring fails non-text 3.0 min on paper/panel
     'focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper',
   ),
   ghost: cn(
@@ -29,7 +25,7 @@ const variantStyles: Record<Variant, string> = {
 
 const sizeStyles: Record<Size, string> = {
   sm: 'px-4 py-2 text-sm min-h-[40px]',
-  md: 'px-5 py-2.5 text-[0.9375rem] min-h-[48px]', // PRD §13: 48px touch target
+  md: 'px-5 py-2.5 text-[0.9375rem] min-h-[48px]',
   lg: 'px-7 py-3 text-base min-h-[52px]',
 }
 

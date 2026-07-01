@@ -1,5 +1,3 @@
-// src/components/ui/Badge.tsx
-// PRD §8.5 — status/availability badges with optional pulsing dot
 import { cn } from '@/lib/utils'
 
 type BadgeVariant = 'available' | 'building' | 'default'
@@ -11,8 +9,6 @@ interface BadgeProps {
   className?: string
 }
 
-// PRD §8.5: available → sage family, building → gold family, default → dust/panel
-// ember/coral explicitly NOT used (fails contrast, wrong semantic role)
 const variantStyles: Record<BadgeVariant, string> = {
   available: 'bg-sage/10 text-sageDeep border-sage/20',
   building:  'bg-gold/10 text-goldDeep border-gold/20',

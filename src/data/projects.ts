@@ -8,7 +8,7 @@ export const projects: Project[] = [
     subtitle: 'Backend Developer · HummaTech Indonesia',
     status: 'production',
     stack: ['Laravel', 'PHP', 'MySQL', 'Python', 'Postman'],
-    repoUrl: undefined, // private repo
+    repoUrl: undefined,
 
     problem:
       'A school needed to track gate entry and per-lesson attendance separately. A single pipeline could not reliably handle both — the entry timestamp and the teacher-verified attendance had different authorities, different triggers, and different failure modes.',

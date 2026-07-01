@@ -22,7 +22,6 @@ interface TimelineEntry {
 }
 
 export function Timeline() {
-  // Merge timeline events with active "Now" items
   const entries: TimelineEntry[] = [
     ...nowItems.map((item) => ({
       date: item.deadline ?? 'Now',

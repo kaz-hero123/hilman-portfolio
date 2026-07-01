@@ -1,626 +1,572 @@
-# HILMAN PORTFOLIO — ENGINEERING SPEC v2
-**Author:** Hilman Nidal Hamzi | **Stack:** Next.js 14 App Router · TypeScript strict · Tailwind CSS · Framer Motion
-**Audience:** Technical hiring managers evaluating backend/full-stack internship candidates
+# Hilman Nidal Hamzi — Portfolio Design System
+## Core Memory & Coding Guide — v2 DRAFT
+
+> **Status**: DRAFT — menggantikan `hilman-porto-design-system.md` (v1, dark mode). Belum jadi source of truth sampai di-review & dipindah manual oleh Hilman.
+> **Supersedes**: v1 (Dark Editorial + Warm Technical), skor audit 39/70 — lihat `design_critique.md`
+> **Direction**: Light Editorial + Warm Technical
+> **Last updated**: 2026-06-29
+> **Owner**: Hilman Nidal Hamzi (kaz-hero123)
+
+### Rebrand Context (kenapa dokumen ini ada)
+
+v1 di-audit dan dapat skor 39/70 — masalah utamanya bukan di warna/tipografi (keduanya 7/10), tapi di: seragamitas section, zero personality, avatar placeholder "HN" dipakai dua kali, TODO placeholder di production, mobile nav rusak. Rebrand ini ambil **struktur** dari referensi Olivia Smith (Figma UI/UX portfolio template) — alternating section background, stats besar, foto-driven hero — TAPI **bukan clone 1:1**: palette orisinal, audience/tone tetap job-seeking developer (bukan freelance/jasa), section "Services" di-drop.
 
 ---
 
-## ⛔ SECTION 0 — FORBIDDEN PATTERNS (READ BEFORE WRITING ANY CODE)
+## 0. Project Brief
 
-These were all present in the broken v1 build. If any of these appear in the output, the build is wrong.
-
-| # | Forbidden | Why |
-|---|---|---|
-| 1 | Infinite scrolling marquee/ticker of skill words | Template default. Brief explicitly bans this. |
-| 2 | Stats counter (X Projects, X Years, X Industries) | Vanity widget. Brief explicitly bans this. |
-| 3 | Blinking cursor `›available for internship■` | Already on existing site. Cannot be the "signature element." |
-| 4 | Rounded service/project cards with icon + "Learn more" | Olivia Smith template pattern. |
-| 5 | Floating circular "Hire Me" badge | Template default. |
-| 6 | Cursive/script signature font | Template default. |
-| 7 | Single flat background color for whole page | Core layout requirement is alternating dark/light bands per section. |
-| 8 | Project sections as shallow card (title + 1-line problem + 1-line outcome + tag row) | Existing v1 did exactly this. Case studies need full pages. |
-| 9 | Third accent color of any kind | Palette is one hue family, two lightness values. No purple, teal, red, etc. |
-| 10 | Numbered project markers (01, 02, 03) on Selected Work index | Projects are parallel, not sequential. No numbering. |
-| 11 | Jelajah Madura or UiVault presented as finished case studies | Both in progress. They belong in "Now" section only. |
-| 12 | Invented metrics, testimonials, or quotes not in this spec | Never fabricate a number or outcome. |
-| 13 | TODO placeholders in shipped output | Fill with [PLACEHOLDER: description] if content is missing, never ship raw TODOs. |
-| 14 | `<div onClick>` instead of `<button>` | Accessibility violation. |
-| 15 | Ps/Ai/Id software icon badges | Graphic designer signifier. Hilman is a backend engineer. |
-| 16 | Parallax, scroll-jacking, per-letter stagger animations | Brief explicitly bans all three. |
-| 17 | Three equal-weight icon buttons in contact (GitHub / LinkedIn / Email as peers) | Email is primary. GitHub/LinkedIn are secondary text links. |
+| Field          | Value                                                                 |
+|----------------|-----------------------------------------------------------------------|
+| **Subject**    | Hilman Nidal Hamzi — Backend Developer, Laravel/Full-Stack Engineer   |
+| **Audience**   | Technical leads, HRD, potential remote employers                      |
+| **Page's job** | Convince a visitor in 30 seconds that Hilman is competent, real, and worth contacting |
+| **Tone**       | Confident, direct, technically credible. Not corporate. Not try-hard. |
+| **NOT this**   | Playful/bubbly product-designer pitch tone (services cards, "Hire Me" framing). Generic templated look — referensi struktural diadaptasi, bukan di-clone 1:1. |
 
 ---
 
-## 1. DESIGN TOKENS — NON-NEGOTIABLE, USE EXACTLY THESE VALUES
+## 1. Tech Stack (Locked — unchanged dari v1)
 
-These have been contrast-verified. Do not substitute. Do not eyeball new grays.
+| Layer              | Technology              | Version  | Notes                                                   |
+|--------------------|-------------------------|----------|---------------------------------------------------------|
+| **Framework**      | Next.js                 | 14+ (App Router) | Static export (`output: 'export'`) untuk SEO.    |
+| **Language**       | TypeScript              | 5+       | Strict mode ON. `noImplicitAny: true`. No `any`.        |
+| **Styling**        | Tailwind CSS            | 3.x      | JIT. Tidak upgrade ke v4.                                |
+| **Animation**      | Framer Motion           | Latest   | Scroll reveals + micro-interactions only.                |
+| **Icons**          | lucide-react            | Latest   | `strokeWidth={1.5}` default.                             |
+| **Font Loading**   | `next/font/google`      | —        | No CDN `<link>`.                                         |
 
-### Tailwind Config Extension
+---
+
+## 2. Design Tokens
+
+### 2.1 Color Palette
+
+Sembilan token semantik + dua varian "deep" untuk koreksi kontras (lihat §13). Setiap token punya **satu** peran — gak ditukar antar konteks.
+
+| Token       | Hex       | Semantic Role                                              |
+|-------------|-----------|-------------------------------------------------------------|
+| `forest`    | `#173328` | Dark section band background (Stats, Contact) — bukan full-page bg |
+| `ember`     | `#E8893C` | Primary accent — **background fill CTA only**, atau foreground di atas `forest`. Lihat §13 untuk batasan keras: tidak valid sebagai foreground/text/icon di atas `paper`/`panel`. |
+| `gold`      | `#D9A441` | Tag/label background-tint & icon accent; foreground text **di atas `forest`** |
+| `goldDeep`  | `#91681D` | Tag/label TEXT **di atas `paper`/`panel`** (light-context only — gagal kontras di atas `forest`) |
+| `sage`      | `#7C9473` | Status dot, "currently building" tidak dipakai di sini (lihat Badge §8); foreground text **di atas `forest`** (large text only, lihat §13) |
+| `sageDeep`  | `#61755A` | Status TEXT **di atas `paper`/`panel`** (light-context only) |
+| `paper`     | `#F7F3EC` | Page background (warm cream — bukan pure white)              |
+| `panel`     | `#FCFAF6` | Card/panel background                                        |
+| `line`      | `#DDD5C7` | Divider/border di atas light bg (dekoratif, lihat §13) — **dual-role**: jadi muted-text-on-dark kalau dipakai di atas `forest` (kontras 9.36) |
+| `ink`       | `#231F1B` | Primary text di atas light bg (warm near-black — bukan `#000`) |
+| `dust`      | `#756F65` | Secondary/muted text **di atas light bg only** — gagal kontras di atas `forest`, jangan dipakai di situ |
+
+**Hard constraints (unchanged dari v1):**
+- Jangan gunakan `#000000` atau `#ffffff` di manapun — prinsip "warm, not harsh", independen dari light/dark mode.
+- `ember` adalah satu-satunya warna untuk CTA dan headline emphasis — TAPI **hanya sebagai background fill atau di atas `forest`**, tidak pernah sebagai text/icon/ring color di atas `paper`/`panel` (kontras maksimal cuma ~2.5, gagal WCAG bahkan untuk non-text). Ini batasan baru yang gak ada di v1 karena v1 cuma punya satu background gelap.
+- `sage`/`sageDeep` hanya untuk status/availability. `gold`/`goldDeep` hanya untuk tags/labels.
+
+### Dual Context Rule (BARU di v2)
+
+v1 cuma punya satu background di seluruh halaman, jadi satu set token (`muted`, `text`) cukup. v2 punya dua konteks (light band vs `forest` dark band), jadi ada dua set token paralel:
+
+| Role              | Di atas `paper`/`panel` (light)   | Di atas `forest` (dark)        |
+|-------------------|------------------------------------|----------------------------------|
+| Primary text      | `ink`                               | `paper`                          |
+| Secondary/muted   | `dust`                               | `line`                           |
+| Tag/label text    | `goldDeep`                           | `gold`                           |
+| Status text       | `sageDeep`                           | `sage` *(large text only — 4.12, gagal di teks kecil)* |
+| Accent/CTA        | `ember` (background fill only)       | `ember` (boleh jadi foreground)  |
+
+**Jangan pernah pakai varian `Deep` di atas `forest`, atau varian non-`Deep` sebagai text di atas `paper`/`panel`.**
+
+### 2.2 Typography (unchanged dari v1)
+
+| Role         | Font              | Weight    | Use case                                    |
+|--------------|-------------------|-----------|---------------------------------------------|
+| Display      | Space Grotesk     | 700–800   | Nama, section headings besar, hero text     |
+| Body         | Inter             | 400–500   | Paragraf, deskripsi, navigasi               |
+| Mono         | JetBrains Mono    | 400–500   | Tech tags, role label di hero, code snippets|
+
+Tidak berubah dari v1 — typography independen dari color mode, dan gak pernah di-flag sebagai masalah di audit (skor 7/10).
+
+---
+
+## 3. Tailwind Config
 
 ```ts
 // tailwind.config.ts
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        'band-dark':     '#10231B',   // dark section bg — deep pine, not neutral black
-        'band-light':    '#EEF0EA',   // light section bg — sage-tinted paper, NOT cream
-
-        // Text on dark band
-        'text-primary-dark':  '#F2EFE6',  // 14.29:1 on band-dark — AAA
-        'text-muted-dark':    '#9AA89E',  // 6.63:1 on band-dark — AA
-        'accent-dark':        '#B8862E',  // 5.08:1 on band-dark — AA links/CTA
-        'border-dark':        '#6B7569',  // 3.42:1 on band-dark — interactive borders only
-
-        // Text on light band
-        'text-primary-light': '#10231B',  // 14.31:1 on band-light — AAA (same value as band-dark)
-        'text-muted-light':   '#5B6258',  // 5.49:1 on band-light — AA
-        'accent-light':       '#8A5E1C',  // 4.94:1 on band-light — AA links/CTA (darker shade — do NOT reuse accent-dark here)
-        'border-light':       '#727A6A',  // 3.88:1 on band-light — interactive borders only
+        forest:   '#173328',
+        ember:    '#E8893C',
+        gold:     '#D9A441',
+        goldDeep: '#91681D',
+        sage:     '#7C9473',
+        sageDeep: '#61755A',
+        paper:    '#F7F3EC',
+        panel:    '#FCFAF6',
+        line:     '#DDD5C7',
+        ink:      '#231F1B',
+        dust:     '#756F65',
       },
       fontFamily: {
-        mono:  ['IBM Plex Mono', 'monospace'],
-        sans:  ['IBM Plex Sans', 'sans-serif'],
-        serif: ['IBM Plex Serif', 'serif'],
+        display: ['var(--font-display)', 'sans-serif'],
+        body:    ['var(--font-body)',    'sans-serif'],
+        mono:    ['var(--font-mono)',    'monospace'],
       },
-      fontSize: {
-        'display':   ['clamp(2rem, 6vw, 4.5rem)', { lineHeight: '1.05', fontWeight: '700' }],
-        'eyebrow':   ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.06em' }],
-        'body':      ['1.0625rem', { lineHeight: '1.6' }],
-        'editorial': ['1.3125rem', { lineHeight: '1.5' }],
+      borderRadius: {
+        DEFAULT: '6px',
+        md:  '8px',
+        lg:  '12px',
+        xl:  '16px',
+      },
+      boxShadow: {
+        card:     '0 0 0 1px #DDD5C7',
+        cardLift: '0 8px 24px -4px rgba(35, 31, 27, 0.12)',
+      },
+      animation: {
+        blink: 'blink 1.2s step-end infinite',
+      },
+      keyframes: {
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%':      { opacity: '0' },
+        },
       },
     },
   },
   plugins: [],
-}
+};
 
-export default config
+export default config;
 ```
 
-### CSS Custom Properties (add to `globals.css`)
+**Catatan perubahan dari v1:** `boxShadow.glow`/`glowStrong` (colored glow shadow) DIHAPUS — efek glow cuma kerja di atas background gelap; di atas card terang hasilnya keliatan kayak noda warna, bukan "nyala". Diganti `cardLift`: neutral elevation shadow (warna `ink` di opacity rendah) untuk efek "terangkat" — pattern standar buat card hover di light mode.
+
+---
+
+## 4. Global CSS
 
 ```css
-:root {
-  --band-dark:          #10231B;
-  --band-light:         #EEF0EA;
-  --text-primary-dark:  #F2EFE6;
-  --text-muted-dark:    #9AA89E;
-  --accent-dark:        #B8862E;
-  --border-dark:        #6B7569;
-  --text-primary-light: #10231B;
-  --text-muted-light:   #5B6258;
-  --accent-light:       #8A5E1C;
-  --border-light:       #727A6A;
-}
-```
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-**Contrast rules:**
-- Body text / labels: minimum 4.5:1 against their background. No exceptions.
-- Decorative dividers (no interactive meaning): can be lower-contrast.
-- Interactive borders (button outlines, input borders, focus rings): minimum 3:1.
-- Before adding ANY new gray value: compute its contrast ratio first.
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
----
+  html {
+    scroll-behavior: smooth;
+  }
 
-## 2. TYPOGRAPHY SPEC
+  body {
+    background-color: #F7F3EC; /* paper */
+    color: #231F1B;             /* ink */
+    font-family: var(--font-body), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-**One type family, three cuts: IBM Plex Mono / Sans / Serif.** Load via `next/font/google`. Never use a CDN `<link>`.
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 700;
+    color: #231F1B; /* ink */
+    line-height: 1.1;
+  }
 
-```ts
-// src/lib/fonts.ts
-import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from 'next/font/google'
+  ::selection {
+    background-color: rgba(232, 137, 60, 0.25); /* ember tint */
+    color: #231F1B;
+  }
 
-export const plexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-mono',
-})
+  /* Scrollbar */
+  ::-webkit-scrollbar        { width: 6px; }
+  ::-webkit-scrollbar-track  { background: #F7F3EC; }
+  ::-webkit-scrollbar-thumb  { background: #DDD5C7; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #E8893C; }
 
-export const plexSans = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-sans',
-})
-
-export const plexSerif = IBM_Plex_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-serif',
-})
-```
-
-| Role | Face | Size (desktop / mobile) | Weight | Usage rule |
-|---|---|---|---|---|
-| Display headline | IBM Plex Mono | 56–72px / 32–40px | Bold | Max 6–8 words per line. Never mono for body/paragraph text. |
-| Body | IBM Plex Sans | 17px / 16px | Regular | Line-height 1.6 |
-| Eyebrow / label / date | IBM Plex Mono | 13px, UPPERCASE, +0.06em tracking | Medium | Section labels, status tags, timeline dates |
-| Editorial moment | IBM Plex Serif | 21px | Regular | **Used exactly once** — opening line of "How I Build" section only. Never used elsewhere. |
-
----
-
-## 3. PAGE ARCHITECTURE
-
-### Routes
-
-```
-/                          → Single scroll page (Hero → How I Build → Selected Work → Capability Map → Trajectory → Now → Contact)
-/work/rfid-attendance      → Case study: RFID Attendance System
-/work/rapor-ai             → Case study: Rapor AI
-/work/owlbook              → Case study: OwlBook — Digital Library
-```
-
-### Alternating Band Pattern — MANDATORY
-
-Every section alternates band color. **This is non-negotiable.**
-
-```
-Section 1: Hero               → bg-band-dark
-Section 2: How I Build        → bg-band-light
-Section 3: Selected Work      → bg-band-dark
-Section 4: Capability Map     → bg-band-light  ← NOT a flat skill tag wall
-Section 5: Trajectory         → bg-band-dark
-Section 6: Now                → bg-band-light
-Section 7: Contact            → bg-band-dark
-```
-
-Case study page interior: starts `bg-band-light`, diagram block can break to `bg-band-dark` band within the page.
-
----
-
-## 4. TYPESCRIPT DATA TYPES
-
-All content lives in `src/data/`. Never hardcode copy in JSX.
-
-```ts
-// src/data/types.ts
-
-export type ProjectStatus = 'production' | 'prototype' | 'in-progress'
-
-export interface Project {
-  slug: string
-  functionTag: string         // e.g. "DUAL-PIPELINE ATTENDANCE SYSTEM" — uppercase
-  title: string
-  subtitle: string            // role + context
-  status: ProjectStatus
-  stack: string[]
-  repoUrl?: string
-  // Case study fields — all required for shipped projects
-  problem: string             // the actual engineering problem, not a buzzword
-  constraints: string         // what was fixed/given that couldn't be changed
-  decision: string            // what was built and why
-  rejectedPath: string        // what was considered and explicitly not chosen
-  outcome: string             // qualitative only — never invent a metric
-  reflection: string          // what would be changed now
-}
-
-export interface TimelineEvent {
-  date: string                // e.g. "Jan 2025"
-  label: string
-  org: string
-  type: 'internship' | 'competition' | 'exam' | 'education'
-}
-
-export interface CapabilityGroup {
-  tier: 'confident' | 'building' | 'exploring'
-  label: string               // display label
-  items: string[]
-}
-
-export interface NowItem {
-  project: string
-  description: string
-  deadline?: string
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 ```
 
 ---
 
-## 5. CONTENT DATA
+## 5. Project Structure (unchanged dari v1)
 
-This is the canonical content. Use verbatim. Do not rephrase or add to it.
-
-```ts
-// src/data/projects.ts
-export const projects: Project[] = [
-  {
-    slug: 'rfid-attendance',
-    functionTag: 'DUAL-PIPELINE ATTENDANCE SYSTEM',
-    title: 'RFID Attendance System',
-    subtitle: 'Backend Developer · HummaTech Indonesia',
-    status: 'production',
-    stack: ['Laravel', 'PHP', 'MySQL', 'Python', 'Postman'],
-    repoUrl: undefined, // private repo
-
-    problem: 'A school needed to track gate entry and per-lesson attendance separately. A single pipeline could not reliably handle both — the entry timestamp and the teacher-verified attendance had different authorities, different triggers, and different failure modes.',
-    constraints: 'Production deployment to an active school environment. The gate RFID hardware was fixed and non-negotiable. The system had to stay up during the school day.',
-    decision: 'Dual-pipeline architecture: one pipeline exclusively for RFID gate entry (attendance_rfids table), one for teacher-managed per-lesson cross-check (attendances table). Cross-check is the sole source of truth for final attendance status. Flags computed as JOIN outputs, not stored state. Python/openpyxl tooling for the Excel import workflow that previously required manual re-entry.',
-    rejectedPath: 'A single unified pipeline that attempted to reconcile gate entry and teacher records in real time. Rejected because the two data sources have different latencies, different error rates, and different correction authorities — forcing them into one flow would have required complex conflict resolution logic that would be brittle in production.',
-    outcome: 'Deployed to production at the school. The Python tooling substantially reduced the manual effort required for Excel import — the workflow that previously required manual re-entry was automated. The dual-pipeline design remained stable through the internship period.',
-    reflection: 'I would add an explicit reconciliation audit log — a record of cases where gate entry and teacher cross-check disagreed, and how they were resolved. That data would surface patterns (habitual late entries, specific classrooms with unreliable reads) that the current design discards.',
-  },
-  {
-    slug: 'rapor-ai',
-    functionTag: 'VISION-LANGUAGE REPORT SUMMARISER',
-    title: 'Rapor AI',
-    subtitle: 'Solo Developer · Google JuaraVibeCoding 2026',
-    status: 'prototype',
-    stack: ['Node.js', 'Express', 'Gemini Vision API'],
-    repoUrl: 'https://github.com/kaz-hero123/rapor-ai',
-
-    problem: 'Indonesian school report cards (rapor) contain dense structured data. Students and parents need different things from the same document — a student needs to understand what to improve; a parent needs a clear status signal without decoding table rows.',
-    constraints: 'Solo, time-boxed to a competition. The report card format varies across schools — the solution had to work from a photo, not a structured data export.',
-    decision: 'A single vision-language model call (Gemini Vision API) that accepts a report card photo and returns two distinct summaries in one response: a student-facing summary focused on actionable improvement areas, and a parent-facing summary focused on overall status and notable results.',
-    rejectedPath: 'Two separate API calls with different prompts. Rejected for cost and latency — a single well-structured prompt with explicit output schema is cheaper and faster, and the model has full context for both summaries in one pass.',
-    outcome: 'Prototype produces two meaningfully different summaries from the same report card image. The student summary and parent summary have different registers and different information emphasis. Submitted and completed for Google JuaraVibeCoding 2026.',
-    reflection: 'The prompt is doing a lot of work that should probably be schema-enforced — structured output (JSON mode) would make the two summaries more reliably distinct and easier to render. The current implementation parses freeform text, which is fragile.',
-  },
-  {
-    slug: 'owlbook',
-    functionTag: 'LIBRARY LIFECYCLE STATE MACHINE',
-    title: 'OwlBook — Digital Library',
-    subtitle: 'Solo Developer · Final Competency Exam (UKK)',
-    status: 'production',
-    stack: ['Laravel', 'Tailwind CSS', 'DomPDF', 'MySQL'],
-    repoUrl: undefined,
-
-    problem: 'Manual library management at a school caused stock errors (books marked available when borrowed) and untracked fines (no systematic record of late returns). Reporting was done manually in spreadsheets.',
-    constraints: 'Solo exam project with a fixed deadline. The schema had to support RBAC across at least three roles (admin, librarian, student). PDF reporting was a hard requirement.',
-    decision: 'Full borrowing lifecycle modelled as a state machine: available → borrowed → returned (on-time) / returned (late). Fines computed from state transition timestamps, not stored. RBAC across a 7-table schema using Laravel middleware. Automated PDF reporting via DomPDF triggered from the admin panel.',
-    rejectedPath: 'Storing fine amounts as a column that gets updated on return. Rejected because it creates an audit gap — if the fine is updated after the fact, there is no record of the original due date or when the calculation was applied. Deriving fines from timestamps keeps the source of truth in the transition record.',
-    outcome: 'Completed and passed the UKK final exam. Full borrowing lifecycle functional. PDF reports generating correctly. RBAC working across admin, librarian, and student roles.',
-    reflection: 'The state machine logic lives in the controller, which made it hard to test in isolation. I would extract it to a dedicated BorrowingLifecycle service class if rebuilding — that is the one place where a service layer would have been justified.',
-  },
-]
+```
+src/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── components/
+│   ├── ui/
+│   │   ├── Button.tsx
+│   │   ├── Badge.tsx
+│   │   ├── Tag.tsx
+│   │   ├── ProjectCard.tsx
+│   │   ├── SectionLabel.tsx
+│   │   └── index.ts
+│   ├── sections/
+│   │   ├── Hero.tsx
+│   │   ├── Stats.tsx        ← BARU di v2
+│   │   ├── About.tsx
+│   │   ├── Stack.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Achievements.tsx
+│   │   └── Contact.tsx
+│   └── layout/
+│       ├── Navbar.tsx
+│       ├── Footer.tsx
+│       └── SectionWrapper.tsx
+├── lib/
+│   └── utils.ts
+├── data/
+│   ├── projects.ts
+│   ├── stack.ts
+│   ├── experience.ts
+│   └── achievements.ts
+└── types/
+    └── index.ts
 ```
 
-```ts
-// src/data/timeline.ts
-export const timelineEvents: TimelineEvent[] = [
-  { date: 'Early 2025', label: 'Backend Developer Intern', org: 'HummaTech Indonesia', type: 'internship' },
-  { date: 'Jun 2025',   label: 'Final Competency Exam (UKK) — OwlBook', org: 'SMK RPL/PPLG', type: 'exam' },
-  { date: 'Jun 2026',   label: 'Google JuaraVibeCoding 2026 — Rapor AI', org: 'Google', type: 'competition' },
-  { date: 'Jul 2026',   label: 'IT Fest 2026 — Jelajah Madura', org: 'Team project', type: 'competition' },
-  { date: 'Aug 2026',   label: 'D4 Software Engineering — Semester 1', org: 'PENS Surabaya', type: 'education' },
-]
+Tidak ada folder `services/` — section itu di-drop, Stack + Projects yang carry beban itu.
+
+---
+
+## 6. Section Map & Layout
+
+```
+┌─────────────────────────────────────────────────────┐
+│  NAVBAR    — sticky. Mobile hamburger WAJIB ada      │
+│              (bug v1: overflow horizontal di mobile) │
+├─────────────────────────────────────────────────────┤
+│  HERO      — bg paper. Nama besar, role mono,        │
+│              status indicator (blink, sage/sageDeep) │
+│              Foto: BLOCKED — placeholder generic      │
+│              lucide icon (BUKAN inisial "H"), muncul  │
+│              cuma sekali di sini, bukan dobel di About│
+├─────────────────────────────────────────────────────┤
+│  STATS     — bg forest. BARU di v2. Angka besar,     │
+│  (BARU)      bold: "1 Internship · 3 Production      │
+│              Systems · 2+ Years" — data yang udah ada,│
+│              dipresentasikan prominent (bukan kecil   │
+│              tersembunyi di About kayak v1)           │
+├─────────────────────────────────────────────────────┤
+│  ABOUT     — bg paper. Text-only/single-column        │
+│              sampai foto ready — JANGAN duplikasi     │
+│              placeholder yang sama dari Hero          │
+├─────────────────────────────────────────────────────┤
+│  STACK     — bg panel. Isi gak berubah dari v1        │
+├─────────────────────────────────────────────────────┤
+│  PROJECTS  — bg paper. ProjectCard format TIDAK       │
+│              BERUBAH — ini elemen yang udah bagus     │
+├─────────────────────────────────────────────────────┤
+│  EXPERIENCE — bg panel                                │
+├─────────────────────────────────────────────────────┤
+│  ACHIEVEMENTS — bg paper                              │
+├─────────────────────────────────────────────────────┤
+│  CONTACT   — bg forest. Bookend sama Stats band.      │
+│              3 link cards                              │
+├─────────────────────────────────────────────────────┤
+│  FOOTER    — minimal                                  │
+└─────────────────────────────────────────────────────┘
 ```
 
-```ts
-// src/data/capabilities.ts
-export const capabilities: CapabilityGroup[] = [
-  {
-    tier: 'confident',
-    label: 'Confident',
-    items: ['Laravel', 'PHP', 'MySQL', 'REST API design', 'RBAC', 'Python scripting'],
-  },
-  {
-    tier: 'building',
-    label: 'Building',
-    items: ['Node.js services', 'Vision model integration', 'Express'],
-  },
-  {
-    tier: 'exploring',
-    label: 'Exploring',
-    items: ['Livewire / Alpine.js', 'Frontend systems', 'Full-stack architecture'],
-  },
-]
+**Rhythm rationale:** 3 dark band (Stats, Contact) di antara 6 light section — sesuai rekomendasi critique "minimal 2 section beda background", bukan alternating tiap section (yang malah kacau).
+
+**Section "Services/Capabilities" — DI-DROP.** Evidence-linked capability cards sempat dipertimbangkan tapi diputuskan redundant sama Projects section. Stack + Projects yang carry positioning "bisa apa".
+
+**Yang SENGAJA tidak diambil dari referensi Olivia:** floating decorative badge ("Hello There!" tag, role badge mengambang). Critique gak pernah merekomendasikan ini — risikonya structural kalau diambil bisa keliatan terlalu mirip template asalnya. Yang diambil cuma: alternating bg, stats prominence, foto-driven hero.
+
+---
+
+## 7. The Signature Element (unchanged konsepnya, token diganti)
+
+```tsx
+<p className="font-mono text-sm text-sageDeep flex items-center gap-2">
+  <span className="text-dust">›</span>
+  available for internship
+  <span className="animate-blink text-sageDeep">■</span>
+</p>
 ```
 
-```ts
-// src/data/now.ts
-export const nowItems: NowItem[] = [
-  {
-    project: 'Jelajah Madura',
-    description: 'Laravel tourism platform for IT Fest 2026. Backend developer and PM on a team of three.',
-    deadline: 'Aug 5, 2026',
-  },
-  {
-    project: 'PENS Surabaya',
-    description: 'Starting D4 Software Engineering in August 2026.',
-    deadline: 'Aug 2026',
-  },
-  {
-    project: 'UiVault',
-    description: 'Personal UI moodboard tool built in Laravel/Livewire. Two-person project, ongoing.',
-  },
-]
-```
+Status indicator blinking cursor dipertahankan — ini elemen yang udah di-approve sejak v1 dan gak pernah dikritik. Cuma token yang berubah: `mint` → `sageDeep` (karena elemen ini ada di Hero, bg `paper` — pakai varian light-context).
+
+---
+
+## 8. Component Patterns
+
+### 8.1 cn() Utility — unchanged
 
 ```ts
-// src/data/hero.ts
-export const hero = {
-  // Display Mono headline — a thesis statement, not "Hi I'm X"
-  headline: 'I build systems\nthat hold when the\nedge cases hit.',
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-  // One factual proof line
-  proof: '3 systems shipped to production — 1 more in progress.',
-
-  // Two text links (NOT button-shaped CTAs)
-  primaryLink: { label: 'View case studies', href: '#selected-work' },
-  secondaryLink: { label: 'Email me', href: 'mailto:hilmannidal@gmail.com' },
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
 ```
 
----
+### 8.2 SectionLabel — BARU: prop `tone` untuk dual-context
 
-## 6. SECTION SPECS
+```tsx
+interface SectionLabelProps {
+  children: React.ReactNode;
+  tone?: 'light' | 'dark';
+}
 
-### Section 1: Hero (dark band)
+export function SectionLabel({ children, tone = 'light' }: SectionLabelProps) {
+  return (
+    <p className={cn(
+      'font-mono text-xs uppercase tracking-widest mb-3',
+      tone === 'light' ? 'text-dust' : 'text-line',
+    )}>
+      {children}
+    </p>
+  );
+}
 
-```
-Layout: asymmetric — text left (60%), photo treatment right (40%)
-Photo: color-overlay duotone using accent-dark (#B8862E) — NOT a centered neutral headshot
-Headline: hero.headline using font-mono text-display font-bold text-text-primary-dark
-          Render with whitespace-pre-line to preserve the line breaks
-Proof line: hero.proof using font-mono text-eyebrow uppercase text-muted-dark
-Links: plain text links, not buttons — underline draws left-to-right in accent-dark on hover (~150ms)
-
-EXPLICITLY FORBIDDEN in this section:
-- No blinking cursor
-- No "available for internship" badge
-- No button-shaped CTAs (rounded pill buttons = forbidden)
-- No stats counter
-- No marquee
-```
-
-### Section 2: How I Build (light band)
-
-```
-Content: 2 short paragraphs, Plex Sans body text, text-text-primary-light
-Opening line: rendered in font-serif text-editorial — this is the ONLY place serif is used
-No bullet points. No "passionate about" language. No "I love working with" constructions.
-
-Suggested opening (can be edited for voice, but preserve the register):
-SERIF LINE: "Backend engineering, for me, is mostly about what happens after you ship."
-BODY: "At HummaTech, I learned what it means to build something schools depend on daily.
-       That experience shaped how I think about architecture: not 'what's the simplest
-       thing that could work' but 'what's the simplest thing that stays maintainable
-       when someone else touches it at 2am.'"
-BODY: "I hold a backend developer and project manager role on team projects — not
-       because I had to, but because the systems thinking that makes good backend work
-       also makes good coordination. The same instinct that tells you to separate
-       concerns in code tells you to separate concerns in a team."
+// Usage di section light:  <SectionLabel>Projects</SectionLabel>
+// Usage di section forest: <SectionLabel tone="dark">Snapshot</SectionLabel>
 ```
 
-### Section 3: Selected Work (dark band)
+Penambahan prop ini perlu karena v1 gak pernah punya dua background context. Default `'light'` — non-breaking buat section yang gak butuh dark variant.
 
-```
-Layout: vertical stack of case study entries — NOT a card grid
-Each entry has:
-  - functionTag (font-mono text-eyebrow uppercase text-muted-dark)
-  - title (font-mono text-display font-bold text-text-primary-dark — smaller than hero, ~32-40px)
-  - status badge (font-mono text-eyebrow uppercase: "PRODUCTION" / "PROTOTYPE" / "IN PROGRESS")
-  - 1-sentence problem statement (font-sans text-muted-dark)
-  - stack tags (font-mono text-eyebrow, NOT pill badges — plain text separated by · )
-  - "Read case study →" text link in accent-dark
+### 8.3 Button
 
-DO NOT number the entries (01, 02, 03). They are parallel, not sequential.
-DO NOT include Jelajah Madura or UiVault here.
-
-Entries: projects array, status !== 'in-progress' only (so: rfid-attendance, rapor-ai, owlbook)
-```
-
-### Section 4: Capability Map (light band)
-
-```
-Layout: three horizontal groups — NOT a flat skill logo/tag wall
-Each group header: tier label in font-mono text-eyebrow uppercase
-Tier labels: "Confident" / "Building" / "Exploring"
-Items within each group: plain list, font-sans text-body text-text-primary-light
-
-The three groups must be visually distinct from each other — use spacing, not color,
-to distinguish them. No progress bars, no skill level percentages, no pie charts.
-Source: capabilities array from src/data/capabilities.ts
+```tsx
+const variantStyles: Record<Variant, string> = {
+  primary: cn(
+    'bg-ember text-ink font-body font-medium',
+    'hover:bg-ember/90',
+    'focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2',
+    'focus-visible:ring-offset-paper',
+  ),
+  ghost: cn(
+    'bg-transparent text-ink border border-line font-body',
+    'hover:border-ember hover:text-ember',
+    'focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2',
+    'focus-visible:ring-offset-paper',
+  ),
+};
 ```
 
-### Section 5: Trajectory (dark band)
+Struktur lain (`forwardRef`, `min-h-[48px]`, props interface) sama persis dengan v1.
 
-```
-Layout: vertical timeline, left-anchored
-Markers: diamond (◆) or tick (—) in accent-dark, with date label in font-mono text-eyebrow
-Date label: text-muted-dark uppercase
-Event label: font-sans text-body text-text-primary-dark font-medium
-Org label: font-sans text-eyebrow text-muted-dark
+**Catatan WCAG:** `text-ink` (bukan `text-paper`) di primary — paper-on-ember cuma kontras 2.35. `ring-ink` (bukan `ring-ember`) — ember-vs-paper sebagai ring cuma 2.35, gagal syarat non-text minimum 3.0.
 
-Source: timelineEvents array — render in chronological order (earliest first)
-This is the ONE place numbered/dated ordering is justified — it's a real sequence.
-```
+### 8.4 Tag
 
-### Section 6: Now (light band)
+```tsx
+type TagColor = 'gold' | 'sage' | 'default';
 
-```
-Intro line: "What's actively in progress right now."
-Each item:
-  - Project name: font-mono text-eyebrow uppercase text-accent-light
-  - Description: font-sans text-body text-text-primary-light
-  - Deadline (if present): font-mono text-eyebrow text-muted-light
+interface TagProps {
+  children: React.ReactNode;
+  color?: TagColor;
+}
 
-Source: nowItems array from src/data/now.ts
-This is where in-progress work lives. Never move Jelajah Madura or UiVault to Selected Work.
-```
+const colorStyles: Record<TagColor, string> = {
+  gold:    'bg-gold/10 text-goldDeep border-gold/20',
+  sage:    'bg-sage/10 text-sageDeep border-sage/20',
+  default: 'bg-panel   text-dust     border-line',
+};
 
-### Section 7: Contact (dark band)
-
-```
-Primary action: email link — hilmannidal@gmail.com
-  Rendered as large text link in accent-dark, font-mono text-display
-  NOT an <input> form. NOT a contact form. Just the link.
-
-Secondary links (text only, NOT icon buttons):
-  - GitHub: github.com/kaz-hero123
-  - LinkedIn: linkedin.com/in/hilman-nidal
-
-Layout: treat this section as its own designed moment — not a footer afterthought.
-Asymmetric: primary email dominates the left; secondary links sit quietly right or below.
-
-FORBIDDEN here:
-- Three equal-weight icon buttons (Email / GitHub / LinkedIn as visual peers)
-- A form with name/message/subject fields
-- "Let's work together" as the heading (overused)
+export function Tag({ children, color = 'default' }: TagProps) {
+  return (
+    <span className={cn(
+      'font-mono text-xs px-2.5 py-1 rounded border inline-flex items-center',
+      colorStyles[color],
+    )}>
+      {children}
+    </span>
+  );
+}
 ```
 
----
+**Perubahan dari v1:** opsi warna `lavender`/`coral` DIHAPUS dari union type. `coral`/`ember` gak pernah valid sebagai text Tag (gagal kontras + melanggar rule "ember cuma CTA/headline/hover"). Drop di level TypeScript = gak bisa ke-misuse.
 
-## 7. CASE STUDY PAGE SPEC (`/work/[slug]`)
+### 8.5 Badge
 
-Each case study page follows this exact structure. No exceptions.
+```tsx
+type BadgeVariant = 'available' | 'building' | 'default';
 
-```
-1. CONTEXT      → functionTag + title + subtitle + status + stack
-2. CONSTRAINTS  → project.constraints — what was fixed/given
-3. DECISION     → project.decision — what was built and why
-4. DIAGRAM      → Architecture diagram (see Section 8 below) — this is the page's hero element
-5. REJECTED PATH → project.rejectedPath — what was considered and not chosen
-6. OUTCOME      → project.outcome — qualitative only. No invented metrics.
-7. REFLECTION   → project.reflection — what would be changed now
+const variantStyles: Record<BadgeVariant, string> = {
+  available: 'bg-sage/10 text-sageDeep border-sage/20',
+  building:  'bg-gold/10 text-goldDeep border-gold/20',
+  default:   'bg-panel   text-dust     border-line',
+};
 
-Band pattern within page:
-  - Sections 1–3: bg-band-light
-  - Section 4 (diagram): bg-band-dark — this is the visual break
-  - Sections 5–7: bg-band-light
-```
-
----
-
-## 8. SIGNATURE ELEMENT — ARCHITECTURE DIAGRAMS
-
-One diagram per case study. This is the memorable element. Everything else is quiet.
-
-**Visual language (apply consistently across all three):**
-- Stroke weight: ~1.5px
-- Node shapes: rectangles with 2px border-radius (not fully rounded, not sharp corners)
-- Active path highlighted in `accent-dark` (#B8862E)
-- Inactive / context nodes in `border-dark` (#6B7569)
-- Labels: IBM Plex Mono, 11px, `text-primary-dark`
-- Background: `band-dark` (#10231B)
-- Connectors: straight lines with small arrowheads, no bezier curves
-
-**Per-project diagram spec:**
-
-```
-RFID Attendance System:
-  Two parallel vertical pipelines side by side.
-  Left: RFID gate scan → attendance_rfids table → (read-only)
-  Right: Teacher records → attendances table → source of truth
-  JOIN arrow connecting right pipeline output to "Final Status" node
-  Label at top of each column: "GATE ENTRY PIPELINE" / "CROSS-CHECK PIPELINE"
-  Active path (accent): the cross-check pipeline, since it's sole source of truth
-
-Rapor AI:
-  Linear left-to-right: Photo input → Gemini Vision API → Single structured prompt →
-  Parallel outputs: [Student Summary] / [Parent Summary]
-  Active path (accent): the single prompt → dual output split
-
-OwlBook:
-  State machine: horizontal flow with state nodes
-  available → borrowed → [returned on-time] (branch up) / [returned late → fine computed] (branch down)
-  Each state transition: labeled with the action that triggers it
-  Active path (accent): the late return path (most non-trivial case)
+export function Badge({ children, variant = 'default', dot = false }: BadgeProps) {
+  return (
+    <span className={cn(
+      'inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-xs border',
+      variantStyles[variant],
+    )}>
+      {dot && (
+        <span
+          className={cn(
+            'w-1.5 h-1.5 rounded-full',
+            variant === 'available' && 'bg-sage animate-pulse',
+            variant === 'building'  && 'bg-gold animate-pulse',
+            variant === 'default'   && 'bg-dust',
+          )}
+          aria-hidden="true"
+        />
+      )}
+      {children}
+    </span>
+  );
+}
 ```
 
-**Scroll trigger:** Diagram strokes draw in when ~40% of the diagram is in the viewport. This is the ONLY scroll animation on the site.
+**Perbaikan kontradiksi v1:** dokumen v1 sendiri gak konsisten — §6 bilang "currently building badge (**mint**)", tapi kode component aslinya pakai `coral`. Di-resolve: `available` → `sage` family (status murni, sesuai definisi awal), `building` → `gold` family (lebih ke label deskriptif daripada status biner, dan `gold` perannya emang "labels"). `ember`/`coral` gak dipakai sama sekali di Badge.
 
-If diagram quality cannot be precise and clean, use a simplified geometric flow rather than a sloppy execution.
+### 8.6 ProjectCard
+
+```tsx
+export function ProjectCard({
+  title, role, problem, outcome,
+  stack, githubUrl, liveUrl, isPrivate, featured,
+}: ProjectCardProps) {
+  return (
+    <article
+      className={cn(
+        'group p-6 md:p-8 rounded-lg border border-line bg-panel',
+        'transition-all duration-200',
+        'hover:border-ember/50 hover:shadow-cardLift',
+        featured && 'border-ember/30',
+      )}
+    >
+      <div className="flex items-start justify-between gap-4 mb-4">
+        <div>
+          <h3 className="font-display text-xl text-ink mb-1">{title}</h3>
+          <p className="font-mono text-xs text-dust">{role}</p>
+        </div>
+        <div className="flex items-center gap-3 shrink-0">
+          {isPrivate && <span className="font-mono text-xs text-dust">private repo</span>}
+          {githubUrl && (
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer"
+               aria-label={`View ${title} on GitHub`}
+               className="text-dust hover:text-ink transition-colors">
+              <Github size={18} strokeWidth={1.5} />
+            </a>
+          )}
+          {liveUrl && (
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer"
+               aria-label={`View ${title} live`}
+               className="text-dust hover:text-ink transition-colors">
+              <ExternalLink size={18} strokeWidth={1.5} />
+            </a>
+          )}
+        </div>
+      </div>
+
+      <p className="font-body text-sm text-dust mb-1 leading-relaxed">
+        <span className="text-ink/80">Problem: </span>{problem}
+      </p>
+      <p className="font-body text-sm text-dust mb-5 leading-relaxed">
+        <span className="text-ink/80">Outcome: </span>{outcome}
+      </p>
+
+      <div className="flex flex-wrap gap-2">
+        {stack.map((tech) => <Tag key={tech} color="gold">{tech}</Tag>)}
+      </div>
+    </article>
+  );
+}
+```
+
+**Perubahan dari v1:** `hover:shadow-glow` → `hover:shadow-cardLift` (glow gak kerja di light mode). `hover:text-coral` di icon link → `hover:text-ink` (ember gagal kontras sebagai icon foreground). Tag stack pakai `color="gold"` bukan `"lavender"`. Format Problem/Outcome TIDAK BERUBAH — ini elemen terbaik dari v1, jangan disentuh strukturnya.
 
 ---
 
-## 9. MOTION RULES
+## 9. Data Layer
 
-```
-Page load:    Hero headline — single 8px rise + fade, ~250ms, fires once.
-              No per-letter stagger. No cascade of elements flying in.
-
-Scroll:       ONLY the case study diagrams animate on scroll (stroke draw-in at 40% viewport).
-              Nothing else scroll-animates.
-
-Hover:        Text link underlines draw left-to-right in accent color, ~150ms.
-              No scale transforms. No box-shadow blooms.
-
-Forbidden:    Infinite marquee, parallax, scroll-jacking, per-letter stagger,
-              background gradient shifts on scroll, floating elements with continuous animation.
-
-Reduced motion: prefers-reduced-motion: reduce → disable draw-in and rise, use instant opacity fade.
-```
-
-Framer Motion: max **3 `motion.div`** per section. Not more.
+Struktur `Project`/`StackGroup` interface unchanged dari v1. Konten `projects.ts`/`stack.ts` tidak berubah isinya — cuma referensi `Tag color` di contoh dokumentasi yang update ke `"gold"`.
 
 ---
 
-## 10. ENGINEERING PRACTICES
+## 10. Animation Rules (unchanged dari v1)
 
-```ts
-// Required patterns
-import { cn } from '@/lib/utils'         // className merging utility (clsx + twMerge)
-import { forwardRef } from 'react'       // on all form elements
-
-// Naming
-// Components:    PascalCase — ProjectCard, TimelineEvent, CapabilityGroup
-// Interfaces:    [Name]Props — ProjectCardProps, HeroProps
-// Event handlers: handle[Action] — handleEmailClick, handleNavOpen
-// Section IDs:   kebab-case — #selected-work, #capability-map, #contact
-
-// TypeScript
-// strict: true in tsconfig — no `any`, no implicit returns
-```
-
-### Accessibility floor (every interactive element)
-
-- Visible focus ring on all interactive elements (outline: 2px accent color, offset: 2px)
-- Skip-to-content link as first DOM element
-- `min-h-[48px]` touch targets on all clickable elements
-- `aria-hidden="true"` on decorative icons
-- Semantic HTML: `<nav>`, `<main>`, `<section>`, `<article>`, `<time>` — not `<div>` for structure
-- Descriptive `aria-label` on icon-only links
-- `<button>` elements — never `<div onClick>`
+Sama persis dengan v1 — max 3 `motion.div` per section, no parallax, no scroll-jacking, `prefers-reduced-motion` selalu dihandle. **Sengaja tidak menambah** floating-badge decorative motion ala referensi Olivia — itu bukan rekomendasi dari critique, dan menambahnya menaikkan risiko "keliatan kayak clone template".
 
 ---
 
-## 11. BUILD PHASE ORDER
+## 11. Copy & Content Rules (unchanged dari v1)
 
-Build and validate each phase before starting the next. Do not build the whole site in one pass.
-
-```
-Phase 1:  Tailwind config (Section 1 of this spec) + globals.css + font setup
-          Validate: open browser, confirm colors and fonts load correctly
-
-Phase 2:  Layout shell — alternating band structure with section placeholders
-          Validate: 7 colored bands visible, alternating dark/light correctly
-
-Phase 3:  Hero section only — get this right before moving on
-          Validate: asymmetric layout, Mono display type, no forbidden elements
-
-Phase 4:  "How I Build" section
-          Validate: Serif used exactly once (opening line only)
-
-Phase 5:  Selected Work index — 3 entries, no cards, no numbering
-          Validate: functionTags visible, status tags correct, no grid layout
-
-Phase 6:  Case study pages — one at a time, starting with RFID
-          Validate: Context → Constraints → Decision → Diagram → Rejected → Outcome → Reflection
-
-Phase 7:  Capability Map + Trajectory + Now
-          Validate: 3 capability tiers distinct, timeline in chronological order
-
-Phase 8:  Contact section
-          Validate: email is primary, GitHub/LinkedIn are secondary text links only
-
-Phase 9:  Motion — apply ONLY what's in Section 9, nothing extra
-          Validate: reduced-motion respected
-
-Phase 10: Accessibility audit + mobile responsive check
-```
+Aturan sama — no filler phrase, no bullet di About, problem/outcome satu kalimat. Audience tetap job-seeking developer, jadi CTA tetap "View Projects" / "Get in touch", BUKAN "Hire Me" / "View My Portfolio" ala freelance framing.
 
 ---
 
-## 12. WHAT THIS SITE IS NOT
+## 12. Naming Conventions (unchanged dari v1)
 
-This is a backend engineer's portfolio, not a creative agency page. The visual design serves one purpose: demonstrate that Hilman builds systems with genuine engineering judgment. Every element should support that claim or be removed.
+---
 
-The site is not:
-- A showcase of visual design skill
-- A services page
-- A resume in web format
-- A template with Hilman's name in it
+## 13. Accessibility Floor
 
-If any section starts to feel like "look how cool this website is," it has gone wrong.
+| Requirement              | Implementation                                                 |
+|--------------------------|------------------------------------------------------------------|
+| Color contrast — light context | `ink` on `paper`/`panel`: 14.8/15.7 (jauh di atas AA). `dust`: 4.50/4.78 (lolos AA-normal, dikoreksi dari draft awal yang gagal di 3.39). `goldDeep`/`sageDeep`: 4.52/4.79 (lolos, dikoreksi dari `gold`/`sage` mentah yang gagal di 2.03/2.99). |
+| Color contrast — dark context (`forest`) | `paper` text: 12.32. `line` (dual-role muted): 9.36. `ember`/`gold`: 5.24/6.06. `sage`: 4.12 — **lolos cuma di large text**, gagal di teks kecil. |
+| `ember` sebagai foreground | TIDAK PERNAH valid di atas `paper`/`panel` (max ~2.5 di semua skenario: text, ring, border). Cuma valid sebagai background fill, atau foreground di atas `forest`. |
+| Border/divider (`line`) | Kontras vs `paper` cuma 1.32 — di bawah syarat non-text 3.0, TAPI ini konsisten dengan v1 (`border` lama vs `bg` lama juga cuma 1.34). Divider memang dekoratif by design, mengandalkan `shadow-card`/spacing buat boundary, bukan kontras warna sendirian. |
+| Keyboard navigation      | `focus-visible:ring-2 focus-visible:ring-ink` (bukan `ring-ember` — lihat §8.3) |
+| Touch targets            | `min-h-[48px]` — unchanged |
+| Reduced motion           | unchanged, sudah di globals.css |
+| Semantic HTML            | unchanged |
+
+Semua angka di atas dihitung langsung (relative luminance + WCAG formula), bukan estimasi visual.
+
+---
+
+## 14. Absolute Rules (Do / Don't)
+
+### DO (tambahan dari v1)
+- Selalu pakai `goldDeep`/`sageDeep` untuk TEKS di atas `paper`/`panel`. Pakai `gold`/`sage` (non-Deep) cuma untuk background-tint, icon, atau foreground di atas `forest`.
+- Selalu pakai `line` untuk muted-text kalau section-nya `forest` — JANGAN pakai `dust` di situ (gagal kontras).
+
+### DON'T (tambahan dari v1)
+- ❌ Jangan pakai `ember` sebagai text/icon/ring color di atas `paper`/`panel` — apapun konteksnya, ini selalu gagal WCAG.
+- ❌ Jangan pakai varian `*Deep` (goldDeep/sageDeep) di atas `forest` — itu khusus light-context, gagal kontras di dark band.
+- ❌ Jangan duplikasi placeholder foto yang sama di lebih dari satu section.
+- ❌ Jangan tambah floating decorative badge ala referensi tanpa konfirmasi eksplisit — bukan bagian dari struktur yang diadaptasi.
+
+Rules lain (no `#000000`/`#ffffff`, no `any`, no CDN font, dst) — unchanged dari v1.
+
+---
+
+## 15. Scaffold Checklist (Per Component) — unchanged strukturnya
+
+Tambahan satu item: **"Kalau component dipakai di section `forest`, pastikan pakai token dark-context (lihat §2.1 Dual Context Rule), bukan token light-context default."**
+
+---
+
+## 16. Out of Scope
+
+- **Light mode**: ~~Tidak didukung~~ — **ini sudah jadi mode utama di v2.** Baris ini dihapus dari restriction.
+- **Clone 1:1 referensi Olivia Smith**: di luar scope, secara eksplisit. Struktur diadaptasi, palette & copy orisinal — bukan reproduksi visual template.
+- **Multi-language (i18n)**: unchanged, masih di luar scope.
+- **CMS / dynamic content**: unchanged, masih statis di `data/`.
+- **Blog**: unchanged, masih di luar scope v1/v2.
+- **Section "Services/Capabilities"**: dipertimbangkan, di-drop. Stack + Projects yang carry.
+
+---
+
+## Open Items (belum selesai, di luar scope dokumen ini)
+
+- **Foto asli** — blocker buat Hero & About. Placeholder: generic lucide icon (bukan inisial), muncul sekali di Hero saja.
+- **`coding-guide.md` belum diupdate** — Known Blockers Register (§7) perlu entry baru untuk foto, terpisah dari entry `experience.ts`/`achievements.ts` yang sudah ada.
+- **Stats numbers** ("1 Internship · 3 Production Systems · 2+ Years") — diambil dari perbandingan di `design_critique.md`, perlu dikonfirmasi masih akurat sebelum masuk ke `data/`.

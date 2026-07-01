@@ -4,7 +4,6 @@ import { AnimateIn } from '@/components/AnimateIn'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { Tag } from '@/components/ui/Tag'
 
-// Competition & exam milestones — sourced from timeline data content
 const achievements = [
   {
     year: '2026',
@@ -48,12 +47,10 @@ export function Achievements() {
             <AnimateIn key={item.event} delay={i * 0.08}>
               <div className="group flex flex-col sm:flex-row sm:items-start gap-4 p-6 rounded-lg border border-line bg-panel hover:border-ember/40 hover:shadow-cardLift transition-all duration-200">
 
-                {/* Year */}
                 <div className="shrink-0 w-14">
                   <span className="font-mono text-xs text-dust">{item.year}</span>
                 </div>
 
-                {/* Content */}
                 <div className="flex-1 space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-display text-subhead text-ink">

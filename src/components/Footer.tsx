@@ -1,5 +1,3 @@
-// src/components/Footer.tsx
-// PRD §10 — minimal footer, forest bg as continuation of Contact band
 import { capabilities } from '@/data/capabilities'
 
 export function Footer() {
@@ -11,7 +9,6 @@ export function Footer() {
       <div className="max-w-5xl mx-auto px-6 md:px-10 py-10">
         <div className="flex flex-col md:flex-row justify-between gap-8">
 
-          {/* Left — branding */}
           <div className="space-y-2">
             <p className="font-display text-sm font-bold text-paper">
               Hilman Nidal Hamzi
@@ -24,7 +21,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Right — core stack tags (confident tier only, not the full list) */}
           <div className="max-w-xs">
             <p className="font-mono text-[0.6875rem] text-line/50 uppercase tracking-widest mb-3">
               Core stack

@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { User } from 'lucide-react'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 
-// PRD §7 — Signature Element: status indicator with blink cursor
 function StatusIndicator() {
   return (
     <p className="font-mono text-sm text-sageDeep flex items-center gap-2">
@@ -21,7 +20,6 @@ export function Hero() {
       id="hero"
       className="relative bg-paper min-h-[100svh] flex items-center overflow-hidden"
     >
-      {/* Subtle warm radial gradient — light mode version */}
       <div
         className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
         style={{
@@ -33,10 +31,8 @@ export function Hero() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-10 w-full pt-24 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-center">
 
-          {/* Left — text content */}
           <div className="space-y-5 max-w-xl">
 
-            {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -45,7 +41,6 @@ export function Hero() {
               <SectionLabel>Backend Developer</SectionLabel>
             </motion.div>
 
-            {/* Name — display heading */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -55,7 +50,6 @@ export function Hero() {
               Hilman Nidal Hamzi.
             </motion.h1>
 
-            {/* Role — mono label */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -65,7 +59,6 @@ export function Hero() {
               › Backend Developer · Laravel / Full-Stack Engineer
             </motion.p>
 
-            {/* Sub-copy */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -76,7 +69,6 @@ export function Hero() {
               cases hit — and I document every decision I reject along the way.
             </motion.p>
 
-            {/* Status indicator — PRD §7 signature element */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -85,7 +77,6 @@ export function Hero() {
               <StatusIndicator />
             </motion.div>
 
-            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -109,7 +100,6 @@ export function Hero() {
 
           </div>
 
-          {/* Right — photo placeholder (PRD §6: lucide icon, NOT initials "HN", once only) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -120,7 +110,6 @@ export function Hero() {
               className="relative w-44 h-56 rounded-lg border border-line bg-panel flex items-center justify-center shadow-card overflow-hidden"
               aria-label="Photo placeholder — real photo coming soon"
             >
-              {/* Warm tint overlay */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -139,8 +128,6 @@ export function Hero() {
 
         </div>
       </div>
-
-      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

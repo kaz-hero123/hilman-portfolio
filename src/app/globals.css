@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -11,36 +13,54 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 64px;
   }
 
   body {
-    background-color: #F7F3EC;
-    color: #231F1B;
+    background-color: #ffffff;
+    color: #111111;
     font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-serif), Georgia, serif;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
   }
 
   ::selection {
-    background-color: rgba(35, 31, 27, 0.15);
-    color: #231F1B;
+    background-color: rgba(17, 17, 17, 0.12);
+    color: #111111;
   }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar        { width: 6px; }
-  ::-webkit-scrollbar-track  { background: #F7F3EC; }
-  ::-webkit-scrollbar-thumb  { background: #DDD5C7; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #231F1B; }
+  /* Thin editorial scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d4d4d4;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #111111;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -49,7 +69,7 @@
 }
 
 @layer utilities {
-  /* Link underline — draws on hover */
+  /* Animated underline — draws on hover */
   .link-draw {
     position: relative;
     text-decoration: none;
@@ -57,12 +77,12 @@
   .link-draw::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -1px;
     left: 0;
     width: 0;
     height: 1px;
     background-color: currentColor;
-    transition: width 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: width 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .link-draw:hover::after {
     width: 100%;
@@ -70,8 +90,8 @@
 
   /* Focus ring */
   .focus-ring:focus-visible {
-    outline: 2px solid #231F1B;
+    outline: 2px solid #111111;
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 1px;
   }
 }

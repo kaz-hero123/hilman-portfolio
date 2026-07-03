@@ -47,28 +47,32 @@ export function ProjectCard({
             <span className="font-mono text-xs text-dust">private repo</span>
           )}
           {githubUrl && (
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               aria-label={`View ${title} on GitHub`}
               className="text-dust hover:text-ink transition-colors"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                window.open(githubUrl, '_blank', 'noopener,noreferrer')
+              }}
             >
               <ExternalLink size={18} strokeWidth={1.5} />
-            </a>
+            </button>
           )}
           {liveUrl && (
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               aria-label={`View ${title} live`}
               className="text-dust hover:text-ink transition-colors"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                window.open(liveUrl, '_blank', 'noopener,noreferrer')
+              }}
             >
               <ExternalLink size={18} strokeWidth={1.5} />
-            </a>
+            </button>
           )}
         </div>
       </div>

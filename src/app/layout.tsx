@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { spaceGrotesk, inter, jetbrainsMono } from '@/lib/fonts'
+import { playfair, pacifico, inter, jetbrainsMono } from '@/lib/fonts'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import './globals.css'
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${playfair.variable} ${pacifico.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <a

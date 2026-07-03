@@ -5,6 +5,8 @@
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
   html {
@@ -15,20 +17,19 @@
   body {
     background-color: #F7F3EC;
     color: #231F1B;
-    font-family: var(--font-body), sans-serif;
+    font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display), sans-serif;
+    font-family: var(--font-serif), Georgia, serif;
     font-weight: 700;
-    color: #231F1B;
     line-height: 1.1;
   }
 
   ::selection {
-    background-color: rgba(232, 137, 60, 0.25);
+    background-color: rgba(35, 31, 27, 0.15);
     color: #231F1B;
   }
 
@@ -36,7 +37,7 @@
   ::-webkit-scrollbar        { width: 6px; }
   ::-webkit-scrollbar-track  { background: #F7F3EC; }
   ::-webkit-scrollbar-thumb  { background: #DDD5C7; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #E8893C; }
+  ::-webkit-scrollbar-thumb:hover { background: #231F1B; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {

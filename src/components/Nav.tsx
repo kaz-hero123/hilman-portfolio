@@ -2,47 +2,50 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
+import { cn } from '@/lib/utils'
+
+// ─── Data ────────────────────────────────────────────────────────────────────
 
 const navLinks = [
-  { label: 'Work', href: '#projects' },
+  { label: 'Work', href: '#work' },
   { label: 'About', href: '#about' },
 ]
 
 const serviceItems = [
   { label: 'Strategy', href: '#strategy' },
-  { label: 'Design', href: '#design' },
-  { label: 'Development', href: '#development' },
+  { label: 'Design', href: '#craft' },
+  { label: 'Development', href: '#work' },
 ]
+
+// ─── Component ───────────────────────────────────────────────────────────────
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
-  const servicesRef = useRef<HTMLDivElement>(null)
   const [heroHeight, setHeroHeight] = useState(0)
+  const servicesRef = useRef<HTMLDivElement>(null)
 
-  // Track hero section height for color transition
+  // Measure hero for color-flip threshold
   useEffect(() => {
     const hero = document.getElementById('hero')
-    if (hero) {
-      const updateHeight = () => setHeroHeight(hero.offsetHeight)
-      updateHeight()
-      window.addEventListener('resize', updateHeight)
-      return () => window.removeEventListener('resize', updateHeight)
-    }
+    if (!hero) return
+    const update = () => setHeroHeight(hero.offsetHeight)
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
   }, [])
 
+  // Scroll: flip from transparent → white bg once past hero
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > heroHeight - 80)
-    }
+    const onScroll = () => setScrolled(window.scrollY > heroHeight - 80)
     window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll() // initial check
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [heroHeight])
 
+  // Close mobile menu above md breakpoint
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 768) setMenuOpen(false)
@@ -51,83 +54,91 @@ export function Nav() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
+  // Body scroll lock
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [menuOpen])
 
+  // Close services dropdown on outside click
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
+    const handler = (e: MouseEvent) => {
+      if (
+        servicesRef.current &&
+        !servicesRef.current.contains(e.target as Node)
+      ) {
         setServicesOpen(false)
       }
     }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const handleLinkClick = () => {
+  const closeAll = () => {
     setMenuOpen(false)
     setServicesOpen(false)
   }
 
-  // When over hero = white text; when scrolled past = dark text on light bg
-  const overHero = !scrolled
+  const onHero = !scrolled
 
   return (
     <>
+      {/* ── Fixed header ────────────────────────────────────────────────── */}
       <header
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
-            ? 'bg-[#E8E4DE] border-b border-[#D5D0C8]'
-            : 'bg-transparent',
+            ? 'bg-white/95 backdrop-blur-sm border-b border-ash'
+            : 'bg-transparent'
         )}
       >
         <nav
-          className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 h-[60px] flex items-center"
+          className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 h-16 flex items-center"
           aria-label="Main navigation"
         >
-          {/* Left: Nav Links */}
+          {/* ── Left: nav links + services dropdown ──────────────────── */}
           <ul className="hidden md:flex items-center gap-8" role="list">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
+                  onClick={closeAll}
                   className={cn(
-                    'font-body text-[16px] font-normal transition-colors duration-300 focus-ring',
-                    overHero
+                    'font-body text-[15px] font-normal tracking-wide transition-colors duration-200 focus-ring link-draw',
+                    onHero
                       ? 'text-white/90 hover:text-white'
-                      : 'text-ink hover:text-ink/70',
+                      : 'text-ink hover:text-ink/60'
                   )}
-                  onClick={handleLinkClick}
                 >
                   {link.label}
                 </a>
               </li>
             ))}
 
-            {/* Services Dropdown */}
+            {/* Services dropdown */}
             <li>
               <div ref={servicesRef} className="relative">
                 <button
                   type="button"
                   onClick={() => setServicesOpen((v) => !v)}
-                  className={cn(
-                    'flex items-center gap-1.5 font-body text-[16px] font-normal transition-colors duration-300 focus-ring',
-                    overHero
-                      ? 'text-white/90 hover:text-white'
-                      : 'text-ink hover:text-ink/70',
-                  )}
                   aria-expanded={servicesOpen}
+                  aria-haspopup="true"
+                  className={cn(
+                    'flex items-center gap-1.5 font-body text-[15px] font-normal tracking-wide transition-colors duration-200 focus-ring',
+                    onHero
+                      ? 'text-white/90 hover:text-white'
+                      : 'text-ink hover:text-ink/60'
+                  )}
                 >
                   Services
                   <ChevronDown
-                    size={14}
-                    strokeWidth={2}
+                    size={13}
+                    strokeWidth={1.75}
                     className={cn(
-                      'transition-transform duration-200 mt-0.5',
-                      servicesOpen && 'rotate-180',
+                      'transition-transform duration-200 mt-[1px]',
+                      servicesOpen && 'rotate-180'
                     )}
                   />
                 </button>
@@ -135,19 +146,19 @@ export function Nav() {
                 <AnimatePresence>
                   {servicesOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: -4 }}
+                      initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
+                      exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.15, ease: 'easeOut' }}
-                      className="absolute top-full left-0 mt-2 bg-white border border-ink min-w-[180px]"
+                      className="absolute top-full left-0 mt-2 bg-white border border-ink min-w-[185px]"
                     >
-                      <ul className="py-3" role="list">
+                      <ul className="py-2.5" role="list">
                         {serviceItems.map((item) => (
                           <li key={item.href}>
                             <a
                               href={item.href}
-                              className="block px-5 py-2 font-body text-[15px] text-ink hover:text-ink/60 transition-colors"
-                              onClick={handleLinkClick}
+                              onClick={closeAll}
+                              className="block px-5 py-2.5 font-body text-[14px] text-ink hover:text-ink/50 transition-colors duration-150"
                             >
                               {item.label}
                             </a>
@@ -161,21 +172,21 @@ export function Nav() {
             </li>
           </ul>
 
-          {/* Center: Logo — script font, absolutely positioned */}
+          {/* ── Center: Logo — script font, absolutely centred ────────── */}
           <a
             href="#hero"
+            onClick={closeAll}
             className={cn(
-              'absolute left-1/2 -translate-x-1/2 font-script text-[28px] transition-colors duration-300 focus-ring',
-              overHero
-                ? 'text-white hover:text-white/80'
-                : 'text-ink hover:text-ink/70',
+              'absolute left-1/2 -translate-x-1/2 font-script text-[26px] leading-none transition-colors duration-200 focus-ring',
+              onHero
+                ? 'text-white hover:text-white/75'
+                : 'text-ink hover:text-ink/60'
             )}
-            onClick={handleLinkClick}
           >
             Logo
           </a>
 
-          {/* Right: Menu button — solid black rectangle */}
+          {/* ── Right: Menu button — solid black pill ─────────────────── */}
           <div className="ml-auto">
             <button
               type="button"
@@ -183,7 +194,7 @@ export function Nav() {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen((v) => !v)}
-              className="bg-ink text-white font-body text-[14px] font-medium px-6 py-2.5 hover:bg-ink/85 transition-colors duration-200 focus-ring"
+              className="font-body text-[13px] font-medium tracking-wide px-5 py-2 bg-ink text-white hover:bg-ink/80 transition-colors duration-200 focus-ring"
             >
               {menuOpen ? 'Close' : 'Menu'}
             </button>
@@ -191,7 +202,7 @@ export function Nav() {
         </nav>
       </header>
 
-      {/* Full-screen Menu Overlay */}
+      {/* ── Full-screen mobile / menu overlay ─────────────────────────── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -202,35 +213,37 @@ export function Nav() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40"
           >
+            {/* Backdrop */}
             <div
-              className="absolute inset-0 bg-ink/10 backdrop-blur-sm"
-              onClick={handleLinkClick}
+              className="absolute inset-0 bg-black/10 backdrop-blur-[2px]"
+              onClick={closeAll}
               aria-hidden="true"
             />
 
+            {/* Drawer */}
             <motion.div
-              initial={{ y: -16, opacity: 0 }}
+              initial={{ y: -12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -16, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="absolute top-[60px] right-0 left-0 bg-paper border-b border-line"
+              exit={{ y: -12, opacity: 0 }}
+              transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="absolute top-16 left-0 right-0 bg-white border-b border-ash"
             >
-              <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16">
-                <ul className="py-6 space-y-1" role="list">
+              <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
+                <ul className="py-6 space-y-0" role="list">
                   {navLinks.map((link, i) => (
                     <motion.li
                       key={link.href}
-                      initial={{ opacity: 0, x: -12 }}
+                      initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 * i, duration: 0.25 }}
+                      transition={{ delay: 0.04 * i, duration: 0.2 }}
                     >
                       <a
                         href={link.href}
-                        className="block font-body text-[18px] text-ink hover:text-dust py-3 border-b border-line/40 transition-colors focus-ring"
-                        onClick={handleLinkClick}
+                        onClick={closeAll}
+                        className="block font-body text-[17px] text-ink hover:text-ink/50 py-3.5 border-b border-ash transition-colors focus-ring"
                       >
                         {link.label}
                       </a>
@@ -238,20 +251,20 @@ export function Nav() {
                   ))}
 
                   <motion.li
-                    initial={{ opacity: 0, x: -12 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1, duration: 0.25 }}
+                    transition={{ delay: 0.08, duration: 0.2 }}
                   >
-                    <span className="block font-body text-[18px] text-ink py-3 border-b border-line/40">
+                    <span className="block font-body text-[17px] text-ink py-3.5 border-b border-ash">
                       Services
                     </span>
-                    <ul className="pl-4 py-2 space-y-0.5">
+                    <ul className="pl-5 pb-1 pt-1 space-y-0">
                       {serviceItems.map((item) => (
                         <li key={item.href}>
                           <a
                             href={item.href}
-                            className="block font-body text-[15px] text-dust hover:text-ink py-2 transition-colors focus-ring"
-                            onClick={handleLinkClick}
+                            onClick={closeAll}
+                            className="block font-body text-[14px] text-dim hover:text-ink py-2 transition-colors focus-ring"
                           >
                             {item.label}
                           </a>
@@ -261,14 +274,15 @@ export function Nav() {
                   </motion.li>
 
                   <motion.li
-                    initial={{ opacity: 0, x: -12 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.15, duration: 0.25 }}
+                    transition={{ delay: 0.12, duration: 0.2 }}
                     className="pt-4"
                   >
                     <a
                       href="mailto:hilmannidal@gmail.com"
-                      className="inline-block font-body text-[14px] font-medium text-white bg-ink px-6 py-3 hover:bg-ink/85 transition-colors focus-ring"
+                      onClick={closeAll}
+                      className="inline-block font-body text-[13px] font-medium text-white bg-ink px-6 py-2.5 hover:bg-ink/80 transition-colors focus-ring"
                     >
                       Hire me
                     </a>

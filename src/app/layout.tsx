@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     'Hilman Nidal Hamzi',
   ],
   authors: [{ name: 'Hilman Nidal Hamzi' }],
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'Hilman Nidal Hamzi — Designer & Developer',
     description:

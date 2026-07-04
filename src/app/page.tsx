@@ -4,6 +4,8 @@ import { Craft } from '@/components/sections/Craft'
 import { History } from '@/components/sections/History'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { LogoCloud } from '@/components/sections/LogoCloud'
+import { CTA } from '@/components/sections/CTA'
+import { Footer } from '@/components/sections/Footer'
 
 export default function Home() {
   return (
@@ -14,7 +16,8 @@ export default function Home() {
       <History />
       <Testimonials />
       <LogoCloud />
-      {/* Additional sections will be added after approval */}
+      <CTA />
+      <Footer />
     </main>
   )
 }

@@ -61,10 +61,10 @@ export function Hero() {
           className="mb-8 md:mb-10"
         >
           {[
-            'I build things',
-            'that work and',
-            'write them',
-            'clean',
+            'Backend engineer',
+            'who ships systems',
+            'and manages the',
+            'process too',
           ].map((line, i) => (
             <motion.span
               key={i}
@@ -113,8 +113,8 @@ export function Hero() {
           className="flex justify-end pb-10 md:pb-16"
         >
           <p className="font-body text-[15px] md:text-[16px] leading-[1.65] text-white/75 max-w-[440px] text-right">
-            A designer and developer focused on editorial craft and
-            structural clarity. This is where the grid meets the sentence.
+            Laravel backend developer and concurrent project manager.
+            I build the architecture, then make sure the team ships it.
           </p>
         </motion.div>
       </div>

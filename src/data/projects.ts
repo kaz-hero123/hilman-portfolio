@@ -11,38 +11,30 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'archipelago-review',
-    title: 'The archipelago review',
-    description: 'A digital journal with a strict grid and no apologies.',
-    tags: ['Editorial design', 'Web development', 'Content strategy'],
-    image: '/projects/archipelago.jpg',
-    href: '#',
-    col: 0,
-  },
-  {
-    slug: 'atlas-machinery',
-    title: 'Atlas machinery co.',
-    description: 'Industrial brand identity built from the ground up.',
-    tags: ['Brand identity', 'Art direction', 'E-commerce'],
-    image: '/projects/atlas.jpg',
-    href: '#',
-    col: 0,
-  },
-  {
-    slug: 'rfid-attendance',
-    title: 'RFID Attendance System',
+    slug: 'jelajah-madura',
+    title: 'Jelajah Madura',
     description:
-      'Dual-pipeline attendance architecture deployed to a live school environment.',
-    tags: ['Laravel', 'PHP', 'MySQL', 'Python'],
+      'Laravel tourism platform with three-role system (wisatawan/kontributor/admin), content moderation flow, and slug-based regency routing. Built for IT Fest 2026. In active development.',
+    tags: ['Laravel', 'PHP', 'MySQL'],
     image: undefined,
     href: '#',
-    col: 1,
+    col: 0,
+  },
+  {
+    slug: 'uivault',
+    title: 'UiVault',
+    description:
+      'Laravel/Livewire moodboard manager with a custom ColorExtractor service using stride-based grid sampling for palette extraction.',
+    tags: ['Laravel', 'Livewire', 'PHP'],
+    image: undefined,
+    href: '#',
+    col: 0,
   },
   {
     slug: 'rapor-ai',
     title: 'Rapor AI',
     description:
-      'Vision-language model that produces two distinct summaries from a single report card photo.',
+      'Dual-persona school report card analyzer. Gemini Vision API reads a single photo and generates distinct summaries for students and parents. Built for Google JuaraVibeCoding 2026.',
     tags: ['Node.js', 'Express', 'Gemini Vision API'],
     image: undefined,
     href: '#',
@@ -50,20 +42,20 @@ export const projects: Project[] = [
   },
   {
     slug: 'owlbook',
-    title: 'OwlBook — Digital Library',
+    title: 'OwlBook',
     description:
-      'Full borrowing lifecycle modelled as a state machine with RBAC and PDF reporting.',
+      'Digital library with role-based access, borrowing lifecycle state machine, fine calculation, and PDF reporting via DomPDF. Uses DB::transaction() with pessimistic locking for race-condition safety.',
     tags: ['Laravel', 'Tailwind CSS', 'DomPDF'],
     image: undefined,
     href: '#',
-    col: 2,
+    col: 1,
   },
   {
-    slug: 'field-guide',
-    title: 'Field Guide Design System',
+    slug: 'rfid-attendance',
+    title: 'RFID Attendance System',
     description:
-      'Component-driven design system used across three distinct product teams.',
-    tags: ['Design systems', 'React', 'Storybook'],
+      'Attendance system built during internship at HummaTech Indonesia. Dual-pipeline architecture deployed to a live school environment.',
+    tags: ['Laravel', 'PHP', 'MySQL', 'Python'],
     image: undefined,
     href: '#',
     col: 2,

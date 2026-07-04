@@ -4,14 +4,14 @@ import { Nav } from '@/components/Nav'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Hilman Nidal Hamzi — Designer & Developer',
+  title: 'Hilman Nidal Hamzi — Backend Developer',
   description:
-    'A designer and developer focused on editorial craft and structural clarity. This is where the grid meets the sentence.',
+    'Laravel backend developer and project manager. Building structured systems with clean architecture.',
   keywords: [
-    'Designer',
-    'Developer',
-    'Editorial Design',
-    'Frontend',
+    'Backend Developer',
+    'Laravel',
+    'PHP',
+    'Project Manager',
     'Hilman Nidal Hamzi',
   ],
   authors: [{ name: 'Hilman Nidal Hamzi' }],
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: 'Hilman Nidal Hamzi — Designer & Developer',
+    title: 'Hilman Nidal Hamzi — Backend Developer',
     description:
-      'A designer and developer focused on editorial craft and structural clarity.',
+      'Laravel backend developer and project manager. Building structured systems with clean architecture.',
     type: 'website',
   },
 }

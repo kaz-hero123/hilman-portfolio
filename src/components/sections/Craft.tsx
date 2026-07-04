@@ -119,27 +119,27 @@ function GlobeIcon({ className }: { className?: string }) {
 const services = [
   {
     icon: TypographyIcon,
-    title: 'Editorial design and art direction',
+    title: 'Backend development \u2014 Laravel & PHP',
     description:
-      'Grid systems, typographic hierarchy, and visual pacing for long-form narratives and brand storytelling.',
+      'Route design, Eloquent modeling, service classes, and state machines. Laravel is the primary tool; the goal is clean architecture that survives real usage.',
   },
   {
     icon: CodeIcon,
-    title: 'Front-end development and systems',
+    title: 'Node.js & API integration',
     description:
-      'Clean, semantic code with a focus on performance, accessibility, and component-driven architecture.',
+      'Express servers, third-party API wiring (Gemini Vision), and request/response pipelines. Secondary stack, used where Laravel is not the right fit.',
   },
   {
     icon: ArchitectureIcon,
-    title: 'Content architecture and strategy',
+    title: 'Project management',
     description:
-      'Structuring information so it breathes. Sitemaps, taxonomies, and content models that scale.',
+      'Concurrent PM across team projects. Task scoping, sprint coordination, and deadline tracking \u2014 not just a title, a working role.',
   },
   {
     icon: GlobeIcon,
-    title: 'Brand identity and visual language',
+    title: 'Tooling & workflow',
     description:
-      'Logos, color systems, and typography palettes that work as hard as the words they frame.',
+      'Git with Conventional Commits, three-tier branching, Tailwind CSS, DomPDF, and structured self-study roadmaps. Also worked with C, C++, and Python.',
   },
 ]
 
@@ -169,15 +169,15 @@ export function Craft() {
                 lineHeight: '1.05',
               }}
             >
-              The tools are simple but the execution is not
+              What I work with and how I work
             </h2>
           </div>
 
           {/* Right: descriptor paragraph */}
           <div className="md:pt-8">
             <p className="font-body text-[16px] leading-[1.7] text-dim max-w-[480px]">
-              I work with a small set of disciplines. I know them cold. The goal
-              is always structural integrity and a clean read.
+              Primary stack is Laravel/PHP. Everything else supports it.
+              I also manage projects — scoping, coordinating, shipping.
             </p>
           </div>
         </motion.div>

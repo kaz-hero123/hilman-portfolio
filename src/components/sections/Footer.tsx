@@ -29,30 +29,24 @@ const navColumns = [
   {
     heading: 'Projects',
     links: [
-      { label: 'Case studies', href: '#work' },
-      { label: 'Process', href: '#craft' },
-      { label: 'Writing', href: '#' },
-      { label: 'Resources', href: '#' },
-      { label: 'Archive', href: '#' },
+      { label: 'Jelajah Madura', href: '#work' },
+      { label: 'UiVault', href: '#work' },
+      { label: 'Rapor AI', href: '#work' },
+      { label: 'OwlBook', href: '#work' },
+      { label: 'RFID Attendance', href: '#work' },
     ],
   },
   {
     heading: 'Connect',
     links: [
-      { label: 'LinkedIn', href: 'https://linkedin.com' },
-      { label: 'Twitter', href: 'https://twitter.com' },
-      { label: 'GitHub', href: 'https://github.com' },
-      { label: 'Dribbble', href: 'https://dribbble.com' },
+      { label: 'GitHub', href: 'https://github.com/kaz-hero123' },
+      { label: 'LinkedIn', href: 'https://linkedin.com/in/hilman-nidal-hamzi-997969415' },
       { label: 'Email', href: 'mailto:hilmannidal@gmail.com' },
     ],
   },
 ]
 
-const legalLinks = [
-  { label: 'Privacy policy', href: '#' },
-  { label: 'Terms of service', href: '#' },
-  { label: 'Cookies settings', href: '#' },
-]
+const legalLinks: { label: string; href: string }[] = []
 
 // ─── Social icons ─────────────────────────────────────────────────────────────
 
@@ -88,6 +82,14 @@ function LinkedInIcon() {
   )
 }
 
+function GitHubIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+    </svg>
+  )
+}
+
 function YouTubeIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -116,7 +118,7 @@ export function Footer() {
               href="#hero"
               className="font-script text-[28px] leading-none text-ink hover:text-ink/60 transition-colors focus-ring"
             >
-              Logo
+              HNH
             </a>
           </div>
 
@@ -141,36 +143,20 @@ export function Footer() {
             </div>
           ))}
 
-          {/* Subscribe column */}
+          {/* Get in touch */}
           <div>
             <p className="font-body text-[14px] font-semibold text-ink mb-4">
-              Subscribe
+              Get in touch
             </p>
             <p className="font-body text-[14px] text-dim leading-[1.6] mb-5">
-              Join the newsletter for sharp insights on craft, code, and the
-              creative process.
+              Have a project or question? Reach out directly.
             </p>
-            <form
-              className="flex"
-              onSubmit={(e) => e.preventDefault()}
+            <a
+              href="mailto:hilmannidal@gmail.com"
+              className="font-body text-[14px] font-medium text-ink border border-ink px-6 py-2.5 hover:bg-ink hover:text-white transition-colors duration-200 focus-ring inline-block"
             >
-              <input
-                type="email"
-                placeholder="Your email"
-                aria-label="Email address"
-                className="flex-1 font-body text-[14px] text-ink border border-ink px-4 py-2.5 placeholder:text-dust bg-transparent outline-none focus:ring-1 focus:ring-ink"
-              />
-              <button
-                type="submit"
-                className="font-body text-[14px] font-medium text-ink border border-ink border-l-0 px-5 py-2.5 hover:bg-ink hover:text-white transition-colors duration-200 focus-ring shrink-0"
-              >
-                Subscribe
-              </button>
-            </form>
-            <p className="font-body text-[12px] text-dust leading-[1.5] mt-3">
-              By subscribing you agree to our privacy policy and consent to
-              receive updates.
-            </p>
+              Email me
+            </a>
           </div>
         </motion.div>
 
@@ -181,7 +167,7 @@ export function Footer() {
           {/* Left: copyright + legal */}
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
             <p className="font-body text-[13px] text-dim">
-              © 2026 Personal Portfolio. All rights reserved.
+              © 2026 Hilman Nidal Hamzi. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               {legalLinks.map((link) => (
@@ -199,15 +185,12 @@ export function Footer() {
           {/* Right: social icons */}
           <div className="flex items-center gap-4">
             {[
-              { Icon: FacebookIcon, label: 'Facebook' },
-              { Icon: InstagramIcon, label: 'Instagram' },
-              { Icon: XIcon, label: 'X' },
-              { Icon: LinkedInIcon, label: 'LinkedIn' },
-              { Icon: YouTubeIcon, label: 'YouTube' },
-            ].map(({ Icon, label }) => (
+              { Icon: LinkedInIcon, label: 'LinkedIn', href: 'https://linkedin.com/in/hilman-nidal-hamzi-997969415' },
+              { Icon: GitHubIcon, label: 'GitHub', href: 'https://github.com/kaz-hero123' },
+            ].map(({ Icon, label, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
                 aria-label={label}
                 className="text-ink hover:text-dim transition-colors duration-150 focus-ring"
               >

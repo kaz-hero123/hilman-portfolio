@@ -34,14 +34,14 @@ export function CTA() {
               lineHeight: '1.05',
             }}
           >
-            Let&apos;s build something that holds
+            Let&apos;s build something that works
           </h2>
 
           {/* Right: Paragraph + buttons */}
           <div className="md:pt-2">
             <p className="font-body text-[16px] leading-[1.7] text-dim mb-8">
-              Good work is a conversation between structure and silence.
-              Start one.
+              Looking for a backend developer or a project manager who
+              actually ships? Start a conversation.
             </p>
 
             <div className="flex items-center gap-4">

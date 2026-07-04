@@ -173,10 +173,10 @@ export function Work() {
               lineHeight: '1.05',
             }}
           >
-            Selected projects with backbone
+            Projects I have built
           </h2>
           <p className="font-body text-[15px] text-dim leading-[1.65]">
-            A few things I have built, structured, and shipped.
+            Real systems, real decisions, real constraints.
           </p>
         </motion.div>
 

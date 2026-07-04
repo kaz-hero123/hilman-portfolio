@@ -25,29 +25,34 @@ const staggerContainer = {
 
 const timeline = [
   {
-    year: '2024',
+    year: 'Ketua MPK',
     position: 'below' as const,
-    text: 'Lead design technologist at Stamen Studio. Bridging the gap between design intent and production code.',
+    text: 'Student council leadership. Organizational and coordination experience before technical work.',
   },
   {
-    year: '2022',
+    year: 'SMK',
     position: 'above' as const,
-    text: 'Senior product designer at Field Guide Inc. Shipped a design system used by three distinct product teams.',
+    text: 'Vocational study at SMKN 3 Pamekasan, RPL/PPLG (software engineering) track.',
   },
   {
-    year: '2020',
+    year: 'Internship',
     position: 'below' as const,
-    text: 'Independent creative director. Launched two editorial platforms and a direct-to-consumer goods brand.',
+    text: 'HummaTech Indonesia. Built the RFID attendance system deployed to a live school.',
   },
   {
-    year: '2018',
+    year: 'Self-study',
     position: 'above' as const,
-    text: 'UI engineer at The Manual. Built the front-end for a long-form journalism platform from scratch.',
+    text: 'Rebuilt web dev fundamentals through a structured roadmap: Git \u2192 HTML/CSS \u2192 JavaScript \u2192 PHP \u2192 Laravel.',
   },
   {
-    year: '2016',
+    year: 'UKK Project',
     position: 'below' as const,
-    text: 'Designer at Periscope Studio. Learned the weight of a well-set page and the discipline of a deadline.',
+    text: 'Vocational competency exam. Built OwlBook \u2014 a digital library system with RBAC and state-machine borrowing.',
+  },
+  {
+    year: 'PENS 2026',
+    position: 'above' as const,
+    text: 'Incoming D4 Software Engineering student at PENS Surabaya. Starts August 2026 \u2014 upcoming.',
   },
 ]
 
@@ -75,11 +80,11 @@ export function History() {
               lineHeight: '1.05',
             }}
           >
-            A decade of making things that hold their shape
+            The path so far
           </h2>
           <p className="font-body text-[16px] leading-[1.7] text-dim mb-8">
-            I have worked with studios, agencies, and directly with founders.
-            The common thread is a respect for the work.
+            From student council to vocational school to internship to
+            self-directed study. Each step built on the last.
           </p>
 
           {/* CTA row */}
@@ -111,7 +116,7 @@ export function History() {
           {/* ── Desktop timeline (hidden on mobile) ────────────────────── */}
           <div className="hidden md:block">
             {/* Above-line entries (2022, 2018) */}
-            <div className="grid grid-cols-5 gap-0 mb-4">
+            <div className="grid grid-cols-6 gap-0 mb-4">
               {timeline.map((entry) => (
                 <motion.div
                   key={entry.year}
@@ -135,7 +140,7 @@ export function History() {
             {/* Horizontal line with dots */}
             <div className="relative flex items-center">
               <div className="absolute inset-x-0 h-[2px] bg-ink" />
-              <div className="relative grid grid-cols-5 w-full">
+              <div className="relative grid grid-cols-6 w-full">
                 {timeline.map((entry) => (
                   <div key={entry.year} className="flex justify-start pl-0">
                     <div className="w-3 h-3 rounded-full bg-ink relative z-10" />
@@ -145,7 +150,7 @@ export function History() {
             </div>
 
             {/* Below-line entries (2024, 2020, 2016) */}
-            <div className="grid grid-cols-5 gap-0 mt-4">
+            <div className="grid grid-cols-6 gap-0 mt-4">
               {timeline.map((entry) => (
                 <motion.div
                   key={entry.year}

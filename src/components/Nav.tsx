@@ -10,13 +10,13 @@ import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
 
 const navLinks = [
   { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '#history' },
 ]
 
 const serviceItems = [
-  { label: 'Strategy', href: '#strategy' },
-  { label: 'Design', href: '#craft' },
-  { label: 'Development', href: '#work' },
+  { label: 'Backend', href: '#craft' },
+  { label: 'Node.js & APIs', href: '#craft' },
+  { label: 'Project Management', href: '#craft' },
 ]
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -128,7 +128,7 @@ export function Nav() {
                       : 'text-ink hover:text-ink/60'
                   )}
                 >
-                  Services
+                  Skills
                   <ChevronDown
                     size={13}
                     strokeWidth={1.75}
@@ -179,7 +179,7 @@ export function Nav() {
                 : 'text-ink hover:text-ink/60'
             )}
           >
-            Logo
+            HNH
           </a>
 
           {/* ── Right: Menu button — solid black pill ─────────────────── */}
@@ -252,7 +252,7 @@ export function Nav() {
                     transition={{ delay: 0.08, duration: 0.2 }}
                   >
                     <span className="block font-body text-[17px] text-ink py-3.5 border-b border-ash">
-                      Services
+                      Skills
                     </span>
                     <ul className="pl-5 pb-1 pt-1 space-y-0">
                       {serviceItems.map((item) => (

@@ -10,7 +10,7 @@ import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
 
 const navLinks = [
   { label: 'Work', href: '#work' },
-  { label: 'About', href: '#history' },
+  { label: 'About', href: '#about' },
 ]
 
 const serviceItems = [

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -55,12 +56,7 @@ export function Nav() {
   }, [])
 
   // Body scroll lock
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [menuOpen])
+  useLockBodyScroll(menuOpen)
 
   // Close services dropdown on outside click
   useEffect(() => {

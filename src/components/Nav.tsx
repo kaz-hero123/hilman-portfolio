@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
@@ -19,6 +19,36 @@ const serviceItems = [
   { label: 'Project Management', href: '#craft' },
 ]
 
+// Sections for active indicator
+const sectionIds = ['hero', 'about', 'work', 'craft', 'history', 'testimonials', 'contact']
+
+// ─── Hamburger Icon ──────────────────────────────────────────────────────────
+
+function HamburgerIcon({ open }: { open: boolean }) {
+  return (
+    <div className="relative w-[18px] h-[14px]">
+      <span
+        className={cn(
+          'absolute left-0 w-full h-[1.5px] bg-current transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+          open ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0'
+        )}
+      />
+      <span
+        className={cn(
+          'absolute left-0 top-1/2 -translate-y-1/2 w-full h-[1.5px] bg-current transition-opacity duration-200',
+          open ? 'opacity-0' : 'opacity-100'
+        )}
+      />
+      <span
+        className={cn(
+          'absolute left-0 w-full h-[1.5px] bg-current transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+          open ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-0'
+        )}
+      />
+    </div>
+  )
+}
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export function Nav() {
@@ -26,6 +56,7 @@ export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [heroHeight, setHeroHeight] = useState(0)
+  const [activeSection, setActiveSection] = useState('hero')
   const servicesRef = useRef<HTMLDivElement>(null)
 
   // Measure hero for color-flip threshold
@@ -45,6 +76,27 @@ export function Nav() {
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [heroHeight])
+
+  // Track active section via IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    )
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   // Close mobile menu above md breakpoint
   useEffect(() => {
@@ -72,12 +124,18 @@ export function Nav() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const closeAll = () => {
+  const closeAll = useCallback(() => {
     setMenuOpen(false)
     setServicesOpen(false)
-  }
+  }, [])
 
   const onHero = !scrolled
+
+  // Check if a nav link is "active"
+  const isActive = (href: string) => {
+    const id = href.replace('#', '')
+    return activeSection === id
+  }
 
   return (
     <>
@@ -86,7 +144,7 @@ export function Nav() {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
-            ? 'bg-white/95 backdrop-blur-sm border-b border-ash'
+            ? 'bg-white/95 backdrop-blur-sm border-b border-ash shadow-[0_1px_0_0_rgba(0,0,0,0.06)]'
             : 'bg-transparent'
         )}
       >
@@ -97,23 +155,34 @@ export function Nav() {
           {/* ── Left: nav links + services dropdown ──────────────────── */}
           <ul className="hidden md:flex items-center gap-8" role="list">
             {navLinks.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <a
                   href={link.href}
                   onClick={closeAll}
                   className={cn(
-                    'font-body text-[15px] font-normal tracking-wide transition-colors duration-200 focus-ring link-draw',
+                    'relative font-body text-[15px] font-normal tracking-wide transition-colors duration-200 focus-ring link-draw',
                     onHero
                       ? 'text-white/90 hover:text-white'
-                      : 'text-ink hover:text-ink/60'
+                      : 'text-ink hover:text-ink/60',
+                    isActive(link.href) && !onHero && 'text-accent'
                   )}
                 >
                   {link.label}
+                  {isActive(link.href) && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className={cn(
+                        'absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full',
+                        onHero ? 'bg-white' : 'bg-accent'
+                      )}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                  )}
                 </a>
               </li>
             ))}
 
-            {/* Services dropdown */}
+            {/* Skills dropdown */}
             <li>
               <div ref={servicesRef} className="relative">
                 <button
@@ -146,15 +215,15 @@ export function Nav() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.15, ease: 'easeOut' }}
-                      className="absolute top-full left-0 mt-2 bg-white border border-ink min-w-[185px]"
+                      className="absolute top-full left-0 mt-2 bg-white/90 backdrop-blur-md border border-ash shadow-sm min-w-[185px] overflow-hidden"
                     >
                       <ul className="py-2.5" role="list">
                         {serviceItems.map((item) => (
-                          <li key={item.href}>
+                          <li key={item.label}>
                             <a
                               href={item.href}
                               onClick={closeAll}
-                              className="block px-5 py-2.5 font-body text-[14px] text-ink hover:text-ink/50 transition-colors duration-150"
+                              className="block px-5 py-2.5 font-body text-[14px] text-ink hover:text-accent hover:bg-accent-light/50 transition-colors duration-150"
                             >
                               {item.label}
                             </a>
@@ -168,31 +237,52 @@ export function Nav() {
             </li>
           </ul>
 
-          {/* ── Center: Logo — script font, absolutely centred ────────── */}
+          {/* ── Center: Logo — monospace developer font ─────────────────── */}
           <a
             href="#hero"
             onClick={closeAll}
             className={cn(
-              'absolute left-1/2 -translate-x-1/2 font-script text-[26px] leading-none transition-colors duration-200 focus-ring',
+              'absolute left-1/2 -translate-x-1/2 font-mono text-[14px] font-medium tracking-tight transition-colors duration-200 focus-ring flex items-center',
               onHero
                 ? 'text-white hover:text-white/75'
                 : 'text-ink hover:text-ink/60'
             )}
           >
-            HNH
+            <span className={cn('mr-1 transition-colors', onHero ? 'text-white/50' : 'text-ink/40')}>~/</span>
+            hilman
+            <span className={cn('w-1.5 h-3.5 animate-pulse ml-[2px]', onHero ? 'bg-white/70' : 'bg-accent')} />
           </a>
 
-          {/* ── Right: Menu button — solid black pill ─────────────────── */}
-          <div className="ml-auto">
+          {/* ── Right: Hire Me (desktop) + Hamburger (mobile) ──────────── */}
+          <div className="ml-auto flex items-center gap-3">
+            {/* Desktop CTA */}
+            <a
+              href="mailto:hilmannidal@gmail.com"
+              className={cn(
+                'hidden md:inline-flex items-center font-mono text-[12px] font-medium tracking-wide px-4 py-2 border transition-all duration-200 focus-ring',
+                onHero
+                  ? 'border-white/30 text-white hover:border-white hover:bg-white/10'
+                  : 'border-ink text-ink hover:bg-ink hover:text-white'
+              )}
+            >
+              Hire me
+            </a>
+
+            {/* Mobile hamburger — hidden on desktop */}
             <button
               type="button"
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen((v) => !v)}
-              className="font-body text-[13px] font-medium tracking-wide px-5 py-2 bg-ink text-white hover:bg-ink/80 transition-colors duration-200 focus-ring"
+              className={cn(
+                'md:hidden flex items-center gap-2.5 font-mono text-[12px] font-medium tracking-wide px-4 py-2.5 transition-colors duration-200 focus-ring',
+                onHero
+                  ? 'text-white hover:text-white/75'
+                  : 'text-ink hover:text-ink/60'
+              )}
             >
-              {menuOpen ? 'Close' : 'Menu'}
+              <HamburgerIcon open={menuOpen} />
             </button>
           </div>
         </nav>
@@ -225,13 +315,13 @@ export function Nav() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -12, opacity: 0 }}
               transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="absolute top-16 left-0 right-0 bg-white border-b border-ash"
+              className="absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ash shadow-sm"
             >
               <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
                 <ul className="py-6 space-y-0" role="list">
                   {navLinks.map((link, i) => (
                     <motion.li
-                      key={link.href}
+                      key={link.label}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.04 * i, duration: 0.2 }}
@@ -239,7 +329,10 @@ export function Nav() {
                       <a
                         href={link.href}
                         onClick={closeAll}
-                        className="block font-body text-[17px] text-ink hover:text-ink/50 py-3.5 border-b border-ash transition-colors focus-ring"
+                        className={cn(
+                          'block font-body text-[17px] text-ink hover:text-accent py-3.5 border-b border-ash transition-colors focus-ring',
+                          isActive(link.href) && 'text-accent'
+                        )}
                       >
                         {link.label}
                       </a>
@@ -256,11 +349,11 @@ export function Nav() {
                     </span>
                     <ul className="pl-5 pb-1 pt-1 space-y-0">
                       {serviceItems.map((item) => (
-                        <li key={item.href}>
+                        <li key={item.label}>
                           <a
                             href={item.href}
                             onClick={closeAll}
-                            className="block font-body text-[14px] text-dim hover:text-ink py-2 transition-colors focus-ring"
+                            className="block font-body text-[14px] text-dim hover:text-accent py-2 transition-colors focus-ring"
                           >
                             {item.label}
                           </a>

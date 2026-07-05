@@ -20,6 +20,23 @@ const lineUp = {
 
 const fadeIn = fadeInVariant
 
+const floatUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: 1.2 + i * 0.15, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+}
+
+// ─── Tech stack badges ────────────────────────────────────────────────────────
+
+const techBadges = [
+  { name: 'Laravel', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg' },
+  { name: 'PHP', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
+  { name: 'Node.js', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+  { name: 'MySQL', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
+]
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -32,8 +49,8 @@ export function Hero() {
       {/* ── Full-bleed background photo ──────────────────────────────────── */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <Image
-          src="/hero-editorial.png"
-          alt="Warm editorial photo — textured amber fabric on a reading chair"
+          src="/hero-workspace.png"
+          alt="Cinematic developer workspace at night — laptop with code, amber desk lamp, books"
           fill
           priority
           className="object-cover"
@@ -41,7 +58,9 @@ export function Hero() {
           quality={90}
         />
         {/* Dark scrim for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/30 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/65" />
+        {/* Subtle dot grid overlay for technical feel */}
+        <div className="absolute inset-0 dot-grid opacity-40" />
       </div>
 
       {/* ── Nav spacer ───────────────────────────────────────────────────── */}
@@ -53,6 +72,9 @@ export function Hero() {
         {/* Push headline toward lower-center of viewport */}
         <div className="flex-[1.15]" />
 
+        {/* ── Mono tagline ─────────────────────────────────────────────── */}
+
+
         {/* ── Headline — massive serif, tight tracking ───────────────── */}
         <motion.h1
           variants={stagger}
@@ -61,10 +83,8 @@ export function Hero() {
           className="mb-8 md:mb-10"
         >
           {[
-            'Backend engineer',
-            'who ships systems',
-            'and manages the',
-            'process too',
+            'Backend',
+            'Developer',
           ].map((line, i) => (
             <motion.span
               key={i}
@@ -80,44 +100,70 @@ export function Hero() {
           ))}
         </motion.h1>
 
-        {/* ── CTA row — "Work" outlined + "Contact →" ghost ──────────── */}
+        {/* ── CTA row ─────────────────────────────────────────────────── */}
         <motion.div
           variants={fadeIn}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.9 }}
-          className="flex items-center gap-5"
+          className="flex items-center gap-5 mt-4"
         >
           <a
             href="#work"
-            className="inline-flex items-center justify-center font-body text-[14px] font-medium text-white border border-white/60 px-7 py-3 hover:bg-white/10 transition-colors duration-200 focus-ring"
+            className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white bg-white/5 border border-white/30 px-7 py-3 hover:bg-white/10 hover:border-white transition-all duration-200 focus-ring rounded-sm backdrop-blur-sm"
           >
-            Work
+            View Projects
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center font-body text-[14px] font-medium text-white/70 hover:text-white transition-colors duration-200 focus-ring"
+            className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white/60 hover:text-white transition-colors duration-200 focus-ring group"
           >
-            Contact →
+            Contact <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
           </a>
         </motion.div>
 
         {/* Spacer before bottom descriptor */}
         <div className="flex-[0.55]" />
 
-        {/* ── Bottom-right descriptor text ─────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.4, ease: 'easeOut' }}
-          className="flex justify-end pb-10 md:pb-16"
-        >
-          <p className="font-body text-[15px] md:text-[16px] leading-[1.65] text-white/75 max-w-[440px] text-right">
-            Laravel backend developer and concurrent project manager.
-            I build the architecture, then make sure the team ships it.
-          </p>
-        </motion.div>
+        {/* ── Bottom row: tech badges (left) + descriptor text (right) ── */}
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-10 md:pb-16">
+          {/* Tech badges — CLI/kbd style */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+            className="flex flex-wrap gap-3 order-2 md:order-1"
+          >
+            {techBadges.map((badge, i) => (
+              <motion.span
+                key={badge.name}
+                custom={i}
+                variants={floatUp}
+                initial="hidden"
+                animate="visible"
+                className="bg-white/5 border border-white/20 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-white/90 flex items-center gap-2 rounded-sm shadow-[0_2px_0_0_rgba(255,255,255,0.1)] backdrop-blur-sm"
+              >
+                <img src={badge.iconUrl} alt={badge.name} className="w-3.5 h-3.5 object-contain" />
+                {badge.name}
+              </motion.span>
+            ))}
+          </motion.div>
+
+        </div>
       </div>
+
+      {/* ── Scroll indicator ────────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 0.8 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+      >
+        <span className="font-mono text-[10px] text-white/40 tracking-widest uppercase">
+          scroll
+        </span>
+        <div className="w-[1px] h-8 bg-gradient-to-b from-white/50 to-transparent animate-scroll-bounce" />
+      </motion.div>
     </section>
   )
 }

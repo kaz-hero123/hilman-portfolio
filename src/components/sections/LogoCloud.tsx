@@ -1,137 +1,126 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { fadeUpSmallVariant, createStaggerContainer } from '@/lib/motion'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-  },
-}
+const fadeUp = fadeUpSmallVariant
+const stagger = createStaggerContainer(0.04, 0.1)
 
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.05, delayChildren: 0.1 },
-  },
-}
+// ─── Technology data with actual brand colors ─────────────────────────────────
 
-// ─── Logo data ────────────────────────────────────────────────────────────────
-
-const logos = [
-  { name: 'Stamen Studio', icon: StamenIcon },
-  { name: 'Field Guide', icon: FieldGuideIcon },
-  { name: 'The Manual', icon: ManualIcon },
-  { name: 'Periscope', icon: PeriscopeIcon },
-  { name: 'Meridian', icon: MeridianIcon },
-  { name: 'Archipelago', icon: ArchipelagoIcon },
-  { name: 'Atlas Co.', icon: AtlasIcon },
-  { name: 'Vantage', icon: VantageIcon },
-  { name: 'Baseline', icon: BaselineIcon },
-  { name: 'OwlBook', icon: OwlBookIcon },
-  { name: 'GridWorks', icon: GridWorksIcon },
-  { name: 'TypeSet', icon: TypeSetIcon },
+const technologies = [
+  { name: 'Laravel',     color: '#FF2D20', icon: LaravelLogo },
+  { name: 'PHP',         color: '#777BB4', icon: PhpLogo },
+  { name: 'MySQL',       color: '#4479A1', icon: MySqlLogo },
+  { name: 'Node.js',     color: '#339933', icon: NodeLogo },
+  { name: 'Express',     color: '#555555', icon: ExpressLogo },
+  { name: 'JavaScript',  color: '#F7DF1E', icon: JsLogo },
+  { name: 'Tailwind CSS',color: '#06B6D4', icon: TailwindLogo },
+  { name: 'Git',         color: '#F05032', icon: GitLogo },
+  { name: 'Python',      color: '#3776AB', icon: PythonLogo },
+  { name: 'Livewire',    color: '#FB70A9', icon: LivewireLogo },
+  { name: 'REST API',    color: '#0ea5e9', icon: ApiLogo },
+  { name: 'DomPDF',      color: '#E34F26', icon: PdfLogo },
 ]
 
-// ─── Logo SVG Icons (editorial-weight, 24x24) ────────────────────────────────
+// ─── SVG Logo Icons ───────────────────────────────────────────────────────────
 
-function StamenIcon() {
+function LaravelLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4zm0 2.18L18 7.5v4.5c0 4.46-3.08 8.64-6 9.86-2.92-1.22-6-5.4-6-9.86V7.5l6-3.32z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23.642 5.43a.364.364 0 01.014.1v5.149c0 .135-.073.26-.189.326l-4.323 2.49v4.934c0 .135-.073.26-.189.327l-9.03 5.2a.32.32 0 01-.085.042l-.033.009a.358.358 0 01-.183 0l-.033-.009a.3.3 0 01-.086-.042L.474 18.756a.378.378 0 01-.189-.327V8.082c0-.036.005-.07.014-.1l.007-.027a.336.336 0 01.04-.08l.016-.023a.338.338 0 01.063-.064l.02-.016a.334.334 0 01.078-.046L4.838 5.24a.378.378 0 01.378 0l4.315 2.487a.381.381 0 01.063.064l.02.016.015.023c.018.025.032.052.04.08l.008.027c.009.032.013.065.013.1v9.652l3.76-2.164V10.58c0-.036.005-.07.014-.1l.007-.028a.345.345 0 01.04-.08l.016-.022a.35.35 0 01.063-.065l.02-.015a.334.334 0 01.078-.047l4.315-2.487a.378.378 0 01.378 0l4.315 2.487a.34.34 0 01.078.047l.02.015a.35.35 0 01.063.065l.015.022c.018.026.032.053.04.08z" />
     </svg>
   )
 }
 
-function FieldGuideIcon() {
+function PhpLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M4 4h16v2H4V4zm0 4h10v2H4V8zm0 4h16v2H4v-2zm0 4h10v2H4v-2zm0 4h16v2H4v-2z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M7.01 10.207h-.944l-.515 2.648h.838c.556 0 .97-.105 1.242-.314.272-.21.455-.559.55-1.049.092-.47.05-.802-.124-.995-.175-.193-.523-.29-1.047-.29zM12 5.688C5.373 5.688 0 8.514 0 12s5.373 6.313 12 6.313S24 15.486 24 12c0-3.486-5.373-6.312-12-6.312zm-3.26 7.451c-.261.25-.575.438-.917.551-.336.108-.765.164-1.285.164H5.357l-.327 1.681H3.652l1.23-6.326h2.65c.797 0 1.378.209 1.744.628.366.418.476 1.002.33 1.752a2.836 2.836 0 01-.866 1.55zm5.791-.405l-.695 3.574h-1.378l.07-.36a2.155 2.155 0 01-.824.329 3.75 3.75 0 01-.739.075c-.554 0-.974-.148-1.262-.443-.287-.295-.376-.693-.267-1.194l.56-2.88h1.378l-.519 2.669c-.055.28-.023.483.096.61s.326.19.618.19c.3 0 .567-.062.8-.185.234-.123.388-.308.464-.556l.522-2.728h1.176zm3.346-1.046c-.261.25-.575.438-.917.551-.336.108-.765.164-1.285.164h-1.181l-.327 1.681h-1.378l1.23-6.326h2.649c.797 0 1.378.209 1.744.628.366.418.476 1.002.33 1.752a2.836 2.836 0 01-.865 1.55zm-.96-1.399h-.944l-.515 2.648h.838c.556 0 .97-.105 1.242-.314.272-.21.455-.559.55-1.049.092-.47.05-.802-.124-.995-.175-.193-.523-.29-1.047-.29z" />
     </svg>
   )
 }
 
-function ManualIcon() {
+function MySqlLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08c-.378 2.045-.876 3.533-1.492 4.468-.482.716-1.01 1.073-1.583 1.073-.153 0-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268 0 .483-.075.647-.222.197-.176.295-.382.295-.617 0-.158-.06-.467-.178-.928L6.16 14.616h.86l.862 3.19c.18.66.273 1.066.278 1.218-.18.56-.4.947-.66 1.16a.78.78 0 01-.22.12l.193.458c.213-.043.387-.147.52-.312.24-.293.48-.835.722-1.627l1.07-4.207zm8.873 4.08h-2.89v-5.53h.813v4.843h2.077v.687zM18.015 19.1a2.105 2.105 0 01-.565-.363c-.228-.236-.348-.6-.348-1.085V14.3h.8v3.3c0 .322.06.554.187.694.126.14.326.21.6.21.272 0 .504-.073.694-.22.19-.146.285-.33.285-.55V14.3h.8v3.473c0 .376-.164.7-.492.967-.328.268-.744.402-1.248.402-.247 0-.477-.027-.713-.04z" />
     </svg>
   )
 }
 
-function PeriscopeIcon() {
+function NodeLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <circle cx="12" cy="12" r="3"/>
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339a.29.29 0 00.272 0l8.795-5.076a.277.277 0 00.134-.238V6.921a.28.28 0 00-.137-.242l-8.791-5.072a.278.278 0 00-.271 0L3.075 6.68a.282.282 0 00-.139.241v10.15a.274.274 0 00.139.235l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.112.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.55l-2.307-1.33A1.85 1.85 0 011.36 17.07V6.921c0-.654.35-1.266.922-1.585L11.076.255a1.918 1.918 0 011.844 0l8.794 5.08c.572.32.922.932.922 1.586v10.15c0 .653-.35 1.264-.922 1.583l-8.794 5.08c-.28.163-.6.247-.922.247z" />
     </svg>
   )
 }
 
-function MeridianIcon() {
+function ExpressLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.511 4.86 3.556-4.86a1.466 1.466 0 011.802-.708L17.346 12.5l4.947 6.766a1.466 1.466 0 01-1.802.708L24 18.588zM0 12.168V12C0 6.627 4.627 2 10.348 2c4.68 0 8.156 2.66 9.37 6.692l-1.676.578C17.072 6.014 14.233 3.84 10.348 3.84 5.76 3.84 1.98 7.433 1.98 12v.168c0 4.567 3.78 8.168 8.368 8.168 3.878 0 6.724-2.174 7.694-5.43l1.676.578C18.504 19.34 15.028 22 10.348 22 4.627 22 0 17.373 0 12.168z" />
     </svg>
   )
 }
 
-function ArchipelagoIcon() {
+function JsLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" />
     </svg>
   )
 }
 
-function AtlasIcon() {
+function TailwindLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z" />
     </svg>
   )
 }
 
-function VantageIcon() {
+function GitLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23.546 10.93L13.067.452a1.55 1.55 0 00-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 012.327 2.341l2.66 2.66a1.838 1.838 0 11-1.103 1.03l-2.48-2.48v6.53a1.838 1.838 0 11-1.513-.066V8.714a1.838 1.838 0 01-.998-2.41L7.636 3.58.45 10.767a1.55 1.55 0 000 2.188l10.48 10.48a1.55 1.55 0 002.186 0l10.43-10.43a1.55 1.55 0 000-2.075z" />
     </svg>
   )
 }
 
-function BaselineIcon() {
+function PythonLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v.07H6.34l-.01-2.07V.94l-.01-.08.06-.16.14-.15.24-.14.32-.13.42-.09.47-.07H14.25zM12.34 1.5a.84.84 0 00-.83.82c0 .46.37.84.83.84.46 0 .83-.37.83-.84a.84.84 0 00-.83-.82zm-7.71 15.36l-.9-.2-.73-.26-.59-.3-.45-.32-.34-.34-.25-.34-.16-.33-.1-.3-.04-.26-.02-.2.01-.13v-5.34l.05-.63.13-.55.21-.46.26-.38.3-.31.33-.25.35-.19.35-.14.33-.1.3-.07.26-.04.21-.02h5.52l.69-.05.59-.14.5-.22.41-.27.33-.32.27-.35.2-.36.15-.37.1-.35.07-.32.04-.27.02-.21V3.5h3.39l.21.03.28.07.32.12.35.18.36.26.36.36.35.46.32.59.28.73.21.88.14 1.05.05 1.23-.06 1.22-.16 1.04-.24.87-.32.71-.36.57-.4.44-.42.33-.42.24-.4.16-.36.1-.32.05-.24.01h-.16l-.06-.01H5.73v-.07h7.74l.01 2.07v.34l.01.08-.06.16-.14.15-.24.14-.32.13-.42.09-.47.07H4.63zm4.61-1.34c0-.46.37-.84.83-.84.46 0 .84.37.84.84 0 .46-.37.83-.84.83a.84.84 0 01-.83-.83z" />
     </svg>
   )
 }
 
-function OwlBookIcon() {
+function LivewireLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.001 0C6.174 0 1.448 4.957 1.448 11.07c0 3.806 1.789 7.181 4.57 9.214.074.055.164.044.225-.026l1.376-1.586c.06-.07.05-.175-.022-.235a8.196 8.196 0 01-3.103-6.44c0-4.513 3.488-8.185 7.507-8.185s7.507 3.672 7.507 8.186a8.197 8.197 0 01-3.103 6.44c-.072.059-.082.164-.022.234l1.376 1.586c.06.07.15.081.224.027 2.782-2.034 4.571-5.41 4.571-9.215C22.554 4.957 17.828 0 12.001 0z" />
     </svg>
   )
 }
 
-function GridWorksIcon() {
+function ApiLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 12h16" />
+      <path d="M14 6l6 6-6 6" />
+      <circle cx="4" cy="12" r="2" fill="currentColor" stroke="none" />
     </svg>
   )
 }
 
-function TypeSetIcon() {
+function PdfLogo() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M9.93 13.5h4.14L12 7.98 9.93 13.5zM20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-4.05 16.5l-1.14-3H9.17l-1.12 3H5.96l5.11-13h1.86l5.11 13h-2.09z"/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3.5c0 .28-.22.5-.5.5H19v1h1.5V11H19v2h-1.5V7h3c.28 0 .5.22.5.5v.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z" />
     </svg>
   )
 }
@@ -143,33 +132,43 @@ export function LogoCloud() {
     <section id="trusted" className="bg-mist">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-20">
         {/* ── Heading ─────────────────────────────────────────────────────── */}
-        <motion.p
+        <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          className="font-body text-[15px] font-semibold text-ink mb-10"
+          className="mb-10"
         >
-          Trusted by the world&apos;s most demanding editors
-        </motion.p>
+          <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-accent mb-3">
+            {'// stack'}
+          </p>
+          <p className="font-body text-[15px] font-semibold text-ink">
+            Technologies & tools I work with
+          </p>
+        </motion.div>
 
-        {/* ── Logo grid ──────────────────────────────────────────────────── */}
+        {/* ── Tech grid ───────────────────────────────────────────────────── */}
         <motion.div
-          variants={staggerContainer}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
-          className="flex flex-wrap gap-x-10 gap-y-6"
+          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3"
         >
-          {logos.map((logo) => (
+          {technologies.map((tech) => (
             <motion.div
-              key={logo.name}
+              key={tech.name}
               variants={fadeUp}
-              className="flex items-center gap-2.5 text-ink"
+              className="flex items-center gap-2.5 px-4 py-3 bg-white border border-ash/60 hover:border-accent/40 hover:shadow-sm transition-all duration-200 card-lift group cursor-default"
             >
-              <logo.icon />
-              <span className="font-body text-[16px] font-semibold tracking-tight">
-                {logo.name}
+              <span
+                className="shrink-0 transition-transform duration-200 group-hover:scale-110"
+                style={{ color: tech.color }}
+              >
+                <tech.icon />
+              </span>
+              <span className="font-mono text-[12px] font-medium tracking-tight text-ink truncate">
+                {tech.name}
               </span>
             </motion.div>
           ))}

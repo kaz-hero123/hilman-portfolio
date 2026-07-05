@@ -94,4 +94,32 @@
     outline-offset: 3px;
     border-radius: 1px;
   }
+
+  /* Glassmorphism panel */
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Tech card — subtle lift on hover */
+  .card-lift {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Accent glow — subtle blue shadow */
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+  }
+
+  /* Dot grid pattern — for hero/section backgrounds */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 }

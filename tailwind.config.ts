@@ -12,6 +12,10 @@ const config: Config = {
         ash:     '#e5e5e5',   // hairline / border
         dust:    '#8a8a8a',   // muted text
         dim:     '#555555',   // secondary text
+        // Developer accent palette
+        accent:  '#0ea5e9',   // sky-500 — primary accent
+        'accent-light': '#e0f2fe', // sky-100 — subtle bg tint
+        'accent-dark':  '#0369a1', // sky-700 — hover/pressed
       },
       fontFamily: {
         serif:  ['var(--font-serif)', 'Georgia', 'serif'],
@@ -53,6 +57,8 @@ const config: Config = {
       animation: {
         'fade-up':  'fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards',
         'fade-in':  'fadeIn 0.5s ease forwards',
+        'scroll-bounce': 'scrollBounce 2s ease-in-out infinite',
+        'pulse-dot': 'pulseDot 2s ease-in-out infinite',
       },
       keyframes: {
         fadeUp: {
@@ -62,6 +68,14 @@ const config: Config = {
         fadeIn: {
           '0%':   { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        scrollBounce: {
+          '0%, 100%': { transform: 'translateY(0)', opacity: '1' },
+          '50%':      { transform: 'translateY(8px)', opacity: '0.4' },
+        },
+        pulseDot: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%':      { opacity: '0.5', transform: 'scale(1.3)' },
         },
       },
     },

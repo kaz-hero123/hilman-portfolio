@@ -58,8 +58,30 @@ function PdfLogo() {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function LogoCloud() {
+  const renderTechCards = (keyPrefix: string) => (
+    technologies.map((tech) => (
+      <div
+        key={`${keyPrefix}-${tech.name}`}
+        className="flex items-center gap-2.5 px-5 py-3.5 bg-white border border-ash/60 hover:border-accent/40 hover:shadow-sm transition-all duration-200 card-lift group/item cursor-default min-w-[170px]"
+      >
+        <div className="shrink-0 transition-transform duration-200 group-hover/item:scale-110 flex items-center justify-center w-5 h-5">
+          {'iconUrl' in tech && tech.iconUrl ? (
+            <img src={tech.iconUrl} alt={tech.name} className="w-full h-full object-contain" />
+          ) : (
+            <span style={{ color: 'color' in tech ? tech.color : 'inherit' }} className="w-full h-full flex items-center justify-center">
+              {'icon' in tech && tech.icon && <tech.icon />}
+            </span>
+          )}
+        </div>
+        <span className="font-mono text-[13px] font-medium tracking-tight text-ink truncate">
+          {tech.name}
+        </span>
+      </div>
+    ))
+  )
+
   return (
-    <section id="trusted" className="bg-mist">
+    <section id="trusted" className="bg-mist overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-20">
         {/* ── Heading ─────────────────────────────────────────────────────── */}
         <motion.div
@@ -67,7 +89,7 @@ export function LogoCloud() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          className="mb-10"
+          className="mb-12"
         >
           <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-accent mb-3">
             {'// stack'}
@@ -77,34 +99,27 @@ export function LogoCloud() {
           </p>
         </motion.div>
 
-        {/* ── Tech grid ───────────────────────────────────────────────────── */}
+        {/* ── Marquee container ───────────────────────────────────────────── */}
         <motion.div
-          variants={stagger}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3"
+          className="relative flex overflow-hidden w-full group py-4 -mx-6 md:-mx-12 lg:-mx-20 px-6 md:px-12 lg:px-20"
         >
-          {technologies.map((tech) => (
-            <motion.div
-              key={tech.name}
-              variants={fadeUp}
-              className="flex items-center gap-2.5 px-4 py-3 bg-white border border-ash/60 hover:border-accent/40 hover:shadow-sm transition-all duration-200 card-lift group cursor-default"
-            >
-              <div className="shrink-0 transition-transform duration-200 group-hover:scale-110 flex items-center justify-center w-5 h-5">
-                {'iconUrl' in tech && tech.iconUrl ? (
-                  <img src={tech.iconUrl} alt={tech.name} className="w-full h-full object-contain" />
-                ) : (
-                  <span style={{ color: 'color' in tech ? tech.color : 'inherit' }} className="w-full h-full flex items-center justify-center">
-                    {'icon' in tech && tech.icon && <tech.icon />}
-                  </span>
-                )}
-              </div>
-              <span className="font-mono text-[12px] font-medium tracking-tight text-ink truncate">
-                {tech.name}
-              </span>
-            </motion.div>
-          ))}
+          {/* Edge gradients for smooth fade in/out */}
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-mist to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-mist to-transparent z-10 pointer-events-none" />
+
+          {/* Marquee Track 1 */}
+          <div className="flex animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap gap-4 shrink-0 px-2">
+            {renderTechCards('m1')}
+          </div>
+
+          {/* Marquee Track 2 */}
+          <div className="flex animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap gap-4 shrink-0 px-2">
+            {renderTechCards('m2')}
+          </div>
         </motion.div>
       </div>
     </section>

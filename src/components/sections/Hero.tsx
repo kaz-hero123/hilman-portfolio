@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 import { createStaggerContainer, fadeInVariant } from '@/lib/motion'
 import { ScrambleText } from '@/components/animations/ScrambleText'
+import { Magnetic } from '@/components/animations/Magnetic'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -109,18 +110,22 @@ export function Hero() {
           transition={{ delay: 0.9 }}
           className="flex items-center gap-5 mt-4"
         >
-          <a
-            href="#work"
-            className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white bg-white/5 border border-white/30 px-7 py-3 hover:bg-white/10 hover:border-white transition-all duration-200 focus-ring rounded-sm backdrop-blur-sm"
-          >
-            View Projects
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white/60 hover:text-white transition-colors duration-200 focus-ring group"
-          >
-            Contact <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-          </a>
+          <Magnetic>
+            <a
+              href="#work"
+              className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white bg-white/5 border border-white/30 px-7 py-3 hover:bg-white/10 hover:border-white transition-all duration-200 focus-ring rounded-sm backdrop-blur-sm"
+            >
+              View Projects
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white/60 hover:text-white transition-colors duration-200 focus-ring group"
+            >
+              Contact <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          </Magnetic>
         </motion.div>
 
         {/* Spacer before bottom descriptor */}

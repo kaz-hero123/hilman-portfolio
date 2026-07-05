@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { projects } from '@/data/projects'
 import type { Project } from '@/data/projects'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
+import { TiltCard } from '@/components/animations/TiltCard'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -21,19 +22,21 @@ function HeroCard({ project }: { project: Project }) {
   return (
     <article className="group flex flex-col">
       {/* Image container */}
-      <div className="relative w-full aspect-[4/3] bg-[#f0f0f0] overflow-hidden mb-5 border border-ash/50 card-lift">
-        {project.image ? (
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
-        ) : (
-          <PlaceholderImg />
-        )}
-      </div>
+      <TiltCard>
+        <div className="relative w-full aspect-[4/3] bg-[#f0f0f0] overflow-hidden mb-5 border border-ash/50 card-lift">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          ) : (
+            <PlaceholderImg />
+          )}
+        </div>
+      </TiltCard>
 
       {/* Metadata — flex-1 pushes link to bottom */}
       <div className="flex flex-col flex-1">
@@ -76,19 +79,21 @@ function StandardCard({ project }: { project: Project }) {
   return (
     <article className="group flex flex-col">
       {/* Image */}
-      <div className="relative w-full aspect-[3/2] bg-[#f0f0f0] overflow-hidden mb-5 border border-ash/50 card-lift">
-        {project.image ? (
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
-            sizes="(max-width: 768px) 100vw, 30vw"
-          />
-        ) : (
-          <PlaceholderImg />
-        )}
-      </div>
+      <TiltCard>
+        <div className="relative w-full aspect-[3/2] bg-[#f0f0f0] overflow-hidden mb-5 border border-ash/50 card-lift">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+              sizes="(max-width: 768px) 100vw, 30vw"
+            />
+          ) : (
+            <PlaceholderImg />
+          )}
+        </div>
+      </TiltCard>
 
       {/* Metadata */}
       <div className="flex flex-col flex-1">

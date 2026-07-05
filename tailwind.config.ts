@@ -59,6 +59,7 @@ const config: Config = {
         'fade-in':  'fadeIn 0.5s ease forwards',
         'scroll-bounce': 'scrollBounce 2s ease-in-out infinite',
         'pulse-dot': 'pulseDot 2s ease-in-out infinite',
+        'marquee': 'marquee 30s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -76,6 +77,10 @@ const config: Config = {
         pulseDot: {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
           '50%':      { opacity: '0.5', transform: 'scale(1.3)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
         },
       },
     },

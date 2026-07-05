@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
+import { Magnetic } from '@/components/animations/Magnetic'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -52,18 +53,22 @@ export function CTA() {
             </p>
 
             <div className="flex items-center gap-5">
-              <a
-                href="mailto:hilmannidal@gmail.com"
-                className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-ink bg-white border border-transparent px-7 py-3 hover:bg-white/90 transition-all duration-200 focus-ring rounded-sm"
-              >
-                Contact
-              </a>
-              <a
-                href="#work"
-                className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white border border-white/30 px-7 py-3 hover:bg-white/10 hover:border-white transition-all duration-200 focus-ring rounded-sm"
-              >
-                Work
-              </a>
+              <Magnetic>
+                <a
+                  href="mailto:hilmannidal@gmail.com"
+                  className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-ink bg-white border border-transparent px-7 py-3 hover:bg-white/90 transition-all duration-200 focus-ring rounded-sm"
+                >
+                  Contact
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a
+                  href="#work"
+                  className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-white border border-white/30 px-7 py-3 hover:bg-white/10 hover:border-white transition-all duration-200 focus-ring rounded-sm"
+                >
+                  Work
+                </a>
+              </Magnetic>
             </div>
           </div>
         </motion.div>

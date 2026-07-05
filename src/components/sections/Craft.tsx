@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
+import { SpotlightCard } from '@/components/animations/SpotlightCard'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -196,20 +197,24 @@ export function Craft() {
             <motion.div
               key={service.title}
               variants={fadeUp}
-              className="group p-6 border border-ash/50 bg-white hover:border-ink/20 transition-all duration-300 rounded-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
+              className="h-full"
             >
-              {/* Icon */}
-              <service.icon className="text-accent mb-6 w-9 h-9 transition-colors duration-200" />
+              <SpotlightCard
+                className="group p-6 border border-ash/50 bg-white hover:border-ink/20 transition-all duration-300 rounded-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)] h-full"
+              >
+                {/* Icon */}
+                <service.icon className="text-accent mb-6 w-9 h-9 transition-colors duration-200" />
 
-              {/* Title */}
-              <h3 className="font-serif font-bold text-[1.35rem] leading-[1.15] tracking-tight text-ink mb-3">
-                {service.title}
-              </h3>
+                {/* Title */}
+                <h3 className="font-serif font-bold text-[1.35rem] leading-[1.15] tracking-tight text-ink mb-3">
+                  {service.title}
+                </h3>
 
-              {/* Description */}
-              <p className="font-body text-[14px] leading-[1.7] text-dim">
-                {service.description}
-              </p>
+                {/* Description */}
+                <p className="font-body text-[14px] leading-[1.7] text-dim">
+                  {service.description}
+                </p>
+              </SpotlightCard>
             </motion.div>
           ))}
         </motion.div>

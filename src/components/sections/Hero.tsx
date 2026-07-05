@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 import { createStaggerContainer, fadeInVariant } from '@/lib/motion'
+import { ScrambleText } from '@/components/animations/ScrambleText'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -95,7 +96,7 @@ export function Hero() {
                 lineHeight: '0.98',
               }}
             >
-              {line}
+              <ScrambleText text={line} />
             </motion.span>
           ))}
         </motion.h1>

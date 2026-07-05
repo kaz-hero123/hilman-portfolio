@@ -3,24 +3,12 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Star } from 'lucide-react'
+import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  },
-}
-
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
-  },
-}
+const fadeUp = fadeUpVariant
+const stagger = createStaggerContainer(0.12, 0.15)
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -65,14 +53,17 @@ export function Testimonials() {
           viewport={{ once: true, margin: '-80px' }}
           className="text-center mb-16"
         >
+          <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-accent mb-4">
+            {'// testimonials'}
+          </p>
           <h2
-            className="font-serif font-black italic text-ink tracking-tight mb-5"
+            className="font-serif font-bold text-ink tracking-tight mb-5"
             style={{
               fontSize: 'clamp(2.5rem, 5.5vw, 4rem)',
               lineHeight: '1.05',
             }}
           >
-            Testimonials
+            Kind words
           </h2>
           <p className="font-body text-[15px] text-dim leading-[1.65]">
             The work speaks but a few kind words never hurt.
@@ -81,7 +72,7 @@ export function Testimonials() {
 
         {/* ── 3-column testimonial cards ──────────────────────────────────── */}
         <motion.div
-          variants={staggerContainer}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
@@ -91,15 +82,23 @@ export function Testimonials() {
             <motion.article
               key={t.name}
               variants={fadeUp}
-              className="border border-ink p-8 md:p-10 flex flex-col"
+              className="relative border border-ash p-8 md:p-10 flex flex-col hover:border-accent/30 hover:shadow-sm transition-all duration-200"
             >
+              {/* Decorative quote mark */}
+              <span
+                className="absolute top-5 right-6 font-serif text-[4rem] leading-none text-accent/10 select-none pointer-events-none"
+                aria-hidden="true"
+              >
+                &ldquo;
+              </span>
+
               {/* Stars */}
               <div className="flex gap-1 mb-6">
                 {Array.from({ length: t.stars }).map((_, i) => (
                   <Star
                     key={i}
-                    size={18}
-                    fill="#111111"
+                    size={16}
+                    fill="#0ea5e9"
                     stroke="none"
                     aria-hidden="true"
                   />
@@ -107,20 +106,26 @@ export function Testimonials() {
               </div>
 
               {/* Quote */}
-              <p className="font-body text-[15px] leading-[1.7] text-ink mb-8 flex-1">
+              <p className="font-body text-[15px] leading-[1.7] text-ink mb-8 flex-1 relative z-10">
                 &ldquo;{t.quote}&rdquo;
               </p>
 
               {/* Author */}
               <div className="flex items-center gap-4">
-                <div className="relative w-11 h-11 rounded-full overflow-hidden shrink-0">
-                  <Image
-                    src={t.avatar}
-                    alt={t.name}
-                    fill
-                    className="object-cover"
-                    sizes="44px"
-                  />
+                <div className="relative w-11 h-11 rounded-full overflow-hidden shrink-0 ring-2 ring-accent/20 bg-mist">
+                  {t.avatar ? (
+                    <Image
+                      src={t.avatar}
+                      alt={t.name}
+                      fill
+                      className="object-cover"
+                      sizes="44px"
+                    />
+                  ) : (
+                    <span className="absolute inset-0 flex items-center justify-center font-mono text-[13px] font-bold text-dim">
+                      {t.name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  )}
                 </div>
                 <div>
                   <p className="font-body text-[14px] font-semibold text-ink leading-tight">

@@ -2,28 +2,16 @@
 
 import { motion } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
+import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  },
-}
+const fadeUp = fadeUpVariant
+const stagger = createStaggerContainer(0.1, 0.15)
 
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
-  },
-}
+// ─── Icons — relevant to actual skills ────────────────────────────────────────
 
-// ─── Icons — editorial line-weight SVGs matching the design ───────────────────
-
-function TypographyIcon({ className }: { className?: string }) {
+function ServerIcon({ className }: { className?: string }) {
   return (
     <svg
       width="36"
@@ -37,15 +25,19 @@ function TypographyIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Letter A with baseline */}
-      <path d="M8 28L18 6L28 28" />
-      <path d="M12 20H24" />
-      <line x1="4" y1="32" x2="32" y2="32" />
+      {/* Server rack */}
+      <rect x="6" y="4" width="24" height="10" rx="2" />
+      <rect x="6" y="22" width="24" height="10" rx="2" />
+      <line x1="18" y1="14" x2="18" y2="22" />
+      <circle cx="11" cy="9" r="1.5" fill="currentColor" />
+      <circle cx="11" cy="27" r="1.5" fill="currentColor" />
+      <line x1="16" y1="9" x2="25" y2="9" />
+      <line x1="16" y1="27" x2="25" y2="27" />
     </svg>
   )
 }
 
-function CodeIcon({ className }: { className?: string }) {
+function ApiIcon({ className }: { className?: string }) {
   return (
     <svg
       width="36"
@@ -59,16 +51,16 @@ function CodeIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Compass / scissors — design tool figure */}
-      <circle cx="18" cy="8" r="3" />
-      <path d="M18 11V20" />
-      <path d="M18 20L10 32" />
-      <path d="M18 20L26 32" />
+      {/* API / request-response arrows */}
+      <path d="M6 12H30" />
+      <path d="M24 6L30 12L24 18" />
+      <path d="M30 24H6" />
+      <path d="M12 18L6 24L12 30" />
     </svg>
   )
 }
 
-function ArchitectureIcon({ className }: { className?: string }) {
+function KanbanIcon({ className }: { className?: string }) {
   return (
     <svg
       width="36"
@@ -82,15 +74,22 @@ function ArchitectureIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Compass / divider figure */}
-      <circle cx="18" cy="8" r="3" />
-      <path d="M18 11V18" />
-      <path d="M12 32L18 18L24 32" />
+      {/* Kanban board columns */}
+      <rect x="4" y="4" width="8" height="28" rx="1.5" />
+      <rect x="14" y="4" width="8" height="20" rx="1.5" />
+      <rect x="24" y="4" width="8" height="14" rx="1.5" />
+      {/* Task cards inside */}
+      <line x1="6" y1="9" x2="10" y2="9" />
+      <line x1="6" y1="14" x2="10" y2="14" />
+      <line x1="6" y1="19" x2="10" y2="19" />
+      <line x1="16" y1="9" x2="20" y2="9" />
+      <line x1="16" y1="14" x2="20" y2="14" />
+      <line x1="26" y1="9" x2="30" y2="9" />
     </svg>
   )
 }
 
-function GlobeIcon({ className }: { className?: string }) {
+function ToolsIcon({ className }: { className?: string }) {
   return (
     <svg
       width="36"
@@ -104,12 +103,12 @@ function GlobeIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Globe with grid lines */}
-      <circle cx="18" cy="18" r="14" />
-      <ellipse cx="18" cy="18" rx="6" ry="14" />
-      <line x1="4" y1="18" x2="32" y2="18" />
-      <path d="M6 10H30" />
-      <path d="M6 26H30" />
+      {/* Git branch */}
+      <circle cx="12" cy="8" r="3" />
+      <circle cx="24" cy="8" r="3" />
+      <circle cx="18" cy="28" r="3" />
+      <path d="M12 11V18C12 22 14 25 18 25" />
+      <path d="M24 11V18C24 22 22 25 18 25" />
     </svg>
   )
 }
@@ -118,25 +117,25 @@ function GlobeIcon({ className }: { className?: string }) {
 
 const services = [
   {
-    icon: TypographyIcon,
+    icon: ServerIcon,
     title: 'Backend development \u2014 Laravel & PHP',
     description:
       'Route design, Eloquent modeling, service classes, and state machines. Laravel is the primary tool; the goal is clean architecture that survives real usage.',
   },
   {
-    icon: CodeIcon,
+    icon: ApiIcon,
     title: 'Node.js & API integration',
     description:
       'Express servers, third-party API wiring (Gemini Vision), and request/response pipelines. Secondary stack, used where Laravel is not the right fit.',
   },
   {
-    icon: ArchitectureIcon,
+    icon: KanbanIcon,
     title: 'Project management',
     description:
       'Concurrent PM across team projects. Task scoping, sprint coordination, and deadline tracking \u2014 not just a title, a working role.',
   },
   {
-    icon: GlobeIcon,
+    icon: ToolsIcon,
     title: 'Tooling & workflow',
     description:
       'Git with Conventional Commits, three-tier branching, Tailwind CSS, DomPDF, and structured self-study roadmaps. Also worked with C, C++, and Python.',
@@ -159,11 +158,11 @@ export function Craft() {
         >
           {/* Left: label + heading */}
           <div>
-            <p className="font-body text-[11px] font-semibold tracking-[0.12em] uppercase text-ink mb-5">
-              Craft
+            <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-accent mb-5">
+              {'// craft'}
             </p>
             <h2
-              className="font-serif font-black text-ink tracking-tight"
+              className="font-serif font-bold text-ink tracking-tight"
               style={{
                 fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
                 lineHeight: '1.05',
@@ -187,16 +186,20 @@ export function Craft() {
 
         {/* ── 4-column service cards ──────────────────────────────────────── */}
         <motion.div
-          variants={staggerContainer}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-20"
         >
           {services.map((service) => (
-            <motion.div key={service.title} variants={fadeUp}>
+            <motion.div
+              key={service.title}
+              variants={fadeUp}
+              className="group p-6 border border-ash/50 bg-white hover:border-ink/20 transition-all duration-300 rounded-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
+            >
               {/* Icon */}
-              <service.icon className="text-ink mb-6 w-9 h-9" />
+              <service.icon className="text-accent mb-6 w-9 h-9 transition-colors duration-200" />
 
               {/* Title */}
               <h3 className="font-serif font-bold text-[1.35rem] leading-[1.15] tracking-tight text-ink mb-3">
@@ -221,16 +224,16 @@ export function Craft() {
         >
           <a
             href="#work"
-            className="font-body text-[14px] font-medium text-ink border border-ink px-8 py-3 hover:bg-ink hover:text-white transition-colors duration-200 focus-ring"
+            className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-ink border border-ink px-7 py-3 hover:bg-ink hover:text-white transition-all duration-200 focus-ring rounded-sm"
           >
             Work
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center gap-1.5 font-body text-[14px] font-medium text-ink hover:text-dim transition-colors duration-150 focus-ring"
+            className="inline-flex items-center gap-1.5 font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-dim hover:text-ink transition-colors duration-200 focus-ring group"
           >
             Contact
-            <ChevronRight size={14} strokeWidth={1.75} />
+            <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
           </a>
         </motion.div>
       </div>

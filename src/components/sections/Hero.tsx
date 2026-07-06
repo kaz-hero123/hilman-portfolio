@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion'
 import Image from 'next/image'
 
 import { createStaggerContainer, fadeInVariant } from '@/lib/motion'
@@ -43,13 +43,23 @@ const techBadges = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function Hero() {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect()
+    mouseX.set(clientX - left)
+    mouseY.set(clientY - top)
+  }
+
   return (
     <section
       id="hero"
-      className="relative min-h-[100svh] flex flex-col overflow-hidden"
+      className="relative min-h-[100svh] flex flex-col overflow-hidden group"
+      onMouseMove={handleMouseMove}
     >
       {/* ── Full-bleed background photo ──────────────────────────────────── */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <Image
           src="/hero-workspace.png"
           alt="Cinematic developer workspace at night — laptop with code, amber desk lamp, books"
@@ -61,8 +71,18 @@ export function Hero() {
         />
         {/* Dark scrim for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/65" />
-        {/* Subtle dot grid overlay for technical feel */}
-        <div className="absolute inset-0 dot-grid opacity-40" />
+        
+        {/* Base dim grid */}
+        <div className="absolute inset-0 dot-grid opacity-20" />
+
+        {/* Spotlight bright grid */}
+        <motion.div 
+          className="absolute inset-0 dot-grid opacity-0 group-hover:opacity-70 transition-opacity duration-700"
+          style={{
+            WebkitMaskImage: useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, black, transparent 80%)`,
+            maskImage: useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, black, transparent 80%)`,
+          }}
+        />
       </div>
 
       {/* ── Nav spacer ───────────────────────────────────────────────────── */}

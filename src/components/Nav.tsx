@@ -5,6 +5,7 @@ import { ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
+import { HoverScramble } from '@/components/animations/HoverScramble'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -167,7 +168,7 @@ export function Nav() {
                     isActive(link.href) && !onHero && 'text-accent'
                   )}
                 >
-                  {link.label}
+                  <HoverScramble text={link.label} />
                   {isActive(link.href) && (
                     <motion.span
                       layoutId="nav-active"

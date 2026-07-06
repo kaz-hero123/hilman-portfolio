@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
 import { Magnetic } from '@/components/animations/Magnetic'
+import { Particles } from '@/components/animations/Particles'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -15,6 +16,9 @@ export function CTA() {
     <section id="contact" className="bg-ink relative overflow-hidden">
       {/* Subtle dot grid */}
       <div className="absolute inset-0 dot-grid opacity-30" aria-hidden="true" />
+
+      {/* Interactive Particles */}
+      <Particles className="opacity-40" quantity={60} />
 
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28">
         <motion.div

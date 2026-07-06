@@ -60,6 +60,8 @@ const config: Config = {
         'scroll-bounce': 'scrollBounce 2s ease-in-out infinite',
         'pulse-dot': 'pulseDot 2s ease-in-out infinite',
         'marquee': 'marquee 30s linear infinite',
+        'meteor-effect': 'meteor 5s linear infinite',
+        'shiny-sweep': 'shinySweep 2s ease-in-out infinite',
       },
       keyframes: {
         fadeUp: {
@@ -82,6 +84,18 @@ const config: Config = {
           '0%': { transform: 'translateX(0%)' },
           '100%': { transform: 'translateX(-100%)' },
         },
+        meteor: {
+          '0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
+          '70%': { opacity: '1' },
+          '100%': {
+            transform: 'rotate(215deg) translateX(-800px)',
+            opacity: '0',
+          },
+        },
+        shinySweep: {
+          '0%': { transform: 'translateX(-100%) skewX(-15deg)' },
+          '100%': { transform: 'translateX(200%) skewX(-15deg)' },
+        }
       },
     },
   },

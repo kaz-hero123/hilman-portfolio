@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { createStaggerContainer, fadeInVariant } from '@/lib/motion'
 import { ScrambleText } from '@/components/animations/ScrambleText'
 import { Magnetic } from '@/components/animations/Magnetic'
+import { Meteors } from '@/components/animations/Meteors'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -71,6 +72,9 @@ export function Hero() {
         />
         {/* Dark scrim for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/65" />
+        
+        {/* Meteor Shower */}
+        <Meteors number={15} />
         
         {/* Base dim grid */}
         <div className="absolute inset-0 dot-grid opacity-20" />

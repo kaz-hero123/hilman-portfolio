@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
 import { BlurReveal } from '@/components/animations/BlurReveal'
+import { ShinyButton } from '@/components/animations/ShinyButton'
 const fadeUp = fadeUpVariant
 
 const techStack = [
@@ -68,12 +69,9 @@ export function About() {
             </div>
 
             <div className="flex items-center gap-5">
-              <a
-                href="#"
-                className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-ink border border-ink px-7 py-3 hover:bg-ink hover:text-white transition-all duration-200 focus-ring rounded-sm"
-              >
+              <ShinyButton href="#">
                 Resume
-              </a>
+              </ShinyButton>
               <a
                 href="https://linkedin.com/in/hilman-nidal-hamzi-997969415"
                 className="inline-flex items-center gap-1.5 font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-dim hover:text-ink transition-colors duration-200 focus-ring group"

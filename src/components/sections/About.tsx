@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
+import { BlurReveal } from '@/components/animations/BlurReveal'
 const fadeUp = fadeUpVariant
 
 const techStack = [
@@ -44,11 +45,13 @@ export function About() {
               The man behind the machine
             </h2>
 
-            <p className="font-body text-[16px] leading-[1.7] text-dim mb-8">
-              I found my way into software through a fascination with how things work.
-              The clean logic of a well-structured function is a beautiful thing. I believe
-              good code is invisible to the user.
-            </p>
+            <BlurReveal delay={0.1}>
+              <p className="font-body text-[16px] leading-[1.7] text-dim mb-8">
+                I found my way into software through a fascination with how things work.
+                The clean logic of a well-structured function is a beautiful thing. I believe
+                good code is invisible to the user.
+              </p>
+            </BlurReveal>
 
             <div className="flex flex-wrap items-center gap-3 mb-10">
               {techStack.map((tech) => (

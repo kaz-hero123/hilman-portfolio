@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { playfair, pacifico, inter, jetbrainsMono } from '@/lib/fonts'
 import { Nav } from '@/components/Nav'
+import { SmoothScroll } from '@/components/providers/SmoothScroll'
+import { Noise } from '@/components/ui/Noise'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -38,14 +40,17 @@ export default function RootLayout({
       className={`${playfair.variable} ${pacifico.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-ink focus:text-white focus:font-mono focus:text-xs focus:uppercase focus:outline-none"
-        >
-          Skip to main content
-        </a>
-        <Nav />
-        {children}
+        <SmoothScroll>
+          <Noise />
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-ink focus:text-white focus:font-mono focus:text-xs focus:uppercase focus:outline-none"
+          >
+            Skip to main content
+          </a>
+          <Nav />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   )

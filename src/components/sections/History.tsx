@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 
@@ -53,8 +54,14 @@ const timeline = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function History() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start center', 'end center'],
+  })
+
   return (
-    <section id="history" className="bg-mist">
+    <section id="history" className="bg-mist" ref={containerRef}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28">
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <motion.div
@@ -137,6 +144,10 @@ export function History() {
             {/* Horizontal line with dots — centered */}
             <div className="relative flex items-center">
               <div className="absolute inset-x-4 h-[1px] bg-ink/20" />
+              <motion.div 
+                className="absolute inset-x-4 h-[2px] bg-accent origin-left"
+                style={{ scaleX: scrollYProgress }}
+              />
               <div className="relative grid grid-cols-6 w-full">
                 {timeline.map((entry) => (
                   <div key={entry.year} className="flex justify-center">

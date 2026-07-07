@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { Magnetic } from './Magnetic'
 
 export const ShinyButton = React.forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
@@ -11,11 +12,12 @@ export const ShinyButton = React.forwardRef<
   const Component = props.href ? 'a' : 'button'
   
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className="inline-block"
-    >
+    <Magnetic>
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.95 }}
+        className="inline-block"
+      >
       <Component
         ref={ref as any}
         {...props}
@@ -39,6 +41,7 @@ export const ShinyButton = React.forwardRef<
         />
       </Component>
     </motion.div>
+    </Magnetic>
   )
 })
 ShinyButton.displayName = 'ShinyButton'

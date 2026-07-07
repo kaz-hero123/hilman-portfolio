@@ -4,6 +4,7 @@ import { Nav } from '@/components/Nav'
 import { SmoothScroll } from '@/components/providers/SmoothScroll'
 import { Noise } from '@/components/ui/Noise'
 import { CustomCursor } from '@/components/ui/CustomCursor'
+import { ScrollToTop } from '@/components/ui/ScrollToTop'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -52,6 +53,7 @@ export default function RootLayout({
           </a>
           <Nav />
           {children}
+          <ScrollToTop />
         </SmoothScroll>
       </body>
     </html>

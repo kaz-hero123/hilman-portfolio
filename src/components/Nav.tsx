@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
 import { HoverScramble } from '@/components/animations/HoverScramble'
+import { GlitchText } from '@/components/animations/GlitchText'
+import { Magnetic } from '@/components/animations/Magnetic'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -157,29 +159,31 @@ export function Nav() {
           <ul className="hidden md:flex items-center gap-8" role="list">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <a
-                  href={link.href}
-                  onClick={closeAll}
-                  className={cn(
-                    'relative font-body text-[15px] font-normal tracking-wide transition-colors duration-200 focus-ring link-draw',
-                    onHero
-                      ? 'text-white/90 hover:text-white'
-                      : 'text-ink hover:text-ink/60',
-                    isActive(link.href) && !onHero && 'text-accent'
-                  )}
-                >
-                  <HoverScramble text={link.label} />
-                  {isActive(link.href) && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className={cn(
-                        'absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full',
-                        onHero ? 'bg-white' : 'bg-accent'
-                      )}
-                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    />
-                  )}
-                </a>
+                <Magnetic>
+                  <a
+                    href={link.href}
+                    onClick={closeAll}
+                    className={cn(
+                      'relative block font-body text-[15px] font-normal tracking-wide transition-colors duration-200 focus-ring link-draw',
+                      onHero
+                        ? 'text-white/90 hover:text-white'
+                        : 'text-ink hover:text-ink/60',
+                      isActive(link.href) && !onHero && 'text-accent'
+                    )}
+                  >
+                    <HoverScramble text={link.label} />
+                    {isActive(link.href) && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className={cn(
+                          'absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full',
+                          onHero ? 'bg-white' : 'bg-accent'
+                        )}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                    )}
+                  </a>
+                </Magnetic>
               </li>
             ))}
 
@@ -250,7 +254,7 @@ export function Nav() {
             )}
           >
             <span className={cn('mr-1 transition-colors', onHero ? 'text-white/50' : 'text-ink/40')}>~/</span>
-            hilman
+            <GlitchText text="hilman" />
             <span className={cn('w-1.5 h-3.5 animate-pulse ml-[2px]', onHero ? 'bg-white/70' : 'bg-accent')} />
           </a>
 

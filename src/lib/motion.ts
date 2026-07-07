@@ -13,19 +13,21 @@ export const slowEditorialTransition = {
 // ─── Reusable animation variants ──────────────────────────────────────────────
 
 export const fadeUpVariant = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 32, filter: 'blur(8px)' },
   visible: {
     opacity: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: editorialTransition,
   },
 }
 
 export const fadeUpSmallVariant = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
   visible: {
     opacity: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
   },
 }

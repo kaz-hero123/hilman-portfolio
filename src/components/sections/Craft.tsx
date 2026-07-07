@@ -5,6 +5,7 @@ import { ChevronRight } from 'lucide-react'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 import { SpotlightCard } from '@/components/animations/SpotlightCard'
 import { StarBorder } from '@/components/animations/StarBorder'
+import { WavyDivider } from '@/components/ui/WavyDivider'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -184,7 +185,9 @@ export function Craft() {
         </motion.div>
 
         {/* ── Hairline ───────────────────────────────────────────────────── */}
-        <hr className="border-0 border-t border-[#E5E5E5] mb-14" />
+        <div className="mb-14">
+          <WavyDivider />
+        </div>
 
         {/* ── 4-column service cards ──────────────────────────────────────── */}
         <motion.div
@@ -192,17 +195,17 @@ export function Craft() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-20"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-20 group/grid"
         >
           {services.map((service) => (
             <motion.div
               key={service.title}
               variants={fadeUp}
-              className="h-full"
+              className="h-full transition-all duration-500 group-hover/grid:scale-[0.95] group-hover/grid:opacity-50 hover:!scale-100 hover:!opacity-100 hover:z-10"
             >
               <StarBorder>
                 <SpotlightCard
-                  className="group p-6 bg-transparent transition-all duration-300 rounded-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)] h-full"
+                  className="group p-6 bg-transparent transition-all duration-300 rounded-sm hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] h-full"
                 >
                   {/* Icon */}
                   <service.icon className="text-accent mb-6 w-9 h-9 transition-colors duration-200" />

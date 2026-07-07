@@ -60,11 +60,15 @@ function PdfLogo() {
 export function LogoCloud() {
   const renderTechCards = (keyPrefix: string) => (
     technologies.map((tech) => (
-      <div
+      <motion.div
+        drag
+        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+        dragElastic={0.4}
+        whileDrag={{ scale: 1.1, zIndex: 50, rotate: Math.random() * 10 - 5 }}
         key={`${keyPrefix}-${tech.name}`}
-        className="flex items-center gap-2.5 px-5 py-3.5 bg-white border border-ash/60 hover:border-accent/40 hover:shadow-sm transition-all duration-200 card-lift group/item cursor-default min-w-[170px]"
+        className="flex items-center gap-2.5 px-5 py-3.5 bg-white border border-ash/60 hover:border-accent/40 hover:shadow-sm transition-all duration-200 card-lift group/item cursor-grab active:cursor-grabbing min-w-[170px]"
       >
-        <div className="shrink-0 transition-transform duration-200 group-hover/item:scale-110 flex items-center justify-center w-5 h-5">
+        <div className="shrink-0 transition-transform duration-200 group-hover/item:scale-110 flex items-center justify-center w-5 h-5 pointer-events-none">
           {'iconUrl' in tech && tech.iconUrl ? (
             <img src={tech.iconUrl} alt={tech.name} className="w-full h-full object-contain" />
           ) : (
@@ -73,10 +77,10 @@ export function LogoCloud() {
             </span>
           )}
         </div>
-        <span className="font-mono text-[13px] font-medium tracking-tight text-ink truncate">
+        <span className="font-mono text-[13px] font-medium tracking-tight text-ink truncate pointer-events-none">
           {tech.name}
         </span>
-      </div>
+      </motion.div>
     ))
   )
 

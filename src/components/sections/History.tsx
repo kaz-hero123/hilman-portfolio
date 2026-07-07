@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
+import { NumberCounter } from '@/components/animations/NumberCounter'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -61,8 +62,11 @@ export function History() {
   })
 
   return (
-    <section id="history" className="bg-mist" ref={containerRef}>
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28">
+    <section id="history" className="bg-mist relative overflow-hidden" ref={containerRef}>
+      {/* Morphing Blob Background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] animate-blob pointer-events-none" />
+
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28 relative z-10">
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <motion.div
           variants={fadeUp}
@@ -129,7 +133,11 @@ export function History() {
                   }
                 >
                   <p className="font-mono text-[11px] text-accent tracking-wide mb-1">
-                    {entry.period}
+                    {/^\d+$/.test(entry.period) ? (
+                      <NumberCounter value={parseInt(entry.period)} />
+                    ) : (
+                      entry.period
+                    )}
                   </p>
                   <h3 className="font-serif font-bold text-[1.5rem] leading-[1.1] tracking-tight text-ink mb-2">
                     {entry.year}
@@ -170,7 +178,11 @@ export function History() {
                   }
                 >
                   <p className="font-mono text-[11px] text-accent tracking-wide mb-1">
-                    {entry.period}
+                    {/^\d+$/.test(entry.period) ? (
+                      <NumberCounter value={parseInt(entry.period)} />
+                    ) : (
+                      entry.period
+                    )}
                   </p>
                   <h3 className="font-serif font-bold text-[1.5rem] leading-[1.1] tracking-tight text-ink mb-2">
                     {entry.year}
@@ -199,7 +211,11 @@ export function History() {
                 {/* Content */}
                 <div className="pb-2">
                   <p className="font-mono text-[11px] text-accent tracking-wide mb-1">
-                    {entry.period}
+                    {/^\d+$/.test(entry.period) ? (
+                      <NumberCounter value={parseInt(entry.period)} />
+                    ) : (
+                      entry.period
+                    )}
                   </p>
                   <h3 className="font-serif font-bold text-[1.35rem] leading-[1.1] tracking-tight text-ink mb-2">
                     {entry.year}

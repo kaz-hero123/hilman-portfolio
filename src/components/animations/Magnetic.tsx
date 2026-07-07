@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { playTickSound } from '@/lib/sound'
 
 interface MagneticProps {
   children: React.ReactNode
@@ -22,7 +23,11 @@ export function Magnetic({ children }: MagneticProps) {
     setPosition({ x: middleX * 0.15, y: middleY * 0.15 })
   }
 
-  const reset = () => {
+  const handleMouseEnter = () => {
+    playTickSound()
+  }
+
+  const handleMouseLeave = () => {
     setPosition({ x: 0, y: 0 })
   }
 
@@ -30,7 +35,8 @@ export function Magnetic({ children }: MagneticProps) {
     <motion.div
       ref={ref}
       onMouseMove={handleMouse}
-      onMouseLeave={reset}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: 'spring', stiffness: 200, damping: 15, mass: 0.1 }}
       className="inline-block"

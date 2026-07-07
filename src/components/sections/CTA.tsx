@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
 import { Magnetic } from '@/components/animations/Magnetic'
 import { Particles } from '@/components/animations/Particles'
+import { TimeBadge } from '@/components/animations/TimeBadge'
+import { ClickConfetti } from '@/components/animations/ClickConfetti'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -30,12 +32,15 @@ export function CTA() {
         >
           {/* Left: Big serif heading */}
           <div>
-            {/* Availability badge */}
-            <div className="flex items-center gap-2 mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
-              <span className="font-mono text-[11px] text-emerald-400 tracking-wide uppercase">
-                Available for new projects
-              </span>
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              {/* Availability badge */}
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
+                <span className="font-mono text-[11px] text-emerald-400 tracking-wide uppercase">
+                  Available for new projects
+                </span>
+              </div>
+              <TimeBadge />
             </div>
 
             <h2
@@ -58,12 +63,14 @@ export function CTA() {
 
             <div className="flex items-center gap-5">
               <Magnetic>
-                <a
-                  href="mailto:hilmannidal@gmail.com"
-                  className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-ink bg-white border border-transparent px-7 py-3 hover:bg-white/90 transition-all duration-200 focus-ring rounded-sm"
-                >
-                  Contact
-                </a>
+                <ClickConfetti>
+                  <a
+                    href="mailto:hilmannidal@gmail.com"
+                    className="inline-flex items-center justify-center font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-ink bg-white border border-transparent px-7 py-3 hover:bg-white/90 transition-all duration-200 focus-ring rounded-sm"
+                  >
+                    Contact
+                  </a>
+                </ClickConfetti>
               </Magnetic>
               <Magnetic>
                 <a

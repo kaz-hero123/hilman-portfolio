@@ -7,6 +7,8 @@ import { projects } from '@/data/projects'
 import type { Project } from '@/data/projects'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 import { TiltCard } from '@/components/animations/TiltCard'
+import { ImageTrail } from '@/components/animations/ImageTrail'
+import { WavyDivider } from '@/components/ui/WavyDivider'
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -175,8 +177,9 @@ export function Work() {
         </motion.div>
 
         {/* ── 3-column masonry grid ──────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-14 pb-16">
-          {/* Left column — hero cards (taller images) */}
+        <ImageTrail images={projects.map(p => p.image).filter(img => img !== undefined) as string[]}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-14 pb-16">
+            {/* Left column — hero cards (taller images) */}
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -206,21 +209,22 @@ export function Work() {
             ))}
           </motion.div>
 
-          {/* Right column — slight offset, standard cards */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            className="flex flex-col gap-10 md:pt-8"
-          >
-            {rightProjects.map((p) => (
-              <motion.div key={p.slug} variants={fadeUp}>
-                <StandardCard project={p} />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+            {/* Right column — slight offset, standard cards */}
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              className="flex flex-col gap-10 md:pt-8"
+            >
+              {rightProjects.map((p) => (
+                <motion.div key={p.slug} variants={fadeUp}>
+                  <StandardCard project={p} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </ImageTrail>
 
         {/* ── View all CTA ───────────────────────────────────────────────── */}
         <motion.div
@@ -241,7 +245,7 @@ export function Work() {
 
       {/* ── Hairline separator ─────────────────────────────────────────── */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-        <hr className="border-0 border-t border-[#E5E5E5]" />
+        <WavyDivider />
       </div>
     </section>
   )

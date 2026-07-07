@@ -1,9 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, HTMLMotionProps } from 'framer-motion'
 import { playPopSound } from '@/lib/sound'
 
-interface PhysicsButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface PhysicsButtonProps extends HTMLMotionProps<"button"> {
   children: React.ReactNode
   href?: string
 }

@@ -76,7 +76,7 @@ export function Hero() {
 
         {/* Parallax Cursor Particles */}
         <div className="absolute inset-0 z-0 opacity-40">
-          <Particles quantity={100} ease={80} color="#ffffff" refresh />
+          <Particles quantity={100} ease={80} />
         </div>
 
         {/* Base dim grid */}

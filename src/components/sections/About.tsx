@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
 import { BlurReveal } from '@/components/animations/BlurReveal'
 import { ShinyButton } from '@/components/animations/ShinyButton'
+import Image from 'next/image'
 const fadeUp = fadeUpVariant
 
 const techStack = [
@@ -24,11 +25,16 @@ export function About() {
           viewport={{ once: true, margin: '-80px' }}
           className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start"
         >
-          {/* Image Placeholder Slot */}
-          <div className="relative w-full aspect-[4/3] bg-ash/20 border-2 border-dashed border-ash flex flex-col items-center justify-center text-dim group">
-            <span className="font-mono text-[13px] tracking-widest uppercase mb-2">Image Slot</span>
-            <span className="font-body text-[12px] opacity-60">Replace with your portrait</span>
-            <div className="absolute inset-0 border border-transparent group-hover:border-accent/30 transition-colors duration-300" />
+          {/* Portrait Image */}
+          <div className="relative w-full aspect-[4/3] bg-ash/10 overflow-hidden group">
+            <Image
+              src="/hilman.jpg"
+              alt="Hilman"
+              fill
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 border border-transparent group-hover:border-accent/30 transition-colors duration-300 pointer-events-none" />
           </div>
 
           <div>

@@ -7,6 +7,7 @@ import { BlurReveal } from '@/components/animations/BlurReveal'
 import { HoverImageReveal } from '@/components/animations/HoverImageReveal'
 import { HighlightText } from '@/components/animations/HighlightText'
 import { ShinyButton } from '@/components/animations/ShinyButton'
+import { PhysicsButton } from '@/components/animations/PhysicsButton'
 import { Marquee } from '@/components/animations/Marquee'
 import { WavyDivider } from '@/components/ui/WavyDivider'
 import { TiltCard } from '@/components/animations/TiltCard'
@@ -95,9 +96,11 @@ export function About() {
             </div>
 
             <div className="flex items-center gap-5">
-              <ShinyButton href="#">
-                Resume
-              </ShinyButton>
+              <PhysicsButton>
+                <ShinyButton href="#">
+                  Resume
+                </ShinyButton>
+              </PhysicsButton>
               <a
                 href="https://linkedin.com/in/hilman-nidal-hamzi-997969415"
                 className="inline-flex items-center gap-1.5 font-mono text-[12px] md:text-[13px] uppercase tracking-widest font-medium text-dim hover:text-ink transition-colors duration-200 focus-ring group"

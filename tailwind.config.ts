@@ -62,6 +62,9 @@ const config: Config = {
         'marquee': 'marquee 30s linear infinite',
         'meteor-effect': 'meteor 5s linear infinite',
         'shiny-sweep': 'shinySweep 2s ease-in-out infinite',
+        'noise': 'noise 0.2s steps(2) infinite',
+        'glitch-1': 'glitch1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite',
+        'glitch-2': 'glitch2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite reverse',
       },
       keyframes: {
         fadeUp: {
@@ -95,6 +98,34 @@ const config: Config = {
         shinySweep: {
           '0%': { transform: 'translateX(-100%) skewX(-15deg)' },
           '100%': { transform: 'translateX(200%) skewX(-15deg)' },
+        },
+        noise: {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '10%': { transform: 'translate(-5%, -5%)' },
+          '20%': { transform: 'translate(-10%, 5%)' },
+          '30%': { transform: 'translate(5%, -10%)' },
+          '40%': { transform: 'translate(-5%, 15%)' },
+          '50%': { transform: 'translate(-10%, 5%)' },
+          '60%': { transform: 'translate(15%, 0)' },
+          '70%': { transform: 'translate(0, 15%)' },
+          '80%': { transform: 'translate(3%, 35%)' },
+          '90%': { transform: 'translate(-10%, 10%)' },
+        },
+        glitch1: {
+          '0%': { transform: 'translate(0)' },
+          '20%': { transform: 'translate(-2px, 2px)' },
+          '40%': { transform: 'translate(-2px, -2px)' },
+          '60%': { transform: 'translate(2px, 2px)' },
+          '80%': { transform: 'translate(2px, -2px)' },
+          '100%': { transform: 'translate(0)' }
+        },
+        glitch2: {
+          '0%': { transform: 'translate(0)' },
+          '20%': { transform: 'translate(2px, -2px)' },
+          '40%': { transform: 'translate(2px, 2px)' },
+          '60%': { transform: 'translate(-2px, -2px)' },
+          '80%': { transform: 'translate(-2px, 2px)' },
+          '100%': { transform: 'translate(0)' }
         }
       },
     },

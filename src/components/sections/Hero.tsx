@@ -71,12 +71,12 @@ export function Hero() {
         />
         {/* Dark scrim for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/65" />
-        
+
         {/* Base dim grid */}
         <div className="absolute inset-0 dot-grid opacity-20" />
 
         {/* Spotlight bright grid */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 dot-grid opacity-0 group-hover:opacity-70 transition-opacity duration-700"
           style={{
             WebkitMaskImage: useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, black, transparent 80%)`,

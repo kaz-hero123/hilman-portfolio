@@ -5,6 +5,9 @@ import { SmoothScroll } from '@/components/providers/SmoothScroll'
 import { Noise } from '@/components/ui/Noise'
 import { CustomCursor } from '@/components/ui/CustomCursor'
 import { ScrollToTop } from '@/components/ui/ScrollToTop'
+import { CommandPalette } from '@/components/animations/CommandPalette'
+import { PageTransition } from '@/components/animations/PageTransition'
+import { KonamiCode } from '@/components/animations/KonamiCode'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -42,6 +45,7 @@ export default function RootLayout({
       className={`${playfair.variable} ${pacifico.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
+        <PageTransition />
         <SmoothScroll>
           <Noise />
           <CustomCursor />
@@ -54,6 +58,8 @@ export default function RootLayout({
           <Nav />
           {children}
           <ScrollToTop />
+          <CommandPalette />
+          <KonamiCode />
         </SmoothScroll>
       </body>
     </html>

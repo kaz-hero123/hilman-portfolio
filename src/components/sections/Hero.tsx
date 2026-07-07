@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { createStaggerContainer, fadeInVariant } from '@/lib/motion'
 import { ScrambleText } from '@/components/animations/ScrambleText'
 import { Magnetic } from '@/components/animations/Magnetic'
+import { Particles } from '@/components/animations/Particles'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -72,6 +73,11 @@ export function Hero() {
         {/* Dark scrim for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/65" />
 
+        {/* Parallax Cursor Particles */}
+        <div className="absolute inset-0 z-0 opacity-40">
+          <Particles quantity={100} ease={80} color="#ffffff" refresh />
+        </div>
+
         {/* Base dim grid */}
         <div className="absolute inset-0 dot-grid opacity-20" />
 
@@ -111,7 +117,7 @@ export function Hero() {
             <motion.span
               key={i}
               variants={lineUp}
-              className="block font-serif font-black text-white tracking-tightest"
+              className="block font-serif font-black animate-gradient-text tracking-tightest"
               style={{
                 fontSize: 'clamp(3rem, 7.5vw, 7.5rem)',
                 lineHeight: '0.98',

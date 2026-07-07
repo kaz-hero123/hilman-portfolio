@@ -53,19 +53,31 @@ export function CustomCursor() {
   if (!isVisible) return null
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-3 h-3 bg-accent rounded-full pointer-events-none z-[100] mix-blend-exclusion"
-      style={{
-        x: cursorXSpring,
-        y: cursorYSpring,
-        translateX: '-50%',
-        translateY: '-50%',
-      }}
-      animate={{
-        scale: isHovering ? 4 : 1,
-        opacity: isHovering ? 0.6 : 1,
-      }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-    />
+    <>
+      <motion.div
+        className="fixed top-0 left-0 w-3 h-3 bg-accent rounded-full pointer-events-none z-[100] mix-blend-exclusion flex items-center justify-center"
+        style={{
+          x: cursorXSpring,
+          y: cursorYSpring,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+        animate={{
+          scale: isHovering ? 5 : 1,
+          opacity: isHovering ? 0.8 : 1,
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      >
+        {isHovering && (
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-[3px] text-white font-mono font-bold tracking-widest uppercase"
+          >
+            View
+          </motion.span>
+        )}
+      </motion.div>
+    </>
   )
 }

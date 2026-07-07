@@ -2,8 +2,14 @@
 
 import { motion } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
+import { TextReveal } from '@/components/animations/TextReveal'
 import { BlurReveal } from '@/components/animations/BlurReveal'
+import { HoverImageReveal } from '@/components/animations/HoverImageReveal'
+import { HighlightText } from '@/components/animations/HighlightText'
 import { ShinyButton } from '@/components/animations/ShinyButton'
+import { Marquee } from '@/components/animations/Marquee'
+import { WavyDivider } from '@/components/ui/WavyDivider'
+import { TiltCard } from '@/components/animations/TiltCard'
 import Image from 'next/image'
 const fadeUp = fadeUpVariant
 
@@ -26,16 +32,18 @@ export function About() {
           className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start"
         >
           {/* Portrait Image */}
-          <div className="relative w-full aspect-[4/3] bg-ash/10 overflow-hidden group">
-            <Image
-              src="/hilman.jpg"
-              alt="Hilman"
-              fill
-              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 border border-transparent group-hover:border-accent/30 transition-colors duration-300 pointer-events-none" />
-          </div>
+          <TiltCard>
+            <div className="relative w-full aspect-[4/3] bg-ash/10 overflow-hidden group">
+              <Image
+                src="/hilman.jpg"
+                alt="Hilman"
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 border border-transparent group-hover:border-accent/30 transition-colors duration-300 pointer-events-none" />
+            </div>
+          </TiltCard>
 
           <div>
             <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-accent mb-5">
@@ -49,29 +57,41 @@ export function About() {
                 lineHeight: '1.05',
               }}
             >
-              The man behind the machine
+              <TextReveal text="The man behind the machine" className="text-ink" />
             </h2>
 
             <BlurReveal delay={0.1}>
               <p className="font-body text-[16px] leading-[1.7] text-dim mb-8">
-                I found my way into software through a fascination with how things work.
-                The clean logic of a well-structured function is a beautiful thing. I believe
-                good code is invisible to the user.
+                I found my way into{' '}
+                <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop">
+                  software
+                </HoverImageReveal>{' '}
+                through a fascination with how things work. The{' '}
+                <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop" textColor="text-ink">
+                  clean logic
+                </HoverImageReveal>{' '}
+                of a well-structured function is a beautiful thing. I believe{' '}
+                <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=600&auto=format&fit=crop" textColor="text-ink">
+                  good code
+                </HoverImageReveal>{' '}
+                is <HighlightText color="#bae6fd" delay={0.3}>invisible</HighlightText> to the user.
               </p>
             </BlurReveal>
 
-            <div className="flex flex-wrap items-center gap-3 mb-10">
-              {techStack.map((tech) => (
-                <div
-                  key={tech.name}
-                  className="flex items-center gap-2.5 px-3 py-1.5 border border-ash/80 bg-white hover:border-ink/20 transition-all duration-200 cursor-default rounded-sm shadow-sm"
-                >
-                  <img src={tech.iconUrl} alt={tech.name} className="w-4 h-4 object-contain" />
-                  <span className="font-mono text-[12px] font-medium tracking-tight text-ink uppercase">
-                    {tech.name}
-                  </span>
-                </div>
-              ))}
+            <div className="mb-10 w-full overflow-hidden">
+              <Marquee baseVelocity={-2}>
+                {techStack.map((tech) => (
+                  <div
+                    key={tech.name}
+                    className="flex items-center gap-2.5 px-4 py-2 border border-ash/80 bg-white hover:border-ink/20 transition-all duration-200 cursor-default rounded-sm shadow-sm flex-shrink-0"
+                  >
+                    <img src={tech.iconUrl} alt={tech.name} className="w-4 h-4 object-contain" />
+                    <span className="font-mono text-[12px] font-medium tracking-tight text-ink uppercase">
+                      {tech.name}
+                    </span>
+                  </div>
+                ))}
+              </Marquee>
             </div>
 
             <div className="flex items-center gap-5">
@@ -91,7 +111,7 @@ export function About() {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-        <hr className="border-0 border-t border-[#E5E5E5]" />
+        <WavyDivider />
       </div>
     </section>
   )

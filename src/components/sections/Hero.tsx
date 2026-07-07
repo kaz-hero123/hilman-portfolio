@@ -7,6 +7,7 @@ import { createStaggerContainer, fadeInVariant } from '@/lib/motion'
 import { ScrambleText } from '@/components/animations/ScrambleText'
 import { Magnetic } from '@/components/animations/Magnetic'
 import { Particles } from '@/components/animations/Particles'
+import { TerminalTyping } from '@/components/animations/TerminalTyping'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -164,7 +165,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.1 }}
-            className="flex flex-wrap gap-3 order-2 md:order-1"
+            className="flex flex-wrap gap-3 order-2 md:order-1 max-w-[50%]"
           >
             {techBadges.map((badge, i) => (
               <motion.span
@@ -179,6 +180,22 @@ export function Hero() {
                 {badge.name}
               </motion.span>
             ))}
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+            className="order-1 md:order-2 w-full md:max-w-sm hidden md:block"
+          >
+            <TerminalTyping 
+              lines={[
+                "whoami",
+                "hilman nidal hamzi",
+                "./system_status",
+                "all systems functional. ready to build."
+              ]} 
+            />
           </motion.div>
 
         </div>

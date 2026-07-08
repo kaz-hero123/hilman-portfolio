@@ -64,7 +64,7 @@ export function About() {
             <BlurReveal delay={0.1}>
               <p className="font-body text-[17px] md:text-[19px] leading-[1.8] text-dim/90 mb-8 font-light">
                 Hi, I'm{' '}
-                <HoverImageReveal imageSrc="/hilman.jpg" textColor="text-accent font-medium">
+                <HoverImageReveal imageSrc="/hilman2.jpg" textColor="text-accent font-medium">
                   Hilman Nidal Hamzi
                 </HoverImageReveal>
                 , and I found my way into{' '}

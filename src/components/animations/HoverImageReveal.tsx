@@ -56,7 +56,7 @@ export function HoverImageReveal({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={handleMouseMove}
-        className={`relative inline-block cursor-crosshair font-medium transition-colors duration-300 underline decoration-dashed underline-offset-4 decoration-current/30 hover:decoration-current ${textColor} ${className}`}
+        className={`relative inline-block cursor-crosshair font-medium transition-colors duration-300 underline decoration-solid underline-offset-4 decoration-current/40 hover:decoration-current ${textColor} ${className}`}
       >
         {children}
       </span>
@@ -91,6 +91,7 @@ export function HoverImageReveal({
                 src={imageSrc}
                 alt={alt}
                 fill
+                unoptimized
                 className="object-cover"
                 sizes={`${width}px`}
               />

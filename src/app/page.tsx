@@ -1,12 +1,14 @@
+import dynamic from 'next/dynamic'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
-import { Work } from '@/components/sections/Work'
-import { Craft } from '@/components/sections/Craft'
-import { History } from '@/components/sections/History'
-import { Testimonials } from '@/components/sections/Testimonials'
-import { LogoCloud } from '@/components/sections/LogoCloud'
-import { CTA } from '@/components/sections/CTA'
-import { Footer } from '@/components/sections/Footer'
+
+const Work = dynamic(() => import('@/components/sections/Work').then(mod => ({ default: mod.Work })))
+const Craft = dynamic(() => import('@/components/sections/Craft').then(mod => ({ default: mod.Craft })))
+const History = dynamic(() => import('@/components/sections/History').then(mod => ({ default: mod.History })))
+const Testimonials = dynamic(() => import('@/components/sections/Testimonials').then(mod => ({ default: mod.Testimonials })))
+const LogoCloud = dynamic(() => import('@/components/sections/LogoCloud').then(mod => ({ default: mod.LogoCloud })))
+const CTA = dynamic(() => import('@/components/sections/CTA').then(mod => ({ default: mod.CTA })))
+const Footer = dynamic(() => import('@/components/sections/Footer').then(mod => ({ default: mod.Footer })))
 
 export default function Home() {
   return (

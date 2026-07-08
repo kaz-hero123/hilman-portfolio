@@ -66,6 +66,7 @@ export function Hero() {
           alt="Cinematic developer workspace at night — laptop with code, amber desk lamp, books"
           fill
           priority
+          fetchPriority="high"
           className="object-cover"
           sizes="100vw"
           quality={90}
@@ -175,7 +176,7 @@ export function Hero() {
                 animate="visible"
                 className="bg-white/5 border border-white/20 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-white/90 flex items-center gap-2 rounded-sm shadow-[0_2px_0_0_rgba(255,255,255,0.1)] backdrop-blur-sm"
               >
-                <img src={badge.iconUrl} alt={badge.name} className="w-3.5 h-3.5 object-contain" />
+                <img src={badge.iconUrl} alt={badge.name} width={14} height={14} className="w-3.5 h-3.5 object-contain" />
                 {badge.name}
               </motion.span>
             ))}

@@ -52,13 +52,16 @@ export function About() {
             </p>
 
             <h2
-              className="font-serif font-bold text-ink tracking-tight mb-6"
+              className="font-serif font-bold text-ink tracking-tight mb-6 flex flex-wrap items-center gap-2"
               style={{
                 fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
                 lineHeight: '1.05',
               }}
             >
-              <TextReveal text="The man behind the machine" className="text-ink" />
+              <span className="opacity-90">Hi, I'm</span>
+              <HoverImageReveal imageSrc="/hilman.jpg" textColor="text-accent">
+                Hilman Nidal Hamzi
+              </HoverImageReveal>
             </h2>
 
             <BlurReveal delay={0.1}>

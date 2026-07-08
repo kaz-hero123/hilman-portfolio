@@ -84,11 +84,10 @@ export function CommandPalette() {
     (item.subtitle && item.subtitle.toLowerCase().includes(query.toLowerCase()))
   )
 
-  // Handle keyboard navigation
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (!open) return
-      
+
       if (e.key === 'ArrowDown') {
         e.preventDefault()
         setSelectedIndex((prev) => (prev + 1) % filteredItems.length)
@@ -103,7 +102,7 @@ export function CommandPalette() {
         setOpen(false)
       }
     }
-    
+
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [open, filteredItems, selectedIndex])
@@ -130,7 +129,7 @@ export function CommandPalette() {
           className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4"
         >
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
@@ -189,7 +188,7 @@ export function CommandPalette() {
                           </span>
                         )}
                       </div>
-                      
+
                       {selectedIndex === index && (
                         <CornerDownLeft className="w-4 h-4 text-accent" />
                       )}

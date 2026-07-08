@@ -56,7 +56,7 @@ export function HoverImageReveal({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={handleMouseMove}
-        className={`relative inline-block cursor-crosshair font-medium transition-colors duration-300 underline decoration-solid underline-offset-4 decoration-current/40 hover:decoration-current ${textColor} ${className}`}
+        className={`relative inline-block cursor-crosshair font-medium transition-colors duration-300 border-b border-solid border-current/40 hover:border-current pb-0.5 ${textColor} ${className}`}
       >
         {children}
       </span>
@@ -87,13 +87,10 @@ export function HoverImageReveal({
               className={`relative overflow-hidden rounded-xl shadow-2xl border border-white/20 bg-ash/10 backdrop-blur-md ${imageClassName}`}
               style={{ width, height }}
             >
-              <Image
+              <img
                 src={imageSrc}
                 alt={alt}
-                fill
-                unoptimized
-                className="object-cover"
-                sizes={`${width}px`}
+                className="w-full h-full object-cover"
               />
             </div>
           </motion.div>,

@@ -52,30 +52,31 @@ export function About() {
             </p>
 
             <h2
-              className="font-serif font-bold text-ink tracking-tight mb-6 flex flex-wrap items-center gap-2"
+              className="font-serif font-bold text-ink tracking-tight mb-6"
               style={{
                 fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
                 lineHeight: '1.05',
               }}
             >
-              <span className="opacity-90">Hi, I'm</span>
-              <HoverImageReveal imageSrc="/hilman.jpg" textColor="text-accent">
-                Hilman Nidal Hamzi
-              </HoverImageReveal>
+              <TextReveal text="The man behind the machine" className="text-ink" />
             </h2>
 
             <BlurReveal delay={0.1}>
-              <p className="font-body text-[16px] leading-[1.7] text-dim mb-8">
-                I found my way into{' '}
+              <p className="font-body text-[17px] md:text-[19px] leading-[1.8] text-dim/90 mb-8 font-light">
+                Hi, I'm{' '}
+                <HoverImageReveal imageSrc="/hilman.jpg" textColor="text-accent font-medium">
+                  Hilman Nidal Hamzi
+                </HoverImageReveal>
+                , and I found my way into{' '}
                 <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop">
                   software
                 </HoverImageReveal>{' '}
                 through a fascination with how things work. The{' '}
-                <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop" textColor="text-ink">
+                <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop" textColor="text-ink font-medium">
                   clean logic
                 </HoverImageReveal>{' '}
                 of a well-structured function is a beautiful thing. I believe{' '}
-                <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=600&auto=format&fit=crop" textColor="text-ink">
+                <HoverImageReveal imageSrc="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=600&auto=format&fit=crop" textColor="text-ink font-medium">
                   good code
                 </HoverImageReveal>{' '}
                 is <HighlightText color="#bae6fd" delay={0.3}>invisible</HighlightText> to the user.

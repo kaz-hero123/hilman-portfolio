@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 export function WavyDivider() {
   return (
@@ -12,7 +12,7 @@ export function WavyDivider() {
         viewBox="0 0 1200 20"
         className="stroke-ash fill-transparent max-w-[1400px]"
       >
-        <motion.path
+        <m.path
           d="M0 10 Q 150 20, 300 10 T 600 10 T 900 10 T 1200 10"
           strokeWidth="1"
           initial={{ d: "M0 10 Q 150 10, 300 10 T 600 10 T 900 10 T 1200 10" }}

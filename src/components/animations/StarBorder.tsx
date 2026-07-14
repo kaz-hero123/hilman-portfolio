@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import React from 'react'
 
 export function StarBorder({
@@ -13,7 +13,7 @@ export function StarBorder({
 }) {
   return (
     <div className={cn('relative inline-block overflow-hidden rounded-sm p-[1px] w-full h-full group/star bg-ash/50', className)}>
-      <motion.div
+      <m.div
         animate={{ rotate: 360 }}
         transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-[-100%] z-0 opacity-0 group-hover/star:opacity-100 transition-opacity duration-500"

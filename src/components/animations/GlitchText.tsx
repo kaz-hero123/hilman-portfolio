@@ -11,7 +11,6 @@ interface GlitchTextProps {
 export function GlitchText({ text, className = '', as: Component = 'span' }: GlitchTextProps) {
   const [isGlitching, setIsGlitching] = useState(false)
 
-  // Random glitch effect every few seconds
   useEffect(() => {
     const interval = setInterval(() => {
       if (Math.random() > 0.7) {

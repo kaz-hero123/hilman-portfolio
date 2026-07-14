@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { playPopSound } from '@/lib/sound'
 
 interface ClickConfettiProps {
@@ -43,7 +43,7 @@ export function ClickConfetti({ children }: ClickConfettiProps) {
             const angle = Math.random() * Math.PI * 2
             const velocity = 50 + Math.random() * 100
             return (
-              <motion.div
+              <m.div
                 key={p.id}
                 initial={{ 
                   opacity: 1, 

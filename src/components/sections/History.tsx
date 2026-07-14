@@ -1,17 +1,15 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 import { NumberCounter } from '@/components/animations/NumberCounter'
 
-// ─── Animation ────────────────────────────────────────────────────────────────
 
 const fadeUp = fadeUpVariant
 const stagger = createStaggerContainer(0.08, 0.1)
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const timeline = [
   {
@@ -52,7 +50,6 @@ const timeline = [
   },
 ]
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function History() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -63,12 +60,10 @@ export function History() {
 
   return (
     <section id="history" className="bg-mist relative overflow-hidden" ref={containerRef}>
-      {/* Morphing Blob Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] animate-blob pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28 relative z-10">
-        {/* ── Header ─────────────────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -92,7 +87,6 @@ export function History() {
             self-directed study. Each step built on the last.
           </p>
 
-          {/* CTA row */}
           <div className="flex items-center gap-5">
             <a
               href="#work"
@@ -108,22 +102,19 @@ export function History() {
               <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </div>
-        </motion.div>
+        </m.div>
 
-        {/* ── Timeline ────────────────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
           className="relative"
         >
-          {/* ── Desktop timeline (hidden on mobile) ────────────────────── */}
           <div className="hidden md:block">
-            {/* Above-line entries */}
             <div className="grid grid-cols-6 gap-0 mb-6">
               {timeline.map((entry) => (
-                <motion.div
+                <m.div
                   key={entry.year}
                   variants={fadeUp}
                   className={
@@ -145,14 +136,13 @@ export function History() {
                   <p className="font-body text-[14px] leading-[1.65] text-dim">
                     {entry.text}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
-            {/* Horizontal line with dots — centered */}
             <div className="relative flex items-center">
               <div className="absolute inset-x-4 h-[1px] bg-ink/20" />
-              <motion.div 
+              <m.div 
                 className="absolute inset-x-4 h-[2px] bg-accent origin-left"
                 style={{ scaleX: scrollYProgress }}
               />
@@ -165,10 +155,9 @@ export function History() {
               </div>
             </div>
 
-            {/* Below-line entries */}
             <div className="grid grid-cols-6 gap-0 mt-6">
               {timeline.map((entry) => (
-                <motion.div
+                <m.div
                   key={entry.year}
                   variants={fadeUp}
                   className={
@@ -190,25 +179,22 @@ export function History() {
                   <p className="font-body text-[14px] leading-[1.65] text-dim">
                     {entry.text}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
 
-          {/* ── Mobile timeline (vertical stack, shown on small screens) ── */}
           <div className="md:hidden space-y-8">
             {timeline.map((entry) => (
-              <motion.div
+              <m.div
                 key={entry.year}
                 variants={fadeUp}
                 className="flex gap-5"
               >
-                {/* Dot + vertical line */}
                 <div className="flex flex-col items-center pt-1">
                   <div className="w-3 h-3 rounded-full bg-accent shrink-0 ring-4 ring-mist" />
                   <div className="w-[1px] flex-1 bg-ink/15 mt-2" />
                 </div>
-                {/* Content */}
                 <div className="pb-2">
                   <p className="font-mono text-[11px] text-accent tracking-wide mb-1">
                     {/^\d+$/.test(entry.period) ? (
@@ -224,10 +210,10 @@ export function History() {
                     {entry.text}
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

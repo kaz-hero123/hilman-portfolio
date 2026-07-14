@@ -1,13 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 
 export function PageTransition() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate short load to ensure fonts/layout are ready
     const timer = setTimeout(() => {
       setIsLoading(false)
     }, 800)
@@ -17,7 +16,7 @@ export function PageTransition() {
   return (
     <AnimatePresence>
       {isLoading && (
-        <motion.div
+        <m.div
           key="loader"
           className="fixed inset-0 z-[999] bg-ink flex items-center justify-center pointer-events-none"
           initial={{ clipPath: 'circle(150% at 50% 50%)' }}
@@ -26,7 +25,7 @@ export function PageTransition() {
             transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] } 
           }}
         >
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
@@ -38,7 +37,7 @@ export function PageTransition() {
             </span>
             <div className="flex gap-2">
               {[0, 1, 2].map((i) => (
-                <motion.div
+                <m.div
                   key={i}
                   animate={{ y: [0, -8, 0] }}
                   transition={{
@@ -51,8 +50,8 @@ export function PageTransition() {
                 />
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

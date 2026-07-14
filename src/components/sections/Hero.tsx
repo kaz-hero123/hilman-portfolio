@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, useMotionTemplate } from 'framer-motion'
+import { m, useMotionValue, useMotionTemplate } from 'framer-motion'
 import Image from 'next/image'
 
 import { createStaggerContainer, fadeInVariant } from '@/lib/motion'
@@ -8,7 +8,6 @@ import { ScrambleText } from '@/components/animations/ScrambleText'
 import { Magnetic } from '@/components/animations/Magnetic'
 import { Particles } from '@/components/animations/Particles'
 
-// ─── Animation variants ───────────────────────────────────────────────────────
 
 const stagger = createStaggerContainer(0.08, 0.3)
 
@@ -32,7 +31,6 @@ const floatUp = {
   }),
 }
 
-// ─── Tech stack badges ────────────────────────────────────────────────────────
 
 const techBadges = [
   { name: 'Laravel', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg' },
@@ -41,7 +39,6 @@ const techBadges = [
   { name: 'MySQL', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
 ]
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function Hero() {
   const mouseX = useMotionValue(0)
@@ -59,7 +56,6 @@ export function Hero() {
       className="relative min-h-[100svh] flex flex-col overflow-hidden group"
       onMouseMove={handleMouseMove}
     >
-      {/* ── Full-bleed background photo ──────────────────────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <Image
           src="/hero-workspace.png"
@@ -71,19 +67,15 @@ export function Hero() {
           sizes="100vw"
           quality={90}
         />
-        {/* Dark scrim for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/65" />
 
-        {/* Parallax Cursor Particles */}
         <div className="absolute inset-0 z-0 opacity-40">
           <Particles quantity={100} ease={80} />
         </div>
 
-        {/* Base dim grid */}
         <div className="absolute inset-0 dot-grid opacity-20" />
 
-        {/* Spotlight bright grid */}
-        <motion.div
+        <m.div
           className="absolute inset-0 dot-grid opacity-0 group-hover:opacity-70 transition-opacity duration-700"
           style={{
             WebkitMaskImage: useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, black, transparent 80%)`,
@@ -92,20 +84,15 @@ export function Hero() {
         />
       </div>
 
-      {/* ── Nav spacer ───────────────────────────────────────────────────── */}
       <div className="h-16 shrink-0" />
 
-      {/* ── Content column ───────────────────────────────────────────────── */}
       <div className="relative z-10 flex-1 flex flex-col max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-20">
 
-        {/* Push headline toward lower-center of viewport */}
         <div className="flex-[1.15]" />
 
-        {/* ── Mono tagline ─────────────────────────────────────────────── */}
 
 
-        {/* ── Headline — massive serif, tight tracking ───────────────── */}
-        <motion.h1
+        <m.h1
           variants={stagger}
           initial="hidden"
           animate="visible"
@@ -115,7 +102,7 @@ export function Hero() {
             'Backend',
             'Developer',
           ].map((line, i) => (
-            <motion.span
+            <m.span
               key={i}
               variants={lineUp}
               className="block font-serif font-black animate-gradient-text tracking-tightest"
@@ -125,12 +112,11 @@ export function Hero() {
               }}
             >
               <ScrambleText text={line} />
-            </motion.span>
+            </m.span>
           ))}
-        </motion.h1>
+        </m.h1>
 
-        {/* ── CTA row ─────────────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeIn}
           initial="hidden"
           animate="visible"
@@ -153,22 +139,19 @@ export function Hero() {
               Contact <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </Magnetic>
-        </motion.div>
+        </m.div>
 
-        {/* Spacer before bottom descriptor */}
         <div className="flex-[0.55]" />
 
-        {/* ── Bottom row: tech badges (left) + descriptor text (right) ── */}
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-10 md:pb-16">
-          {/* Tech badges — CLI/kbd style */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.1 }}
             className="flex flex-wrap gap-3 order-2 md:order-1"
           >
             {techBadges.map((badge, i) => (
-              <motion.span
+              <m.span
                 key={badge.name}
                 custom={i}
                 variants={floatUp}
@@ -178,15 +161,14 @@ export function Hero() {
               >
                 <img src={badge.iconUrl} alt={badge.name} width={14} height={14} className="w-3.5 h-3.5 object-contain" />
                 {badge.name}
-              </motion.span>
+              </m.span>
             ))}
-          </motion.div>
+          </m.div>
 
         </div>
       </div>
 
-      {/* ── Scroll indicator ────────────────────────────────────────────── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 0.8 }}
@@ -196,7 +178,7 @@ export function Hero() {
           scroll
         </span>
         <div className="w-[1px] h-8 bg-gradient-to-b from-white/50 to-transparent animate-scroll-bounce" />
-      </motion.div>
+      </m.div>
     </section>
   )
 }

@@ -1,14 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
 import { fadeUpSmallVariant } from '@/lib/motion'
 
-// ─── Animation ────────────────────────────────────────────────────────────────
 
 const fadeUp = fadeUpSmallVariant
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const navColumns = [
   {
@@ -43,7 +41,6 @@ const navColumns = [
 
 const legalLinks: { label: string; href: string }[] = []
 
-// ─── Social icons ─────────────────────────────────────────────────────────────
 
 function LinkedInIcon() {
   return (
@@ -61,7 +58,6 @@ function GitHubIcon() {
   )
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function Footer() {
   const scrollToTop = () => {
@@ -71,15 +67,13 @@ export function Footer() {
   return (
     <footer className="bg-white">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-        {/* ── Main footer grid ───────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
           className="pt-20 pb-16 grid grid-cols-2 md:grid-cols-5 gap-10"
         >
-          {/* Logo */}
           <div className="col-span-2 md:col-span-1">
             <a
               href="#hero"
@@ -91,7 +85,6 @@ export function Footer() {
             </a>
           </div>
 
-          {/* Nav columns */}
           {navColumns.map((col) => (
             <div key={col.heading}>
               <p className="font-body text-[14px] font-semibold text-ink mb-4">
@@ -116,7 +109,6 @@ export function Footer() {
             </div>
           ))}
 
-          {/* Get in touch */}
           <div>
             <p className="font-body text-[14px] font-semibold text-ink mb-4">
               Get in touch
@@ -131,13 +123,11 @@ export function Footer() {
               Email me
             </a>
           </div>
-        </motion.div>
+        </m.div>
 
-        {/* ── Bottom bar ─────────────────────────────────────────────────── */}
         <hr className="border-0 border-t border-[#E5E5E5]" />
 
         <div className="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          {/* Left: copyright + legal */}
           <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6">
             <p className="font-body text-[13px] text-dim">
               © 2026 Hilman Nidal Hamzi. All rights reserved.
@@ -155,7 +145,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Right: social icons + back to top */}
           <div className="flex items-center gap-5">
             {[
               { Icon: LinkedInIcon, label: 'LinkedIn', href: 'https://linkedin.com/in/hilman-nidal-hamzi-997969415' },
@@ -173,7 +162,6 @@ export function Footer() {
               </a>
             ))}
 
-            {/* Back to top */}
             <button
               type="button"
               onClick={scrollToTop}

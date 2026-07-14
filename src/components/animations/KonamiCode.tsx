@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 
 const KONAMI_CODE = [
   'ArrowUp',
@@ -29,7 +29,6 @@ export function KonamiCode() {
           setActive(true)
           keyIndex = 0
           
-          // Auto disable after 15 seconds
           setTimeout(() => setActive(false), 15000)
         }
       } else {
@@ -44,13 +43,12 @@ export function KonamiCode() {
   return (
     <AnimatePresence>
       {active && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[9999] bg-black/95 pointer-events-none flex items-center justify-center overflow-hidden"
         >
-          {/* Matrix Rain Effect (Simple CSS Implementation) */}
           <div className="absolute inset-0 opacity-40">
             {Array.from({ length: 50 }).map((_, i) => (
               <div 
@@ -70,7 +68,7 @@ export function KonamiCode() {
             ))}
           </div>
 
-          <motion.div
+          <m.div
             initial={{ scale: 0.8, filter: 'blur(10px)' }}
             animate={{ scale: 1, filter: 'blur(0px)' }}
             transition={{ type: 'spring', bounce: 0.5 }}
@@ -82,8 +80,8 @@ export function KonamiCode() {
             <p className="font-mono text-green-400/80 text-sm tracking-widest text-center">
               SYSTEM OVERRIDE INITIATED
             </p>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

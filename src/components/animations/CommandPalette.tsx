@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Search, Command, ArrowRight, CornerDownLeft } from 'lucide-react'
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
 
@@ -19,7 +19,6 @@ export function CommandPalette() {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Toggle on Cmd+K / Ctrl+K
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -31,7 +30,6 @@ export function CommandPalette() {
     return () => document.removeEventListener('keydown', down)
   }, [])
 
-  // Lock scroll when open
   useLockBodyScroll(open)
 
   const items: CommandItem[] = [
@@ -107,12 +105,10 @@ export function CommandPalette() {
     return () => document.removeEventListener('keydown', down)
   }, [open, filteredItems, selectedIndex])
 
-  // Reset index when query changes
   useEffect(() => {
     setSelectedIndex(0)
   }, [query])
 
-  // Focus input when opened
   useEffect(() => {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 100)
@@ -122,27 +118,24 @@ export function CommandPalette() {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4"
         >
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
 
-          {/* Modal */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative w-full max-w-xl bg-white rounded-xl shadow-2xl overflow-hidden border border-ash flex flex-col"
           >
-            {/* Search Input */}
             <div className="flex items-center px-4 border-b border-ash">
               <Search className="w-5 h-5 text-dim shrink-0" />
               <input
@@ -159,7 +152,6 @@ export function CommandPalette() {
               </div>
             </div>
 
-            {/* Results List */}
             <div className="max-h-[300px] overflow-y-auto p-2 scrollbar-none">
               {filteredItems.length === 0 ? (
                 <div className="py-14 text-center">
@@ -198,7 +190,6 @@ export function CommandPalette() {
               )}
             </div>
 
-            {/* Footer */}
             <div className="bg-mist px-4 py-3 border-t border-ash flex items-center justify-between">
               <span className="font-mono text-[10px] uppercase tracking-widest text-dim flex items-center gap-2">
                 Use <span className="inline-flex bg-white border border-ash rounded px-1.5 py-0.5 shadow-sm">↑</span> <span className="inline-flex bg-white border border-ash rounded px-1.5 py-0.5 shadow-sm">↓</span> to navigate
@@ -207,8 +198,8 @@ export function CommandPalette() {
                 <span className="inline-flex bg-white border border-ash rounded px-1.5 py-0.5 shadow-sm">Enter</span> to select
               </span>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

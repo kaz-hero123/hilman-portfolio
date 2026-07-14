@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, HTMLMotionProps } from 'framer-motion'
+import { m, HTMLMotionProps } from 'framer-motion'
 import { playPopSound } from '@/lib/sound'
 
 interface PhysicsButtonProps extends HTMLMotionProps<"button"> {
@@ -23,14 +23,14 @@ export function PhysicsButton({ children, href, onClick, ...props }: PhysicsButt
   }
 
   return (
-    <motion.button
+    <m.button
       whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.9, rotate: Math.random() > 0.5 ? 2 : -2 }}
+      whileTap={{ scale: 0.9, rotate: 2 }}
       transition={{ type: 'spring', stiffness: 400, damping: 10 }}
       onClick={handleClick}
       {...props}
     >
       {children}
-    </motion.button>
+    </m.button>
   )
 }

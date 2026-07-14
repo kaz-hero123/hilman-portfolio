@@ -1,20 +1,20 @@
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react'
-import { motion, useSpring } from 'framer-motion'
+import { m, useSpring } from 'framer-motion'
 
 export function TiltCard({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
 
-  // Spring values for smooth motion
   const x = useSpring(0, { stiffness: 150, damping: 20 })
   const y = useSpring(0, { stiffness: 150, damping: 20 })
 
-  // Disable on mobile/touch devices
   const [isTouch, setIsTouch] = useState(false)
   
   useEffect(() => {
-    setIsTouch(window.matchMedia("(pointer: coarse)").matches)
+    requestAnimationFrame(() => {
+      setIsTouch(window.matchMedia("(pointer: coarse)").matches)
+    })
   }, [])
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -27,7 +27,6 @@ export function TiltCard({ children, className = '' }: { children: React.ReactNo
     const mouseX = e.clientX - rect.left
     const mouseY = e.clientY - rect.top
 
-    // Calculate rotation (-8 to +8 degrees maximum)
     const xPct = (mouseX / width) - 0.5
     const yPct = (mouseY / height) - 0.5
     
@@ -47,7 +46,7 @@ export function TiltCard({ children, className = '' }: { children: React.ReactNo
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <motion.div
+      <m.div
         ref={ref}
         style={{
           rotateX: y,
@@ -57,7 +56,7 @@ export function TiltCard({ children, className = '' }: { children: React.ReactNo
         className="w-full h-full relative"
       >
         {children}
-      </motion.div>
+      </m.div>
     </div>
   )
 }

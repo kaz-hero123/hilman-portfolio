@@ -1,14 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
+import { m, useScroll, useSpring, AnimatePresence } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false)
   const { scrollYProgress } = useScroll()
   
-  // Smooth out the progress reading
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -17,7 +16,6 @@ export function ScrollToTop() {
 
   useEffect(() => {
     return scrollYProgress.onChange((latest) => {
-      // Show button after scrolling down 10%
       if (latest > 0.1) {
         setIsVisible(true)
       } else {
@@ -36,7 +34,7 @@ export function ScrollToTop() {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.button
+        <m.button
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -47,7 +45,6 @@ export function ScrollToTop() {
         >
           <ArrowUp size={18} strokeWidth={2} className="text-ink group-hover:-translate-y-1 transition-transform" />
           
-          {/* SVG Progress Ring */}
           <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
             <circle
               cx="50"
@@ -58,7 +55,7 @@ export function ScrollToTop() {
               strokeWidth="2"
               className="text-ash"
             />
-            <motion.circle
+            <m.circle
               cx="50"
               cy="50"
               r="48"
@@ -71,7 +68,7 @@ export function ScrollToTop() {
               }}
             />
           </svg>
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
   )

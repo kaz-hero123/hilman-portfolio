@@ -2,14 +2,13 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
 import { HoverScramble } from '@/components/animations/HoverScramble'
 import { GlitchText } from '@/components/animations/GlitchText'
 import { Magnetic } from '@/components/animations/Magnetic'
 
-// ─── Data ────────────────────────────────────────────────────────────────────
 
 const navLinks = [
   { label: 'Work', href: '#work' },
@@ -22,10 +21,8 @@ const serviceItems = [
   { label: 'Project Management', href: '#craft' },
 ]
 
-// Sections for active indicator
 const sectionIds = ['hero', 'about', 'work', 'craft', 'history', 'testimonials', 'contact']
 
-// ─── Hamburger Icon ──────────────────────────────────────────────────────────
 
 function HamburgerIcon({ open }: { open: boolean }) {
   return (
@@ -52,7 +49,6 @@ function HamburgerIcon({ open }: { open: boolean }) {
   )
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -62,7 +58,6 @@ export function Nav() {
   const [activeSection, setActiveSection] = useState('hero')
   const servicesRef = useRef<HTMLDivElement>(null)
 
-  // Measure hero for color-flip threshold
   useEffect(() => {
     const hero = document.getElementById('hero')
     if (!hero) return
@@ -72,7 +67,6 @@ export function Nav() {
     return () => window.removeEventListener('resize', update)
   }, [])
 
-  // Scroll: flip from transparent → white bg once past hero
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > heroHeight - 80)
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -80,7 +74,6 @@ export function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [heroHeight])
 
-  // Track active section via IntersectionObserver
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -101,7 +94,6 @@ export function Nav() {
     return () => observer.disconnect()
   }, [])
 
-  // Close mobile menu above md breakpoint
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 768) setMenuOpen(false)
@@ -110,10 +102,8 @@ export function Nav() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  // Body scroll lock
   useLockBodyScroll(menuOpen)
 
-  // Close services dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (
@@ -134,7 +124,6 @@ export function Nav() {
 
   const onHero = !scrolled
 
-  // Check if a nav link is "active"
   const isActive = (href: string) => {
     const id = href.replace('#', '')
     return activeSection === id
@@ -142,7 +131,6 @@ export function Nav() {
 
   return (
     <>
-      {/* ── Fixed header ────────────────────────────────────────────────── */}
       <header
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
@@ -155,7 +143,6 @@ export function Nav() {
           className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 h-16 flex items-center"
           aria-label="Main navigation"
         >
-          {/* ── Left: nav links + services dropdown ──────────────────── */}
           <ul className="hidden md:flex items-center gap-8" role="list">
             {navLinks.map((link) => (
               <li key={link.label}>
@@ -173,7 +160,7 @@ export function Nav() {
                   >
                     <HoverScramble text={link.label} />
                     {isActive(link.href) && (
-                      <motion.span
+                      <m.span
                         layoutId="nav-active"
                         className={cn(
                           'absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full',
@@ -187,7 +174,6 @@ export function Nav() {
               </li>
             ))}
 
-            {/* Skills dropdown */}
             <li>
               <div ref={servicesRef} className="relative">
                 <button
@@ -215,7 +201,7 @@ export function Nav() {
 
                 <AnimatePresence>
                   {servicesOpen && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
@@ -235,14 +221,13 @@ export function Nav() {
                           </li>
                         ))}
                       </ul>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
             </li>
           </ul>
 
-          {/* ── Center: Logo — monospace developer font ─────────────────── */}
           <a
             href="#hero"
             onClick={closeAll}
@@ -258,9 +243,7 @@ export function Nav() {
             <span className={cn('w-1.5 h-3.5 animate-pulse ml-[2px]', onHero ? 'bg-white/70' : 'bg-accent')} />
           </a>
 
-          {/* ── Right: Hire Me (desktop) + Hamburger (mobile) ──────────── */}
           <div className="ml-auto flex items-center gap-3">
-            {/* Desktop CTA */}
             <a
               href="mailto:hilmannidal@gmail.com"
               className={cn(
@@ -273,7 +256,6 @@ export function Nav() {
               Hire me
             </a>
 
-            {/* Mobile hamburger — hidden on desktop */}
             <button
               type="button"
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -293,10 +275,9 @@ export function Nav() {
         </nav>
       </header>
 
-      {/* ── Full-screen mobile / menu overlay ─────────────────────────── */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             role="dialog"
             aria-label="Navigation menu"
@@ -307,15 +288,13 @@ export function Nav() {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40"
           >
-            {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/10 backdrop-blur-[2px]"
               onClick={closeAll}
               aria-hidden="true"
             />
 
-            {/* Drawer */}
-            <motion.div
+            <m.div
               initial={{ y: -12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -12, opacity: 0 }}
@@ -325,7 +304,7 @@ export function Nav() {
               <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
                 <ul className="py-6 space-y-0" role="list">
                   {navLinks.map((link, i) => (
-                    <motion.li
+                    <m.li
                       key={link.label}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -341,10 +320,10 @@ export function Nav() {
                       >
                         {link.label}
                       </a>
-                    </motion.li>
+                    </m.li>
                   ))}
 
-                  <motion.li
+                  <m.li
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.08, duration: 0.2 }}
@@ -365,9 +344,9 @@ export function Nav() {
                         </li>
                       ))}
                     </ul>
-                  </motion.li>
+                  </m.li>
 
-                  <motion.li
+                  <m.li
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.12, duration: 0.2 }}
@@ -380,11 +359,11 @@ export function Nav() {
                     >
                       Hire me
                     </a>
-                  </motion.li>
+                  </m.li>
                 </ul>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

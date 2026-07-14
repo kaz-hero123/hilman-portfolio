@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { playTickSound } from '@/lib/sound'
 
 interface MagneticProps {
@@ -19,7 +19,6 @@ export function Magnetic({ children }: MagneticProps) {
     const middleX = clientX - (left + width / 2)
     const middleY = clientY - (top + height / 2)
     
-    // Very subtle magnetic pull (15% of the distance to the edge)
     setPosition({ x: middleX * 0.15, y: middleY * 0.15 })
   }
 
@@ -32,7 +31,7 @@ export function Magnetic({ children }: MagneticProps) {
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
@@ -42,6 +41,6 @@ export function Magnetic({ children }: MagneticProps) {
       className="inline-block"
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

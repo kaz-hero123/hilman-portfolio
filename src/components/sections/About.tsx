@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
 import { TextReveal } from '@/components/animations/TextReveal'
 import { BlurReveal } from '@/components/animations/BlurReveal'
@@ -25,14 +25,13 @@ export function About() {
   return (
     <section id="about" className="bg-white">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28">
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start"
         >
-          {/* Portrait Image */}
           <TiltCard>
             <div className="relative w-full aspect-[4/3] bg-ash/10 overflow-hidden group">
               <Image
@@ -114,7 +113,7 @@ export function About() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">

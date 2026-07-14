@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { Magnetic } from './Magnetic'
 
@@ -13,7 +13,7 @@ export const ShinyButton = React.forwardRef<
   
   return (
     <Magnetic>
-      <motion.div
+      <m.div
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.95 }}
         className="inline-block"
@@ -30,7 +30,6 @@ export const ShinyButton = React.forwardRef<
       >
         <span className="relative z-10">{children}</span>
         
-        {/* Shiny Sweep effect */}
         <div 
           className="absolute inset-0 z-0 h-full w-[150%] animate-shiny-sweep opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{
@@ -40,7 +39,7 @@ export const ShinyButton = React.forwardRef<
           }}
         />
       </Component>
-    </motion.div>
+    </m.div>
     </Magnetic>
   )
 })

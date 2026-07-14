@@ -8,7 +8,6 @@ export function TimeBadge() {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date()
-      // format: HH:MM:SS
       const formatter = new Intl.DateTimeFormat('en-ID', {
         timeZone: 'Asia/Jakarta',
         hour: '2-digit',

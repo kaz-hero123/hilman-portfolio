@@ -2,7 +2,7 @@
 
 import { ChevronRight } from 'lucide-react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { projects } from '@/data/projects'
 import type { Project } from '@/data/projects'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
@@ -10,12 +10,10 @@ import { TiltCard } from '@/components/animations/TiltCard'
 import { ImageTrail } from '@/components/animations/ImageTrail'
 import { WavyDivider } from '@/components/ui/WavyDivider'
 
-// ─── Animation ────────────────────────────────────────────────────────────────
 
 const fadeUp = fadeUpVariant
 const stagger = createStaggerContainer(0.1, 0.15)
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
 
 /**
  * Hero card — left column, larger image (4:3), text below.
@@ -23,7 +21,6 @@ const stagger = createStaggerContainer(0.1, 0.15)
 function HeroCard({ project }: { project: Project }) {
   return (
     <article className="group flex flex-col">
-      {/* Image container */}
       <TiltCard>
         <div className="relative w-full aspect-[4/3] bg-[#f0f0f0] overflow-hidden mb-5 border border-ash/50 card-lift">
           {project.image ? (
@@ -40,7 +37,6 @@ function HeroCard({ project }: { project: Project }) {
         </div>
       </TiltCard>
 
-      {/* Metadata — flex-1 pushes link to bottom */}
       <div className="flex flex-col flex-1">
         <h3 className="font-serif font-bold text-[1.5rem] leading-[1.1] tracking-tight text-ink mb-2">
           {project.title}
@@ -49,7 +45,6 @@ function HeroCard({ project }: { project: Project }) {
           {project.description}
         </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-5">
           {project.tags.map((tag) => (
             <span
@@ -61,7 +56,6 @@ function HeroCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        {/* Link — always at bottom */}
         <a
           href={project.href ?? '#'}
           className="inline-flex items-center gap-1.5 font-body text-[13px] text-ink hover:text-accent transition-colors duration-150 focus-ring mt-auto"
@@ -80,7 +74,6 @@ function HeroCard({ project }: { project: Project }) {
 function StandardCard({ project }: { project: Project }) {
   return (
     <article className="group flex flex-col">
-      {/* Image */}
       <TiltCard>
         <div className="relative w-full aspect-[3/2] bg-[#f0f0f0] overflow-hidden mb-5 border border-ash/50 card-lift">
           {project.image ? (
@@ -97,7 +90,6 @@ function StandardCard({ project }: { project: Project }) {
         </div>
       </TiltCard>
 
-      {/* Metadata */}
       <div className="flex flex-col flex-1">
         <h3 className="font-serif font-bold text-[1.35rem] leading-[1.1] tracking-tight text-ink mb-2">
           {project.title}
@@ -106,7 +98,6 @@ function StandardCard({ project }: { project: Project }) {
           {project.description}
         </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-5">
           {project.tags.map((tag) => (
             <span
@@ -118,7 +109,6 @@ function StandardCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        {/* Link */}
         <a
           href={project.href ?? '#'}
           className="inline-flex items-center gap-1.5 font-body text-[13px] text-ink hover:text-accent transition-colors duration-150 focus-ring mt-auto"
@@ -141,7 +131,6 @@ function PlaceholderImg() {
   )
 }
 
-// ─── Section ─────────────────────────────────────────────────────────────────
 
 export function Work() {
   const leftProjects = projects.filter((p) => p.col === 0)
@@ -151,8 +140,7 @@ export function Work() {
   return (
     <section id="work" className="bg-white">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-        {/* ── Section header ─────────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -174,13 +162,11 @@ export function Work() {
           <p className="font-body text-[15px] text-dim leading-[1.65]">
             Real systems, real decisions, real constraints.
           </p>
-        </motion.div>
+        </m.div>
 
-        {/* ── 3-column masonry grid ──────────────────────────────────────── */}
         <ImageTrail images={projects.map(p => p.image).filter(img => img !== undefined) as string[]}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-14 pb-16">
-            {/* Left column — hero cards (taller images) */}
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -188,14 +174,13 @@ export function Work() {
             className="flex flex-col gap-14"
           >
             {leftProjects.map((p) => (
-              <motion.div key={p.slug} variants={fadeUp}>
+              <m.div key={p.slug} variants={fadeUp}>
                 <HeroCard project={p} />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
-          {/* Center column — offset down, standard cards */}
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -203,14 +188,13 @@ export function Work() {
             className="flex flex-col gap-10 md:pt-24"
           >
             {centerProjects.map((p) => (
-              <motion.div key={p.slug} variants={fadeUp}>
+              <m.div key={p.slug} variants={fadeUp}>
                 <StandardCard project={p} />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
-            {/* Right column — slight offset, standard cards */}
-            <motion.div
+            <m.div
               variants={stagger}
               initial="hidden"
               whileInView="visible"
@@ -218,16 +202,15 @@ export function Work() {
               className="flex flex-col gap-10 md:pt-8"
             >
               {rightProjects.map((p) => (
-                <motion.div key={p.slug} variants={fadeUp}>
+                <m.div key={p.slug} variants={fadeUp}>
                   <StandardCard project={p} />
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
           </div>
         </ImageTrail>
 
-        {/* ── View all CTA ───────────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -240,10 +223,9 @@ export function Work() {
           >
             View all
           </a>
-        </motion.div>
+        </m.div>
       </div>
 
-      {/* ── Hairline separator ─────────────────────────────────────────── */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         <WavyDivider />
       </div>

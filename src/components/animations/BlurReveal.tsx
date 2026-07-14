@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import React from 'react'
 
 interface BlurRevealProps {
@@ -11,7 +11,7 @@ interface BlurRevealProps {
 
 export function BlurReveal({ children, className = '', delay = 0 }: BlurRevealProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, filter: 'blur(12px)', y: 10 }}
       whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -19,6 +19,6 @@ export function BlurReveal({ children, className = '', delay = 0 }: BlurRevealPr
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

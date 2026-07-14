@@ -1,4 +1,3 @@
-// ─── Transition presets ───────────────────────────────────────────────────────
 
 export const editorialTransition = {
   duration: 0.6,
@@ -10,7 +9,6 @@ export const slowEditorialTransition = {
   ease: [0.22, 1, 0.36, 1] as const,
 }
 
-// ─── Reusable animation variants ──────────────────────────────────────────────
 
 export const fadeUpVariant = {
   hidden: { opacity: 0, y: 32, filter: 'blur(8px)' },
@@ -58,7 +56,6 @@ export const slideInLeftVariant = {
   },
 }
 
-// ─── Stagger container factory ────────────────────────────────────────────────
 
 export const createStaggerContainer = (staggerChildren = 0.08, delayChildren = 0.1) => ({
   hidden: {},
@@ -67,7 +64,6 @@ export const createStaggerContainer = (staggerChildren = 0.08, delayChildren = 0
   },
 })
 
-// ─── Pre-built stagger containers ─────────────────────────────────────────────
 
 export const staggerContainer = createStaggerContainer(0.1, 0.15)
 export const fastStaggerContainer = createStaggerContainer(0.05, 0.1)

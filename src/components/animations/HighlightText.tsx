@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { m, useInView } from 'framer-motion'
 
 interface HighlightTextProps {
   children: React.ReactNode
@@ -16,7 +16,7 @@ export function HighlightText({ children, color = '#e0f2fe', delay = 0 }: Highli
   return (
     <span ref={ref} className="relative inline-block whitespace-nowrap px-1 z-10">
       <span className="relative z-10">{children}</span>
-      <motion.span
+      <m.span
         className="absolute bottom-1 left-0 right-0 h-[0.35em] -z-10 origin-left"
         style={{ backgroundColor: color }}
         initial={{ scaleX: 0 }}

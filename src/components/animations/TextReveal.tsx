@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 
 interface TextRevealProps {
   text: string
@@ -45,9 +45,9 @@ function Word({ children, progress, range }: WordProps) {
   
   return (
     <span className="relative mr-[0.25em] mt-0">
-      <motion.span style={{ opacity }} className="transition-opacity duration-100">
+      <m.span style={{ opacity }} className="transition-opacity duration-100">
         {children}
-      </motion.span>
+      </m.span>
     </span>
   )
 }

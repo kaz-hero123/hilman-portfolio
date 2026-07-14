@@ -1,9 +1,8 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useVelocity, useAnimationFrame } from 'framer-motion'
+import { m, useScroll, useSpring, useTransform, useMotionValue, useVelocity, useAnimationFrame } from 'framer-motion'
 
-// Utility function to wrap a value within a range
 const wrap = (min: number, max: number, v: number) => {
   const rangeSize = max - min
   return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min
@@ -44,12 +43,12 @@ export function Marquee({ children, baseVelocity = 1 }: MarqueeProps) {
 
   return (
     <div className="overflow-hidden whitespace-nowrap flex flex-nowrap w-full">
-      <motion.div className="flex whitespace-nowrap flex-nowrap gap-4 pr-4" style={{ x }}>
+      <m.div className="flex whitespace-nowrap flex-nowrap gap-4 pr-4" style={{ x }}>
         {children}
         {children}
         {children}
         {children}
-      </motion.div>
+      </m.div>
     </div>
   )
 }

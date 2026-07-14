@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, MouseEvent, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 
 interface TrailItem {
   id: number
@@ -29,7 +29,6 @@ export function ImageTrail({ children, images }: ImageTrailProps) {
     const x = clientX - rect.left
     const y = clientY - rect.top
 
-    // Calculate distance from last position
     const dx = x - lastMousePos.current.x
     const dy = y - lastMousePos.current.y
     const distance = Math.sqrt(dx * dx + dy * dy)
@@ -47,7 +46,6 @@ export function ImageTrail({ children, images }: ImageTrailProps) {
       setTrail((prev) => [...prev, newTrailItem])
       imageIndex.current++
 
-      // Remove after animation
       setTimeout(() => {
         setTrail((prev) => prev.filter((item) => item.id !== newId))
       }, 1000)
@@ -62,11 +60,10 @@ export function ImageTrail({ children, images }: ImageTrailProps) {
     >
       {children}
       
-      {/* The Trail */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <AnimatePresence>
           {trail.map((item) => (
-            <motion.div
+            <m.div
               key={item.id}
               initial={{ opacity: 0.8, scale: 0.5 }}
               animate={{ opacity: 0, scale: 1 }}
@@ -85,7 +82,7 @@ export function ImageTrail({ children, images }: ImageTrailProps) {
                 alt="" 
                 className="w-full h-full object-cover grayscale opacity-40 mix-blend-luminosity"
               />
-            </motion.div>
+            </m.div>
           ))}
         </AnimatePresence>
       </div>

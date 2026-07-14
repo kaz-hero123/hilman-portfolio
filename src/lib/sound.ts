@@ -22,7 +22,6 @@ export function playTickSound() {
     osc.start()
     osc.stop(ctx.currentTime + 0.05)
   } catch (e) {
-    // Ignore audio errors (e.g. user hasn't interacted yet)
   }
 }
 
@@ -48,6 +47,5 @@ export function playPopSound() {
     osc.start()
     osc.stop(ctx.currentTime + 0.1)
   } catch (e) {
-    // Ignore audio errors
   }
 }

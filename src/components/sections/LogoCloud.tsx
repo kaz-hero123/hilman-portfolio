@@ -1,14 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { fadeUpSmallVariant, createStaggerContainer } from '@/lib/motion'
 
-// ─── Animation ────────────────────────────────────────────────────────────────
 
 const fadeUp = fadeUpSmallVariant
 const stagger = createStaggerContainer(0.04, 0.1)
 
-// ─── Technology data with actual brand colors ─────────────────────────────────
 
 const technologies = [
   { name: 'Laravel',     iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg' },
@@ -25,7 +23,6 @@ const technologies = [
   { name: 'DomPDF',      color: '#E34F26', icon: PdfLogo },
 ]
 
-// ─── SVG Logo Icons ───────────────────────────────────────────────────────────
 
 
 
@@ -55,12 +52,11 @@ function PdfLogo() {
   )
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function LogoCloud() {
   const renderTechCards = (keyPrefix: string) => (
     technologies.map((tech) => (
-      <motion.div
+      <m.div
         drag
         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
         dragElastic={0.4}
@@ -80,15 +76,14 @@ export function LogoCloud() {
         <span className="font-mono text-[13px] font-medium tracking-tight text-ink truncate pointer-events-none">
           {tech.name}
         </span>
-      </motion.div>
+      </m.div>
     ))
   )
 
   return (
     <section id="trusted" className="bg-mist overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-20">
-        {/* ── Heading ─────────────────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -101,30 +96,26 @@ export function LogoCloud() {
           <p className="font-body text-[15px] font-semibold text-ink">
             Technologies & tools I work with
           </p>
-        </motion.div>
+        </m.div>
 
-        {/* ── Marquee container ───────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
           className="relative flex overflow-hidden w-full group py-4 -mx-6 md:-mx-12 lg:-mx-20 px-6 md:px-12 lg:px-20"
         >
-          {/* Edge gradients for smooth fade in/out */}
           <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-mist to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-mist to-transparent z-10 pointer-events-none" />
 
-          {/* Marquee Track 1 */}
           <div className="flex animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap gap-4 shrink-0 px-2">
             {renderTechCards('m1')}
           </div>
 
-          {/* Marquee Track 2 */}
           <div className="flex animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap gap-4 shrink-0 px-2">
             {renderTechCards('m2')}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

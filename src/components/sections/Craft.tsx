@@ -1,18 +1,16 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 import { SpotlightCard } from '@/components/animations/SpotlightCard'
 import { StarBorder } from '@/components/animations/StarBorder'
 import { WavyDivider } from '@/components/ui/WavyDivider'
 
-// ─── Animation ────────────────────────────────────────────────────────────────
 
 const fadeUp = fadeUpVariant
 const stagger = createStaggerContainer(0.1, 0.15)
 
-// ─── Icons — relevant to actual skills ────────────────────────────────────────
 
 function ServerIcon({ className }: { className?: string }) {
   return (
@@ -28,7 +26,6 @@ function ServerIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Server rack */}
       <rect x="6" y="4" width="24" height="10" rx="2" />
       <rect x="6" y="22" width="24" height="10" rx="2" />
       <line x1="18" y1="14" x2="18" y2="22" />
@@ -54,7 +51,6 @@ function ApiIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* API / request-response arrows */}
       <path d="M6 12H30" />
       <path d="M24 6L30 12L24 18" />
       <path d="M30 24H6" />
@@ -77,11 +73,9 @@ function KanbanIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Kanban board columns */}
       <rect x="4" y="4" width="8" height="28" rx="1.5" />
       <rect x="14" y="4" width="8" height="20" rx="1.5" />
       <rect x="24" y="4" width="8" height="14" rx="1.5" />
-      {/* Task cards inside */}
       <line x1="6" y1="9" x2="10" y2="9" />
       <line x1="6" y1="14" x2="10" y2="14" />
       <line x1="6" y1="19" x2="10" y2="19" />
@@ -106,7 +100,6 @@ function ToolsIcon({ className }: { className?: string }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Git branch */}
       <circle cx="12" cy="8" r="3" />
       <circle cx="24" cy="8" r="3" />
       <circle cx="18" cy="28" r="3" />
@@ -116,7 +109,6 @@ function ToolsIcon({ className }: { className?: string }) {
   )
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const services = [
   {
@@ -145,21 +137,18 @@ const services = [
   },
 ]
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function Craft() {
   return (
     <section id="craft" className="bg-white">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-24">
-        {/* ── Header — split layout ──────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-16 md:mb-20"
         >
-          {/* Left: label + heading */}
           <div>
             <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-accent mb-5">
               {'// craft'}
@@ -175,22 +164,19 @@ export function Craft() {
             </h2>
           </div>
 
-          {/* Right: descriptor paragraph */}
           <div className="md:pt-8">
             <p className="font-body text-[16px] leading-[1.7] text-dim max-w-[480px]">
               Primary stack is Laravel/PHP. Everything else supports it.
               I also manage projects — scoping, coordinating, shipping.
             </p>
           </div>
-        </motion.div>
+        </m.div>
 
-        {/* ── Hairline ───────────────────────────────────────────────────── */}
         <div className="mb-14">
           <WavyDivider />
         </div>
 
-        {/* ── 4-column service cards ──────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={stagger}
           initial="hidden"
           whileInView="visible"
@@ -198,7 +184,7 @@ export function Craft() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-20 group/grid"
         >
           {services.map((service) => (
-            <motion.div
+            <m.div
               key={service.title}
               variants={fadeUp}
               className="h-full transition-all duration-500 group-hover/grid:scale-[0.95] group-hover/grid:opacity-50 hover:!scale-100 hover:!opacity-100 hover:z-10"
@@ -207,26 +193,22 @@ export function Craft() {
                 <SpotlightCard
                   className="group p-6 bg-transparent transition-all duration-300 rounded-sm hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] h-full"
                 >
-                  {/* Icon */}
                   <service.icon className="text-accent mb-6 w-9 h-9 transition-colors duration-200" />
 
-                  {/* Title */}
                   <h3 className="font-serif font-bold text-[1.35rem] leading-[1.15] tracking-tight text-ink mb-3">
                     {service.title}
                   </h3>
 
-                  {/* Description */}
                   <p className="font-body text-[14px] leading-[1.7] text-dim">
                     {service.description}
                   </p>
                 </SpotlightCard>
               </StarBorder>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
-        {/* ── Bottom CTA row ─────────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -246,7 +228,7 @@ export function Craft() {
             Contact
             <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
           </a>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

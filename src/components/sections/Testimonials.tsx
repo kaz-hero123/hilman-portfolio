@@ -1,16 +1,14 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 import { Star } from 'lucide-react'
 import { fadeUpVariant, createStaggerContainer } from '@/lib/motion'
 
-// ─── Animation ────────────────────────────────────────────────────────────────
 
 const fadeUp = fadeUpVariant
 const stagger = createStaggerContainer(0.12, 0.15)
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const testimonials = [
   {
@@ -39,14 +37,12 @@ const testimonials = [
   },
 ]
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function Testimonials() {
   return (
     <section id="testimonials" className="bg-white">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28">
-        {/* ── Section header — centered ──────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -68,10 +64,9 @@ export function Testimonials() {
           <p className="font-body text-[15px] text-dim leading-[1.65]">
             The work speaks but a few kind words never hurt.
           </p>
-        </motion.div>
+        </m.div>
 
-        {/* ── 3-column testimonial cards ──────────────────────────────────── */}
-        <motion.div
+        <m.div
           variants={stagger}
           initial="hidden"
           whileInView="visible"
@@ -79,12 +74,11 @@ export function Testimonials() {
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {testimonials.map((t) => (
-            <motion.article
+            <m.article
               key={t.name}
               variants={fadeUp}
               className="relative border border-ash p-8 md:p-10 flex flex-col hover:border-accent/30 hover:shadow-sm transition-all duration-200"
             >
-              {/* Decorative quote mark */}
               <span
                 className="absolute top-5 right-6 font-serif text-[4rem] leading-none text-accent/10 select-none pointer-events-none"
                 aria-hidden="true"
@@ -92,7 +86,6 @@ export function Testimonials() {
                 &ldquo;
               </span>
 
-              {/* Stars */}
               <div className="flex gap-1 mb-6">
                 {Array.from({ length: t.stars }).map((_, i) => (
                   <Star
@@ -105,12 +98,10 @@ export function Testimonials() {
                 ))}
               </div>
 
-              {/* Quote */}
               <p className="font-body text-[15px] leading-[1.7] text-ink mb-8 flex-1 relative z-10">
                 &ldquo;{t.quote}&rdquo;
               </p>
 
-              {/* Author */}
               <div className="flex items-center gap-4">
                 <div className="relative w-11 h-11 rounded-full overflow-hidden shrink-0 ring-2 ring-accent/20 bg-mist">
                   {t.avatar ? (
@@ -136,9 +127,9 @@ export function Testimonials() {
                   </p>
                 </div>
               </div>
-            </motion.article>
+            </m.article>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

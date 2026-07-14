@@ -17,38 +17,8 @@ export const Particles = ({
   const canvasSize = useRef({ w: 0, h: 0 })
   const dpr = typeof window !== 'undefined' ? window.devicePixelRatio : 1
 
-  useEffect(() => {
-    if (canvasRef.current) {
-      context.current = canvasRef.current.getContext('2d')
-    }
-    initCanvas()
-    animate()
-    window.addEventListener('resize', initCanvas)
-    
-    // Smooth mouse follow
-    const onMouseMove = (e: MouseEvent) => {
-      if (canvasContainerRef.current) {
-        const rect = canvasContainerRef.current.getBoundingClientRect()
-        const { w, h } = canvasSize.current
-        const x = e.clientX - rect.left - w / 2
-        const y = e.clientY - rect.top - h / 2
-        const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2
-        if (inside) {
-          mousePosition.current.x = x
-          mousePosition.current.y = y
-        }
-      }
-    }
-    window.addEventListener('mousemove', onMouseMove)
-
-    return () => {
-      window.removeEventListener('resize', initCanvas)
-      window.removeEventListener('mousemove', onMouseMove)
-    }
-  }, [])
 
   useEffect(() => {
-    // Intercept mouse position for easing
     let animationFrameId: number
     const render = () => {
       mouse.current.x += (mousePosition.current.x - mouse.current.x) / ease
@@ -163,6 +133,36 @@ export const Particles = ({
     })
     window.requestAnimationFrame(animate)
   }
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      context.current = canvasRef.current.getContext('2d')
+    }
+    initCanvas()
+    animate()
+    window.addEventListener('resize', initCanvas)
+    
+    const onMouseMove = (e: MouseEvent) => {
+      if (canvasContainerRef.current) {
+        const rect = canvasContainerRef.current.getBoundingClientRect()
+        const { w, h } = canvasSize.current
+        const x = e.clientX - rect.left - w / 2
+        const y = e.clientY - rect.top - h / 2
+        const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2
+        if (inside) {
+          mousePosition.current.x = x
+          mousePosition.current.y = y
+        }
+      }
+    }
+    window.addEventListener('mousemove', onMouseMove)
+
+    return () => {
+      window.removeEventListener('resize', initCanvas)
+      window.removeEventListener('mousemove', onMouseMove)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={`pointer-events-none absolute inset-0 ${className}`} ref={canvasContainerRef} aria-hidden="true">

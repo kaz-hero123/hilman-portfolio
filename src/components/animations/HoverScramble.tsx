@@ -20,7 +20,6 @@ export function HoverScramble({ text }: { text: string }) {
             if (index < iteration) {
               return text[index]
             }
-            // Preserve spaces
             if (text[index] === ' ') return ' '
             return CHARS[Math.floor(Math.random() * CHARS.length)]
           })

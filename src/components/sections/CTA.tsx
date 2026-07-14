@@ -1,39 +1,33 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { fadeUpVariant } from '@/lib/motion'
 import { Magnetic } from '@/components/animations/Magnetic'
 import { Particles } from '@/components/animations/Particles'
 import { TimeBadge } from '@/components/animations/TimeBadge'
 import { ClickConfetti } from '@/components/animations/ClickConfetti'
 
-// ─── Animation ────────────────────────────────────────────────────────────────
 
 const fadeUp = fadeUpVariant
 
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export function CTA() {
   return (
     <section id="contact" className="bg-ink relative overflow-hidden">
-      {/* Subtle dot grid */}
       <div className="absolute inset-0 dot-grid opacity-30" aria-hidden="true" />
 
-      {/* Interactive Particles */}
       <Particles className="opacity-40" quantity={60} />
 
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-28">
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start"
         >
-          {/* Left: Big serif heading */}
           <div>
             <div className="flex flex-wrap items-center gap-4 mb-6">
-              {/* Availability badge */}
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
                 <span className="font-mono text-[11px] text-emerald-400 tracking-wide uppercase">
@@ -54,7 +48,6 @@ export function CTA() {
             </h2>
           </div>
 
-          {/* Right: Paragraph + buttons */}
           <div className="md:pt-2">
             <p className="font-body text-[16px] leading-[1.7] text-white/60 mb-8">
               Looking for a backend developer or a project manager who
@@ -82,7 +75,7 @@ export function CTA() {
               </Magnetic>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

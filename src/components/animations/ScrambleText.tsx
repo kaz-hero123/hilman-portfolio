@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface ScrambleTextProps {
   text: string
@@ -41,7 +41,6 @@ export function ScrambleText({ text, className = '' }: ScrambleTextProps) {
       }, 35) // speed of scramble updates
     }
 
-    // Add a slight delay for better UX on initial load
     const timeout = setTimeout(startScramble, 200)
 
     return () => {
@@ -51,13 +50,13 @@ export function ScrambleText({ text, className = '' }: ScrambleTextProps) {
   }, [text])
 
   return (
-    <motion.span
+    <m.span
       className={className}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
       {displayText}
-    </motion.span>
+    </m.span>
   )
 }
